@@ -68,9 +68,9 @@ class EmpresasController extends Controller
      * @param  \App\empresas  $empresas
      * @return \Illuminate\Http\Response
      */
-    public function show(empresas $empresas)
+    public function show($id)
     {
-        //
+       return empresas::find($id);
     }
 
     /**
@@ -104,6 +104,6 @@ class EmpresasController extends Controller
      */
     public function destroy(empresas $empresas)
     {
-        //
+       return "<h1>Borrado</h1>";
     }
 }
