@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container white p-4" style="">
+<div class="container white p-4" style="max-width:10000rem">
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -19,9 +19,9 @@
     </div>
 @endif
 <h1 class="text-center mb-4">EMPRESAS</h1>
-<a href="empresas/create"><button class="btn btn-deep-purple float-right" > Crear nueva empresa</button></a>
+<a href="/empresas/create"><button class="btn btn-deep-purple float-right" > Crear nueva empresa</button></a>
 <div class="mt-4">
-    <table id="dtBasicExample" class="cell-border order-column stripe mt-4" cellspacing="0" style="width:100%;">
+    <table id="dtBasicExample" class="cell-border order-column table  table-bordered  table-hover  stripe mt-4" cellspacing="0" style="width:100%;">
         <thead style="width:100%">
             <tr>
                 <th class="th-sm">Empresa
@@ -46,17 +46,17 @@
                 <td>{{$empresa->Ciudad}}</td>
                 <td>{{$empresa->Email}}</td>
                 <td>{{$empresa->Telefono}}</td>
-                <td>
+                <td class="text-center p-1" style="width:20%" >
 
 
                         <form action="{{ route('empresas.destroy', $empresa->id) }}" method="POST">
                             @method('DELETE')
                             @csrf
-                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            <button type="button" onclick="getEmpresa({{$empresa->id}})" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
-                                <i class="fas fa-info px-1"></i>
-                              </button>
 
+                            <button type="button" onclick="getEmpresa({{$empresa->id}})" class="btn btn-primary" style="text-transform:none" data-toggle="modal" data-target="#basicExampleModal">
+                                <i class="fas fa-info px-1 mr-2"></i>Desglose
+                              </button>
+                              <button class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
                         </form>
 
             </td>

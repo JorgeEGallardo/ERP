@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<a href="/empresas"><button class="btn btn-danger ml-4" style="text-transform: none; width:10%"><i class="fas fa-arrow-circle-left"></i> Regresar </button></a>
+
 <div class="container">
 
     <form class="text-left border border-light  z-depth-1 white" action="/empresas" method="POST">
@@ -93,6 +95,7 @@
             <button class="btn btn-success" style="text-transform: none; width:100%"> Crear nueva empresa</button>
         </div>
     </form>
+
 </div>
 <script>
 function getStates(id){
