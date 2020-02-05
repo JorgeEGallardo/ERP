@@ -16,7 +16,7 @@ class EmpresasController extends Controller
      */
     public function index()
     {
-        $data = empresas::all();
+        $data = empresas::orderBy('id', 'DESC')->get();
         return view('empresas/REmpresas')
         ->with(compact('data'));
     }
@@ -28,7 +28,9 @@ class EmpresasController extends Controller
      */
     public function create()
     {
-        return view('empresas/FEmpresas');
+
+        $countries = \DB::select('select * from countries');
+        return view('empresas/FEmpresas')->with(compact('countries'));
     }
 
     /**
@@ -55,7 +57,8 @@ class EmpresasController extends Controller
         $empresa->Telefono = $request->telefono;
         $empresa->Telefono2 = $request->telefono2;
         $empresa->save();
-        return "<h1>Redirección a las tablas con mensaje subido con exito</h1>";
+        $data = empresas::orderBy('id', 'DESC')->get();
+        return redirect('/empresas')->with('success', 'La empresa "'.$empresa->Nombre.'" se ha creado con éxito.')->with(compact('data'));
 
     }
 
@@ -70,7 +73,9 @@ class EmpresasController extends Controller
      */
     public function show($id)
     {
-       return empresas::find($id);
+       $empresa = empresas::find($id);
+       return view('empresas/Modal/Empresas')
+       ->with(compact('empresa'));
     }
 
     /**
@@ -79,9 +84,11 @@ class EmpresasController extends Controller
      * @param  \App\empresas  $empresas
      * @return \Illuminate\Http\Response
      */
-    public function edit(empresas $empresas)
+    public function edit($id)
     {
-        //
+        $empresa = empresas::find($id);
+        return view('empresas/Modal/EditEmpresas')
+        ->with(compact('empresa'));
     }
 
     /**
@@ -91,9 +98,26 @@ class EmpresasController extends Controller
      * @param  \App\empresas  $empresas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, empresas $empresas)
+    public function update(empresasRequest $request, $id)
     {
-        //
+
+        $empresa = empresas::find($id);
+        $empresa->Nombre = $request->nombre;
+        $empresa->RFC = $request->rfc;
+        $empresa->RegistroPatronal = $request->registropatronal;
+        $empresa->Calle = $request->calle;
+        $empresa->Numero = $request->numero;
+        $empresa->Colonia = $request->colonia;
+        $empresa->Ciudad = $request->ciudad;
+        $empresa->Estado = $request->estado;
+        $empresa->Pais = $request->pais;
+        $empresa->CP = $request->CP;
+        $empresa->Email = $request->email;
+        $empresa->Telefono = $request->telefono;
+        $empresa->Telefono2 = $request->telefono2;
+        $empresa->save();
+        return redirect()->back()->with('success', 'La empresa "'.$empresa->Nombre.'" se ha actualizado con éxito.');
+
     }
 
     /**
@@ -102,8 +126,11 @@ class EmpresasController extends Controller
      * @param  \App\empresas  $empresas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(empresas $empresas)
+    public function destroy($id)
     {
-       return "<h1>Borrado</h1>";
+       $empresa = empresas::find($id);
+       $name = $empresa->Nombre;
+       $empresa->delete();
+       return redirect()->back()->with('success', 'La empresa "'.$name.'" se ha eliminado con éxito.');
     }
 }

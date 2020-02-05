@@ -40,7 +40,7 @@
 </head>
 
 <body style="background-color: #F2F3F5;">
-    <div id="app" style="margin:2rem; background-color:#F9FAFB; min-height:92vh" >
+    <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh" >
 
         <main class="py-4">
             @yield('content')

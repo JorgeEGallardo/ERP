@@ -49,18 +49,25 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
-                    <input type="text" id="NEmpresa" name="pais" value="{{ old('pais') }}" class="form-control" placeholder="País" required>
+                    <select  id="countries" name="pais" onchange="getStates(this.value)" value="{{ old('pais') }}" class="form-control" placeholder="País" required>
+                    @foreach($countries as $country)
+                    <option value="{{$country->id}}">{{$country->name}}</option>
+                    @endforeach
+                    </select>
                 </div>
-                <div class="col">
+                <div class="col" id="states">
                     <!-- Last name -->
-                    <input type="text" id="RFC" name="estado" value="{{ old('estado') }}" class="form-control" placeholder="Estado" required>
+                    <input type="text" name="estado" value="{{ old('estado') }}" class="form-control" placeholder="Estado" required>
+
+
                 </div>
             </div>
 
             <div class="form-row mb-4">
-                <div class="col">
+                <div class="col" id="cities">
                     <!-- First name -->
                     <input type="text" id="NEmpresa" name="ciudad" value="{{ old('ciudad') }}" class="form-control" placeholder="Ciudad" required>
+
                 </div>
                 <div class="col-2">
                     <!-- Last name -->
@@ -87,4 +94,30 @@
         </div>
     </form>
 </div>
+<script>
+function getStates(id){
+    $.ajax({
+    url: '/getStates/'+id,
+    type: 'GET',
+    success: function(responseText){
+        $('#states').html(responseText);
+    },
+    error: function(responseText){
+
+    }
+});
+}
+function getCities(id){
+    $.ajax({
+    url: '/getCities/'+id,
+    type: 'GET',
+    success: function(responseText){
+        $('#cities').html(responseText);
+    },
+    error: function(responseText){
+
+    }
+});
+}
+</script>
 @endsection
