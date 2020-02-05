@@ -21,6 +21,11 @@ Cambiar la funcion handle() por
             return redirect()->route('home')->withErrors(['No tienes permisos para acceder a esta aplicación']); //En caso de que no redireccionará a la página principal.
         }
 ```
+Para que Laravel entienda que el código va a controlar el acceso de usuarios es necesario registrarlo en el archivo app/Http/Kernel.php como un elemento mas del arreglo $routeMiddleware. 
+
+````
+'usuarionuevo' => \App\Http\Middleware\usuarionuevo::class,
+````
 En el controllador basta con crear las funciones que necesite ese tipo de usuario (acceder a cierta página, insertar cierta información).    
 [Agregar el nombre del nuevo tipo de usuario al arreglo: ]    
 
