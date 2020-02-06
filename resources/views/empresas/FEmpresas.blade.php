@@ -3,10 +3,10 @@
 @section('content')
 <a href="/empresas"><button class="btn btn-danger ml-4" style="text-transform: none; width:10%"><i class="fas fa-arrow-circle-left"></i> Regresar </button></a>
 
-<div class="container">
+<div class="container justify-content-center" style="max-width:none; width:100%; ">
+    <h2 class="text-left white-text p-3" style="background-color:#2A1061; margin:0px">Crear nueva empresa</h2>
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/empresas" method="POST">
 
-    <form class="text-left border border-light  z-depth-1 white" action="/empresas" method="POST">
-        <p class="text-center white-text p-3" style="background-color:#2A1061;font-size:1.3rem">Crear nueva empresa</p>
         @csrf
         @if ($errors->any())
         <div class="alert alert-danger">
