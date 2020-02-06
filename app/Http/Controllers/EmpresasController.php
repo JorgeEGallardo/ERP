@@ -58,7 +58,7 @@ class EmpresasController extends Controller
         $empresa->Telefono2 = $request->telefono2;
         $empresa->save();
         $data = empresas::orderBy('id', 'DESC')->get();
-        return redirect('/empresas')->with('success', 'La empresa "'.$empresa->Nombre.'" se ha creado con éxito.')->with(compact('data'));
+        return redirect('/empresas/create')->with('success', 'La empresa "'.$empresa->Nombre.'" se ha creado con éxito.')->with(compact('data'));
 
     }
 
@@ -73,9 +73,15 @@ class EmpresasController extends Controller
      */
     public function show($id)
     {
+    $countries = \DB::select('select * from countries');
        $empresa = empresas::find($id);
-       return view('empresas/Modal/Empresas')
-       ->with(compact('empresa'));
+       if (!$empresa){
+        return redirect('/empresas')->withErrors('No se pudó encontrar esa empresa. ');
+
+       }
+       return view('empresas/SEmpresas')
+       ->with(compact('empresa'))
+       ->with(compact('countries'));
     }
 
     /**

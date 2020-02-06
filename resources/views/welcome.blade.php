@@ -28,25 +28,28 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 </head>
 <style>
-    .grayBg {
-        background-color: #F2F3F5;
-    }
-.hoverPurple:hover{
-color:#2A1061;
+.grayBg {
+    background-color: #F2F3F5;
+}
+
+.hoverPurple:hover {
+    color: #2A1061;
 }
 </style>
 
 <body class="grayBg">
     <!--Page main menu------>
-    <div style="margin:2rem;">
+    <div style="margin:0.2rem;">
 
         <!--Navbar---------->
         <div class="sidebar-fixed position-fixed  d-none d-lg-block" style="background-color:#F9FAFB; height:100vh">
             <div class="list-group list-group-flush" style="width:17rem;background-color:#F9FAFB;">
-                <a href="#" class="list-group-item list-group-item-action waves-effect" style="width:100% !important">
-                    <i class="fas fa-user mr-3"></i>Profile
+                <a href="/empresas" class="list-group-item list-group-item-action waves-effect"
+                    style="width:100% !important">
+                    <i class="fas fa-user mr-3"></i>Empresas
                 </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect hoverPurple" style="width:100% !important;">
+                <a href="#" class="list-group-item list-group-item-action waves-effect hoverPurple"
+                    style="width:100% !important;">
                     <i class="fas fa-user mr-3"></i>Profile
                 </a>
             </div>

@@ -40,7 +40,7 @@
 </head>
 
 <body style="background-color: #F2F3F5;">
-    <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh" >
+    <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh">
 
         <main class="py-4  ">
             @yield('content')
@@ -54,19 +54,20 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="{{asset('js/mdb.min.js')}}"></script>
     <!-- Your custom scripts (optional) -->
+    <script type="text/javascript" src="{{asset('js/jquery.table2excel.js')}}"></script>
     <!-- MDBootstrap Datatables  -->
     <script type="text/javascript" src="{{asset('js/addons/datatables.min.js')}}"></script>
     <script type="text/javascript"></script>
     <script>
-        $(document).ready(function() {
-            $.noConflict();
-            $('#workers').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
-        $(document).ready(function() {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
+    $(document).ready(function() {
+        $.noConflict();
+        $('#workers').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    $(document).ready(function() {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
     </script>
 </body>
 
