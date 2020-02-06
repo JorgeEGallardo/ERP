@@ -24,6 +24,7 @@ Auth::routes();
 //No middleware routes
 route::get('/getStates/{id}', 'auxController@getStates');
 route::get('/getCities/{id}', 'auxController@getCities');
+route::get('/getCountries', 'auxController@getCountries');
 
 Route::get('/', function () {
     return view('welcome');

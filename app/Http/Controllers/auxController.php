@@ -14,4 +14,8 @@ class auxController extends Controller
         $cities = \DB::select('select * from cities where state_id = ?', [$id]);
         return view('auxi.cities')->with(compact('cities'));
     }
+    public function getCountries(){
+        $countries = \DB::select('select * from countries');
+        return view('auxi.countries')->with(compact('countries'));
+    }
 }

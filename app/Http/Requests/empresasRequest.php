@@ -23,8 +23,12 @@ class empresasRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('empresa');
+
         return [
-            'rfc' => ['required','regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
+            'nombre'=>['required', 'unique:empresas,nombre,'.$id],
+            'registropatronal'=>['required', 'unique:empresas,registropatronal,'.$id],
+            'rfc' => ['required','unique:empresas,RFC,'.$id,'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
             'telefono'=>['required', 'regex: /^\d+$/'],
             'telefono2'=>['nullable', 'regex: /^\d+$/'],
             'numero'=>['required', 'regex: /^\d+$/'],
@@ -34,6 +38,9 @@ class empresasRequest extends FormRequest
     public function messages()
 {
     return [
+        'nombre.unique'=>'Ya existe una empresa con este nombre',
+        'rfc.unique'=>'Ya existe una empresa con este RFC',
+        'registropatronal.unique'=>'Ya existe una empresa con este registro patronal',
         'rfc.regex' => 'El RFC tiene un formato incorrecto.',
         'telefono.regex' => 'El teléfono tiene un formato incorrecto. Solo se permiten números.',
         'telefono2.regex' => 'El teléfono adicional tiene un formato incorrecto. Solo se permiten números.',

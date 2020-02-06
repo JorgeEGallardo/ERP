@@ -73,9 +73,15 @@ class EmpresasController extends Controller
      */
     public function show($id)
     {
+    $countries = \DB::select('select * from countries');
        $empresa = empresas::find($id);
-       return view('empresas/Modal/Empresas')
-       ->with(compact('empresa'));
+       if (!$empresa){
+        return redirect('/empresas')->withErrors('No se pudó encontrar esa empresa. ');
+
+       }
+       return view('empresas/SEmpresas')
+       ->with(compact('empresa'))
+       ->with(compact('countries'));
     }
 
     /**
