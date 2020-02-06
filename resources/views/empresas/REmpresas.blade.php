@@ -18,35 +18,46 @@
         </ul>
     </div>
 @endif
-<h1 class="text-center mb-4">EMPRESAS</h1>
-<a href="/empresas/create"><button class="btn btn-deep-purple float-right" > Crear nueva empresa</button></a>
-<div class="mt-4">
-    <table id="dtBasicExample" class="cell-border order-column table  table-bordered  table-hover  stripe mt-4" cellspacing="0" style="width:100%;">
-        <thead style="width:100%">
+<div class="border">
+    <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
+<h2 class="text-left white-text m-1">Empresas
+    <a href="/empresas/create"><button class="btn btn-deep-purple float-right" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important" ><b> <i class="fas fa-plus mr-2"></i>Crear nueva empresa</b></button></a>
+    <button type="button" onclick="exportExcel('Empresas Desglose')" class="btn btn-deep-purple float-right mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important" ><b> <i class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
+
+    </div>
+<div class="mt-4 px-4">
+    <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0" style="width:100%;">
+        <thead style="width:100%" class="indigo-text">
             <tr>
-                <th class="th-sm">Empresa
+                <th class="th-sm"><b>#</b>
                 </th>
-                <th class="th-sm">RFC
+                <th class="th-sm"><b>Empresa</b>
                 </th>
-                <th class="th-sm">Ciudad
+                <th class="th-sm"><b>RFC</b>
                 </th>
-                <th class="th-sm">Email
+                <th class="th-sm"><b>Ciudad</b>
                 </th>
-                <th class="th-sm">Teléfono
+                <th class="th-sm"><b>Teléfono</b>
                 </th>
-                <th class="th-sm">Acciones
+                <th class="th-sm noExl"><b>Acciones</b>
                 </th>
             </tr>
         </thead>
-        <tbody style="width:100%">
+        <tbody style="width:100%;">
+            @php
+             $idNum = 0;
+            @endphp
             @foreach ($data as $empresa)
+            @php
+             $idNum++;
+            @endphp
             <tr style="">
+                <td style="width:2%">{{$idNum}}</td>
                 <td>{{$empresa->Nombre}}</td>
                 <td>{{$empresa->RFC}}</td>
                 <td>{{$empresa->Ciudad}}</td>
-                <td>{{$empresa->Email}}</td>
                 <td>{{$empresa->Telefono}}</td>
-                <td class="text-center p-1" style="width:20%" >
+                <td class="text-center p-1 noExl" style="width:20%" >
 
 
                         <form action="{{ route('empresas.destroy', $empresa->id) }}" method="POST">
@@ -65,6 +76,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
 </div>
 </div>
 
@@ -106,6 +118,20 @@
 </div>
 
 <script>
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+
+var yyyy = today.getFullYear();
+if (dd < 10) {
+  dd = '0' + dd;
+}
+if (mm < 10) {
+  mm = '0' + mm;
+}
+var today = dd + '-' + mm + '-' + yyyy;
+
     function getEmpresa(id){
 $.ajax({
     url: '/empresas/'+id,
@@ -129,6 +155,17 @@ $.ajax({
         alert('error');
     }
 });
+    }
+
+function exportExcel(str){
+    $("#dtBasicExample").table2excel({
+    exclude:".noExl",
+    name:"Worksheet Name",
+    filename:str+" "+today,
+    fileext:".xls",
+    preserveColors:true
+});
+
     }
 </script>
 @endsection

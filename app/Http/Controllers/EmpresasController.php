@@ -58,7 +58,7 @@ class EmpresasController extends Controller
         $empresa->Telefono2 = $request->telefono2;
         $empresa->save();
         $data = empresas::orderBy('id', 'DESC')->get();
-        return redirect('/empresas')->with('success', 'La empresa "'.$empresa->Nombre.'" se ha creado con éxito.')->with(compact('data'));
+        return redirect('/empresas/create')->with('success', 'La empresa "'.$empresa->Nombre.'" se ha creado con éxito.')->with(compact('data'));
 
     }
 

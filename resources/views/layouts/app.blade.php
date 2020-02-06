@@ -54,6 +54,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="{{asset('js/mdb.min.js')}}"></script>
     <!-- Your custom scripts (optional) -->
+    <script type="text/javascript" src="{{asset('js/jquery.table2excel.js')}}"></script>
     <!-- MDBootstrap Datatables  -->
     <script type="text/javascript" src="{{asset('js/addons/datatables.min.js')}}"></script>
     <script type="text/javascript"></script>
