@@ -17,6 +17,7 @@
 //Middleware routes
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
+Route::resource('/compradores', 'CompradoresController')->middleware('empresas');
 Auth::routes();
 
 
