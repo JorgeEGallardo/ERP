@@ -16,8 +16,9 @@
 
 //Middleware routes
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
-Route::resource('/compradores', 'CompradoresController')->middleware('empresas');
+Route::resource('/compradores', 'CompradoresController')->middleware('compradores');
 Auth::routes();
 
 
@@ -27,6 +28,3 @@ route::get('/getStates/{id}', 'auxController@getStates');
 route::get('/getCities/{id}', 'auxController@getCities');
 route::get('/getCountries', 'auxController@getCountries');
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');

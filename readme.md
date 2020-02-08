@@ -16,12 +16,12 @@ Cambiar la funcion handle() por
             return redirect()->route('login'); //Página a la que se redireccionará si no se válida el inicio de sesión.
         }
         $roles= Auth::user()->role;
-        $roles= explode(",",$roles); //Código para sacar los permisos que tiene asignado el usuario.
+        $roles= explode(",",$roles); //Código para sacar los roles que tiene asignado el usuario.
         
         if (in_array($role, $roles)) {
-            return $next($request); //Si el $role se encuentra entre los permisos del usuario se redireccionará a la página deseada.
+            return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
         }else {
-            return redirect()->route('home')->withErrors(['No tienes permisos para acceder a esta aplicación']); //En caso de que no redireccionará a la página principal.
+            return redirect()->route('home')->withErrors(['No tienes roles para acceder a esta aplicación']); //En caso de que no redireccionará a la página principal.
         }
 ```
 Para que Laravel entienda que el código va a controlar el acceso de usuarios es necesario registrarlo en el archivo app/Http/Kernel.php como un elemento mas del arreglo $routeMiddleware. 
@@ -37,7 +37,7 @@ Por último es necesario apuntar el controlador y el middleware en el archivo ro
 
 Route::get('/urlParaIngresar', 'usuarionuevoController@index')->name('usuarionuevo')->middleware('usuarionuevo');
 ````
-<h2>Permisos</h2>
+<h2>roles</h2>
 <ol>
     <li>Empresas</li>
     <li>Compradores</li>
@@ -46,5 +46,5 @@ Route::get('/urlParaIngresar', 'usuarionuevoController@index')->name('usuarionue
     <li>Articulos</li>
     <li>Requisiciones</li>
     <li>Autorizaciones</li>
-    <li>Permisos</li>
+    <li>roles</li>
 </ol>

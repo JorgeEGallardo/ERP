@@ -40,9 +40,44 @@
 </head>
 
 <body style="background-color: #F2F3F5;">
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="/">
+          <strong class="blue-text">ERP B</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+
+          </ul>
+
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+              @if(isset(Auth::user()->name))
+          {{Auth::user()->name}}
+          @endif
+          </ul>
+
+        </div>
+
+      </div>
+    </nav>
     <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh">
 
         <main class="py-4  ">
+
             @yield('content')
         </main>
     </div>
