@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<form method="POST" action="{{ route('registro/create') }}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,11 +9,11 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -68,10 +69,17 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
     </div>
+    @foreach ($roles as $rol)
+    <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" name ="roles[]" value="{{$rol->id}}" id="defaultUnchecked{{$rol->id}}">
+    <label class="custom-control-label" for="defaultUnchecked{{$rol->id}}">{{$rol->Nombre}}</label>
+    </div>
+    @endforeach
 </div>
+</form>
 @endsection
