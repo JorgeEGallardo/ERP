@@ -19,8 +19,8 @@ class Series extends Migration
             $table->string('Nombre')->unique();
             $table->BigInteger('id_tipo')->unsigned()->nullable();
             $table->BigInteger('id_usuario')->unsigned()->nullable();
-            $table->foreign('id_tipo')->references('id')->on('tipos_series')->onDelete('set null');
-            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('id_tipo')->references('id')->on('tipos_series')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
