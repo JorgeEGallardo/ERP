@@ -1,11 +1,13 @@
 <h2>Instalación del sistema</h2>
 En una carpeta vacia clonar este repositorio. Correr el comando composer install. Copiar a la carpeta raiz el archivo .ENV único para que se pueda conectar a la base de datos.<i>En caso de que no se cuente con acceso al .ENV del sistema principal y solo se quiera hacer una modificación cambiar el .ENVEXAMPLE A .ENV y llenar este con los datos del servidor local en este repositorio se puede encontrar un archivo .sql para importar la base de datos.</i> 
 
-<h2>Agregar un nuevo tipo de usuario</h2> 
-Cada tipo nuevo de usuario lleva un número de rol, un midleware y un controller. 
 
 <h2>Funcionamiento general del sistema</h2>
 <img src="https://jorgeegallardo.github.io/DIAGRAMA%20MVC%20(1).png">
+
+<h2>Agregar un nuevo tipo de usuario</h2> 
+Cada tipo nuevo de usuario lleva un número de rol, un midleware y un controller. 
+
 ```
 php artisan make:middleware usuarionuevo
 php artisan make:controller usuarionuevoController 
