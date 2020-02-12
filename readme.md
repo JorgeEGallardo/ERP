@@ -11,18 +11,28 @@ php artisan make:controller usuarionuevoController
 En el middleware recien creado agregamos "use Auth" debajo del namespace esto para comprobar que si se haya iniciado sesión.  
 Cambiar la funcion handle() por 
 ```
-	$role =1; //Número de rol
+	$role = 1; //Número de rol
         if (!Auth::check()) {
             return redirect()->route('login'); //Página a la que se redireccionará si no se válida el inicio de sesión.
         }
-        $roles= Auth::user()->role;
-        $roles= explode(",",$roles); //Código para sacar los roles que tiene asignado el usuario.
-        
+        $method = $request->method();
+        $roles = Auth::user()->role;
+        $roles = explode(",", $roles); //Código para sacar los roles que tiene asignado el usuario.
         if (in_array($role, $roles)) {
-            return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
-        }else {
-            return redirect()->route('home')->withErrors(['No tienes roles para acceder a esta aplicación']); //En caso de que no redireccionará a la página principal.
+            if ($method=="GET")
+                return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
+            else if (in_array(2, $roles)&&$method=="POST")
+                return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
+            else if (in_array(3, $roles)&&$method=="DELETE")
+                return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
+            else if (in_array(4, $roles)&&$method=="PUT")
+                return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
+            else
+                return redirect()->back()->withErrors(['No tienes permisos para realizar esta acción']);
+        } else {
+            return redirect()->back()->withErrors(['No tienes permisos para acceder a esta aplicación']); //En caso de que no redireccionará a la página principal.
         }
+        
 ```
 Para que Laravel entienda que el código va a controlar el acceso de usuarios es necesario registrarlo en el archivo app/Http/Kernel.php como un elemento mas del arreglo $routeMiddleware. 
 
