@@ -4,6 +4,8 @@ En una carpeta vacia clonar este repositorio. Correr el comando composer install
 <h2>Agregar un nuevo tipo de usuario</h2> 
 Cada tipo nuevo de usuario lleva un número de rol, un midleware y un controller. 
 
+<h2>Funcionamiento general del sistema</h2>
+<img src="https://jorgeegallardo.github.io/DIAGRAMA%20MVC%20(1).png">
 ```
 php artisan make:middleware usuarionuevo
 php artisan make:controller usuarionuevoController 
