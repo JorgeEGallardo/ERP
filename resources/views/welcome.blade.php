@@ -15,7 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/mdb-favicon.png" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -41,6 +41,32 @@
     height: 100%;
     width: 100%;
     position: absolute;
+}
+
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown2-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown2-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown2:hover .dropdown2-content {
+    display: block;
 }
 </style>
 
@@ -75,7 +101,24 @@
 
                     <!-- Right -->
                     <ul class="navbar-nav nav-flex-icons">
-                        {{Auth::user()->name}}
+
+                        @if(isset(Auth::user()->name))
+                        <div class="dropdown2 mr-4">
+                            <span>{{Auth::user()->name}}</span>
+                            <div class="dropdown2-content">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar sesión') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                        @endif
+
                     </ul>
 
                 </div>
@@ -142,9 +185,9 @@
             <i class="fas fa-user mr-3"></i>Departamentos</a>
         @endif
         @if(in_array("11", $roles))
-        <a href="/empresas" class="list-group-item white-text list-group-item-action waves-effect"
+        <a href="/proveedores" class="list-group-item white-text list-group-item-action waves-effect"
             style="background-color:#2C3E4E; width:100%">
-            <i class="fas fa-user mr-3"></i>Empresas</a>
+            <i class="fas fa-user mr-3"></i>Proveedores</a>
         @endif
         @if(in_array("101", $roles))
         <a href="/control" class="list-group-item white-text list-group-item-action waves-effect"

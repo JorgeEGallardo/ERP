@@ -83,12 +83,10 @@ $roles = explode(",",$roles);
                                 @method('DELETE')
                                 @csrf
                                 @isset($roles)
-                                @if(in_array("2", $roles))
                                 <a href="/empresas/{{$empresa->id}}"><button type="button" class="btn btn-primary"
                                         style="text-transform:none">
                                         <i class="fas fa-info px-1 mr-2"></i>Desglose
                                     </button></a>
-                                @endif
                                 @endisset
 
                                 @isset($roles)

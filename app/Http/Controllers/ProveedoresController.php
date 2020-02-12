@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\departamentos as Departamentos;
+use App\Proveedores;
 use Illuminate\Http\Request;
 
-class DepartamentosController extends Controller
+class ProveedoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class DepartamentosController extends Controller
      */
     public function index()
     {
-        $departamentos = Departamentos::all();
-        return view('departamentos.RDepartamentos')->with(compact('departamentos'));
+        $proveedores = Proveedores::all();
+        return view('proveedores.RProveedores')->with(compact('proveedores'));
     }
 
     /**
@@ -25,7 +25,7 @@ class DepartamentosController extends Controller
      */
     public function create()
     {
-        return view('departamentos.FDepartamentos');
+        return view('proveedores.FProveedores');
     }
 
     /**
@@ -36,11 +36,11 @@ class DepartamentosController extends Controller
      */
     public function store(Request $request)
     {
-        $departamento = new Departamentos();
-        $departamento->Nombre = $request->nombre;
-        $departamento->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Departamento $request->nombre agregado.","Administrador");
-        return back()->with('success', "Departamento agregado con éxito.");
+        $proveedor = new Proveedores();
+        $proveedor->Nombre = $request->nombre;
+        $proveedor->save();
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $request->nombre agregado.", "Administrador");
+        return back()->with('success', "Proveedor agregado con éxito.");
     }
 
     /**
@@ -51,8 +51,8 @@ class DepartamentosController extends Controller
      */
     public function show($id)
     {
-        $departamento = Departamentos::find($id);
-        return view('departamentos.SDepartamentos')->with(compact('departamento'));
+        $proveedor = Proveedores::find($id);
+        return view('proveedores.SProveedores')->with(compact('proveedor'));
     }
 
     /**
@@ -74,11 +74,11 @@ class DepartamentosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $departamento=Departamentos::find($id);
-        $departamento->Nombre = $request->nombre;
-        $departamento->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Departamento $request->nombre actualizado.","Administrador");
-        return redirect('departamentos')->with('success', "Departamento actualizado con éxito.");
+        $proveedor = Proveedores::find($id);
+        $proveedor->Nombre = $request->nombre;
+        $proveedor->save();
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $request->nombre actualizado.", "Administrador");
+        return redirect('proveedores')->with('success', "Proveedor actualizado con éxito.");
     }
 
     /**
@@ -89,10 +89,10 @@ class DepartamentosController extends Controller
      */
     public function destroy($id)
     {
-        $departamento=Departamentos::find($id);
-        $departamento = $departamento->Nombre;
-        Departamentos::destroy($id);
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Departamento $departamento eliminado.","Administrador");
-        return redirect('departamentos')->with('success', "Departamento $departamento eliminado con éxito.");
+        $proveedor = Proveedores::find($id);
+        $proveedor = $proveedor->Nombre;
+        Proveedores::destroy($id);
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $proveedor eliminado.", "Administrador");
+        return redirect('proveedores')->with('success', "Proveedor $proveedor eliminado con éxito.");
     }
 }

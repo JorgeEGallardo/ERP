@@ -149,6 +149,48 @@
                 @endforeach
             </tbody>
         </table>
+
+    </div>
+</div>
+<div class="border">
+    <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
+        <h2 class="text-left white-text m-1">Movimientos
+            <button type="button" onclick="exportExcelMov('Movimientos Desglose')"
+                class="btn btn-deep-purple float-right mr-4"
+                style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                        class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
+    </div>
+    <hr>
+    <div class="mt-4 px-4">
+        <table id="workers" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
+            style="width:100%;">
+            <thead style="width:100%" class="indigo-text">
+                <tr>
+                    <th class="th-sm"><b>#</b>
+                    </th>
+                    <th class="th-sm"><b>Acción</b>
+                    </th>
+                    <th class="th-sm"><b>Categoría</b>
+                    </th>
+                    <th class="th-sm"><b>Usuario</b>
+                    </th>
+                    <th class="th-sm"><b>Fecha</b>
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="width:100%;">
+                @foreach ($movimientos as $movimiento)
+                <tr style="">
+                    <td style="width:2%">{{$movimiento->id}}</td>
+                    <td>{{$movimiento->Nombre}}</td>
+                    <td>{{$movimiento->Categoria}}</td>
+                    <td>{{$movimiento->Usuario}}</td>
+                    <td>{{$movimiento->created_at}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
     </div>
 </div>
 <div class="row" id="permisos">
@@ -235,6 +277,15 @@ var today = dd + '-' + mm + '-' + yyyy;
 
 function exportExcel(str) {
     $("#dtBasicExample").table2excel({
+        exclude: ".noExl",
+        name: "Worksheet Name",
+        filename: str + " " + today,
+        fileext: ".xls",
+        preserveColors: true
+    });
+}
+function exportExcelMov(str) {
+    $("#workers").table2excel({
         exclude: ".noExl",
         name: "Worksheet Name",
         filename: str + " " + today,

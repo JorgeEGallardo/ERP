@@ -30,19 +30,18 @@ $roles = explode(",",$roles);
     @endif
     <div class="border">
         <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
-            <h2 class="text-left white-text m-1">Departamentos
-                @if(in_array("7", $roles))
-                <a href="/departamentos/create"><button class="btn btn-deep-purple float-right"
+            <h2 class="text-left white-text m-1">Proveedores
+                @if(in_array("12", $roles))
+                <a href="/proveedores/create"><button class="btn btn-deep-purple float-right"
                         style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="fas fa-plus mr-2"></i>Crear nuevo departamento</b></button></a>
+                                class="fas fa-plus mr-2"></i>Crear nuevo proveedor</b></button></a>
                 @endif
-                @if(in_array("10", $roles))
-                <button type="button" onclick="exportExcel('Departamentos Desglose')"
+                @if(in_array("15", $roles))
+                <button type="button" onclick="exportExcel('Proveedores Desglose')"
                     class="btn btn-deep-purple float-right mr-4"
                     style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
                             class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
             @endif
-
         </div>
         <div class="mt-4 px-4">
             <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
@@ -62,34 +61,29 @@ $roles = explode(",",$roles);
                     @php
                     $idNum = 0;
                     @endphp
-                    @foreach ($departamentos as $departamento)
+                    @foreach ($proveedores as $proveedor)
                     @php
                     $idNum++;
                     @endphp
                     <tr style="">
                         <td style="width:2%">{{$idNum}}</td>
-                        <td>{{$departamento->Nombre}}</td>
+                        <td>{{$proveedor->Nombre}}</td>
 
                         <td class="text-center p-1 noExl" style="width:20%">
 
 
-                            <form id="delete{{$departamento->id}}"
-                                action="{{ route('departamentos.destroy', $departamento->id) }}" method="POST">
+                            <form id="delete{{$proveedor->id}}"
+                                action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
-
-
-                                <a href="/departamentos/{{$departamento->id}}"><button type="button"
-                                        class="btn btn-primary" style="text-transform:none">
+                                <a href="/proveedores/{{$proveedor->id}}"><button type="button" class="btn btn-primary"
+                                        style="text-transform:none">
                                         <i class="fas fa-info px-1 mr-2"></i>Desglose
                                     </button></a>
-
-
                                 @isset($roles)
-                                @if(in_array("8", $roles))
-                                <button type="button" onclick="confirmDelete({{$departamento->id}})"
-                                    class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i>
-                                    Borrar</button>
+                                @if(in_array("13", $roles))
+                                <button type="button" onclick="confirmDelete({{$proveedor->id}})" class="btn btn-danger"
+                                    style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
                                 @endif
                                 @endisset
 

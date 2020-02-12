@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-02-2020 a las 23:31:10
+-- Tiempo de generación: 12-02-2020 a las 17:58:52
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -48272,6 +48272,26 @@ INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `departamentos`
+--
+
+CREATE TABLE `departamentos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `departamentos`
+--
+
+INSERT INTO `departamentos` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
+(1, 'Compras', '2020-02-12 05:40:42', '2020-02-12 22:51:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `empresas`
 --
 
@@ -48299,12 +48319,7 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id`, `Nombre`, `RFC`, `RegistroPatronal`, `Calle`, `Numero`, `Colonia`, `Ciudad`, `Estado`, `Pais`, `CP`, `Email`, `Telefono`, `Telefono2`, `created_at`, `updated_at`) VALUES
-(8, 'sdadasda', 'LOMP8206281H0', 'sadsada', 'Antonio Escudero 206', '6458', 'San Marcos', 'Durango', 'Durango', 'México', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', '564465', '2020-02-06 00:04:46', '2020-02-06 00:04:46'),
-(9, 'sdadasda', 'LOMP8206281H0', 'sadsada', 'Antonio Escudero 206', '6458', 'San Marcos', 'Durango', 'Durango', 'México', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', '564465', '2020-02-06 00:05:46', '2020-02-06 00:05:46'),
-(10, 'sdadasda', 'LOMP8206281H0', 'sadsada', 'Antonio Escudero 206', '6458', 'San Marcos', 'Durango', 'Durango', 'México', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', '564465', '2020-02-06 00:07:14', '2020-02-06 00:07:14'),
-(11, 'sdadasda', 'LOMP8206281H0', 'sadsada', 'Antonio Escudero 206', '6458', 'San Marcos', 'Durango', 'Durango', 'México', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', '564465', '2020-02-06 00:07:46', '2020-02-06 00:07:46'),
-(14, 'NETBITTECH', 'LOMP8206281H0', '21231231eqwwqe', 'Antonio Escudero 206', '12231', '231231', 'Durango', 'Durango', 'México', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', NULL, '2020-02-06 00:13:50', '2020-02-06 00:13:50'),
-(15, 'Bacis', 'LOMP8206281H0', '21231231eqwwqe', 'Antonio Escudero 206', '12231', '231231', 'Durango', 'Durango', 'México', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', '564546', '2020-02-06 00:14:10', '2020-02-06 01:47:24');
+(4, 'LOMP8206281H0GGSSS', 'LOMP8206281A3', '12312321', 'Antonio Escudero 206', '12131', 'San Marcos', '27790', '2436', '1', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', NULL, '2020-02-12 04:15:48', '2020-02-12 04:15:48');
 
 -- --------------------------------------------------------
 
@@ -48325,7 +48340,12 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2020_02_04_184203_create_empresas_table', 1);
+(3, '2020_02_04_184203_create_empresas_table', 1),
+(4, '2020_02_06_230434_create_compradores_table', 1),
+(5, '2020_02_07_163758_roles', 1),
+(8, '2020_02_10_160453_tipos_series_mig', 2),
+(11, '2020_02_10_160603_series', 3),
+(12, '2020_02_11_231531_departamentos', 4);
 
 -- --------------------------------------------------------
 
@@ -48338,6 +48358,57 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
+(1, 'Acceso al CRUD Empresas.', NULL, NULL),
+(2, 'Insertar empresas', NULL, NULL),
+(3, 'Eliminar empresas', NULL, NULL),
+(4, 'Editar empresas', NULL, NULL),
+(5, 'Generar el reporte empresas', NULL, NULL),
+(6, 'Acceder al CRUD Departamentos', NULL, NULL),
+(7, 'Insertar departamentos', NULL, NULL),
+(8, 'Eliminar departamentos', NULL, NULL),
+(9, 'Editar departamentos', NULL, NULL),
+(10, 'Generar el reporte departamentos', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `series`
+--
+
+CREATE TABLE `series` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_tipo` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_usuario` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `series`
+--
+
+INSERT INTO `series` (`id`, `Nombre`, `id_tipo`, `id_usuario`, `created_at`, `updated_at`) VALUES
+(3, 'USOC', 1, 17, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -52452,6 +52523,29 @@ INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipos_series`
+--
+
+CREATE TABLE `tipos_series` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipos_series`
+--
+
+INSERT INTO `tipos_series` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
+(1, 'OC', NULL, NULL),
+(2, 'OR', NULL, NULL),
+(3, 'ORSH', NULL, NULL),
+(4, 'OCSH', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -52472,8 +52566,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'sadas', '12345@gmail.com', NULL, NULL, '$2y$10$UvJshEcnY1.Qf7mWl4pRVOmtjtJQly.0mKh.RBcxAwjT3UO12IbDe', NULL, '2020-02-05 00:50:39', '2020-02-05 00:50:39'),
-(2, 'Jorge', 'Jorgeq@gmail.com', '1', NULL, '$2y$10$u3T4KQB6q3xjN3.jx60r0eMeJISeGMuJP6lMgi/Q4aFybNEAXYZsW', NULL, '2020-02-06 04:06:54', '2020-02-06 04:06:54');
+(15, 'Administrador', 'JGallardo@bacis.com.mx', '1,2,3,4,5,101', NULL, '$2y$10$ijlWtFw4zfOJ.Ek9mlMYHOJcchcpX6k7UGAIn.b/j/F1mEyH/f7XW', NULL, '2020-02-12 04:05:28', '2020-02-12 04:24:18'),
+(17, 'Dummy', 'USuario@bacis.com.mx', '6,9,10', NULL, '$2y$10$d079LxM8g21O/dISDp6yUO6PJBKr5SrLaO43jADQN02amKhD25hOq', NULL, '2020-02-12 05:53:04', '2020-02-12 06:02:46'),
+(18, 'UsuarioDummy', 'Dummy@bacis.com.mx', '1,2,3,4,5,6,7,8,9,10', NULL, '$2y$10$/9lgEaZZgHoDj9qtXCBQ2.i2w/84NYVqtz02DoAY5Bb0Ij2r4mqpO', NULL, '2020-02-12 22:00:08', '2020-02-12 22:49:46');
 
 --
 -- Índices para tablas volcadas
@@ -52492,10 +52587,19 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `departamentos_nombre_unique` (`Nombre`);
+
+--
 -- Indices de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `empresas_nombre_unique` (`Nombre`),
+  ADD UNIQUE KEY `empresas_rfc_unique` (`RFC`);
 
 --
 -- Indices de la tabla `migrations`
@@ -52510,10 +52614,33 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_nombre_unique` (`Nombre`);
+
+--
+-- Indices de la tabla `series`
+--
+ALTER TABLE `series`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `series_nombre_unique` (`Nombre`),
+  ADD KEY `series_id_tipo_foreign` (`id_tipo`),
+  ADD KEY `series_id_usuario_foreign` (`id_usuario`);
+
+--
 -- Indices de la tabla `states`
 --
 ALTER TABLE `states`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipos_series`
+--
+ALTER TABLE `tipos_series`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tipos_series_nombre_unique` (`Nombre`);
 
 --
 -- Indices de la tabla `users`
@@ -52539,16 +52666,34 @@ ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
+-- AUTO_INCREMENT de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `series`
+--
+ALTER TABLE `series`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `states`
@@ -52557,10 +52702,27 @@ ALTER TABLE `states`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4122;
 
 --
+-- AUTO_INCREMENT de la tabla `tipos_series`
+--
+ALTER TABLE `tipos_series`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `series`
+--
+ALTER TABLE `series`
+  ADD CONSTRAINT `series_id_tipo_foreign` FOREIGN KEY (`id_tipo`) REFERENCES `tipos_series` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `series_id_usuario_foreign` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

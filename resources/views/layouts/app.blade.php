@@ -15,7 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/mdb-favicon.png" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -37,42 +37,83 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+    .dropdown2 {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown2-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown2-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+
+    .dropdown2:hover .dropdown2-content {
+        display: block;
+    }
+    </style>
 </head>
 
 <body style="background-color: #F2F3F5;">
-  <!-- Navbar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-      <div class="container-fluid">
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+        <div class="container-fluid">
 
-        <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="/">
-          <strong class="blue-text">ERP B</strong>
-        </a>
+            <!-- Brand -->
+            <a class="navbar-brand waves-effect" href="/">
+                <strong class="blue-text">ERP B</strong>
+            </a>
 
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-          <!-- Left -->
-          <ul class="navbar-nav mr-auto">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
 
-          </ul>
+                </ul>
 
-          <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
-              @if(isset(Auth::user()->name))
-          {{Auth::user()->name}}
-          @endif
-          </ul>
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+
+                    @if(isset(Auth::user()->name))
+                    <div class="dropdown2 mr-4">
+                        <span>{{Auth::user()->name}}</span>
+                        <div class="dropdown2-content">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Cerrar sesión') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                    @endif
+
+                </ul>
+
+            </div>
 
         </div>
-
-      </div>
     </nav>
     <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh">
 
