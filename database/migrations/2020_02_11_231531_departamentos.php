@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompradoresTable extends Migration
+class Departamentos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateCompradoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('compradores', function (Blueprint $table) {
+        Schema::dropIfExists('departamentos');
+        Schema::create('departamentos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('Nombre')->unique();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateCompradoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compradores');
+        Schema::dropIfExists('departamentos');
     }
 }

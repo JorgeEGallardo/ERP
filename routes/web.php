@@ -22,10 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Auth::routes();
 
-
+Route::resource('/departamentos', 'DepartamentosController')->middleware('departamentos');
 Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
 
-Route::resource('/compradores', 'CompradoresController')->middleware('compradores');
 
 
 
@@ -41,7 +40,7 @@ Route::get('/permisos/{id}', 'AdministradorController@rolesView')->name('roles')
 Route::delete('/permisos/{id}', 'AdministradorController@destroy')->name('permisos.destroy')->middleware('admin');
 Route::put('/permisos/{id}', 'AdministradorController@PermisosEdit')->name('permisos/edit')->middleware('admin');
 Route::post('/permisos', 'AdministradorController@permisosCreate')->name('permisos/edit')->middleware('admin');
-Route::delete('/series/{id}', 'registroControler@destroy')->name('series.destroy')->middleware('admin');
+Route::delete('/series/{id}', 'registroController@destroy')->name('series.destroy')->middleware('admin');
 Route::delete('/serie/{id}', 'AdministradorController@serieDestroy')->name('serie.destroy')->middleware('admin');
 Route::post('/series/{id}', 'AdministradorController@serieStore')->name('series.store')->middleware('admin');
 Route::post('/series', 'AdministradorController@tiposSeriesCreate')->name('tiposSeriesCreate.store')->middleware('admin');

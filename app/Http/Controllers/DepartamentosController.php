@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\compradores;
+use App\departamentos as Departamentos;
 use Illuminate\Http\Request;
 
-class CompradoresController extends Controller
+class DepartamentosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class CompradoresController extends Controller
      */
     public function index()
     {
-        return 1;
+        $departamentos = Departamentos::all();
+        return view('departamentos.RDepartamentos')->with(compact('departamentos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CompradoresController extends Controller
      */
     public function create()
     {
-        //
+        return view('departamentos.FDepartamentos');
     }
 
     /**
@@ -35,7 +36,10 @@ class CompradoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $departamento = new Departamentos();
+        $departamento->Nombre = $request->nombre;
+        $departamento->save();
+        return back()->with('success', "Departamento agregado con éxito.");
     }
 
     /**
@@ -44,9 +48,10 @@ class CompradoresController extends Controller
      * @param  \App\compradores  $compradores
      * @return \Illuminate\Http\Response
      */
-    public function show(compradores $compradores)
+    public function show($id)
     {
-        //
+        $departamento = Departamentos::find($id);
+        return view('departamentos.SDepartamentos')->with(compact('departamento'));
     }
 
     /**
@@ -55,9 +60,8 @@ class CompradoresController extends Controller
      * @param  \App\compradores  $compradores
      * @return \Illuminate\Http\Response
      */
-    public function edit(compradores $compradores)
+    public function edit($id)
     {
-        //
     }
 
     /**
@@ -67,9 +71,12 @@ class CompradoresController extends Controller
      * @param  \App\compradores  $compradores
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, compradores $compradores)
+    public function update(Request $request, $id)
     {
-        //
+        $departamento=Departamentos::find($id);
+        $departamento->Nombre = $request->nombre;
+        $departamento->save();
+        return redirect('departamentos')->with('success', "Departamento actualizado con éxito.");
     }
 
     /**

@@ -137,9 +137,9 @@
             <i class="fas fa-user mr-3"></i>Empresas</a>
         @endif
         @if(in_array("6", $roles))
-        <a href="/compradores" class="list-group-item white-text list-group-item-action waves-effect"
+        <a href="/departamentos" class="list-group-item white-text list-group-item-action waves-effect"
             style="background-color:#2C3E4E; width:100%">
-            <i class="fas fa-user mr-3"></i>Compradores</a>
+            <i class="fas fa-user mr-3"></i>Departamentos</a>
         @endif
         @if(in_array("11", $roles))
         <a href="/empresas" class="list-group-item white-text list-group-item-action waves-effect"

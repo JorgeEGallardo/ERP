@@ -131,15 +131,15 @@
                             @csrf
                             <a href="/permisos/{{$serie->id}}"><button type="button" class="btn btn-primary"
                                     style="text-transform:none">
-                                    <i class="fas fa-info px-1 mr-2"></i>Permisos
+                                    <i class="fas fa-plus px-1 mr-2"></i>Permisos
                                 </button></a>
                             <a href="/series/{{$serie->id}}"><button type="button" class="btn btn-primary"
                                     style="text-transform:none">
-                                    <i class="fas fa-info px-1 mr-2"></i>Series
+                                    <i class="fas fa-plus px-1 mr-2"></i>Series
                                 </button></a>
                             <a href="/usuario/{{$serie->id}}"><button type="button" class="btn btn-primary"
                                     style="text-transform:none">
-                                    <i class="fas fa-info px-1 mr-2"></i>Usuario
+                                    <i class="fas fa-user-edit px-1 mr-2"></i>Usuario
                                 </button></a>
                             <button type="button" onclick="confirmDelete({{$serie->id}})" class="btn btn-danger"
                                 style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
