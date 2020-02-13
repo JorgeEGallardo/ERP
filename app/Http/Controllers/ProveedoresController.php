@@ -59,6 +59,8 @@ class ProveedoresController extends Controller
         $proveedor->Saldo    = $request->saldo;
         $proveedor->Limite = $request->limite;
         $proveedor->Forma = $request->Forma;
+        $proveedor->Forma = isset($request->Forma) ? $request->Forma : '0';
+        return $proveedor->Forma;
         $proveedor->Titular = $request->titular;
         $proveedor->Banco = $request->banco;
         $proveedor->Sucursal = $request->sucursal;
