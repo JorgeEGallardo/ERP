@@ -25,7 +25,7 @@ Auth::routes();
 Route::resource('/departamentos', 'DepartamentosController')->middleware('departamentos');
 Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
 Route::resource('/proveedores', 'ProveedoresController')->middleware('proveedores');
-
+Route::resource('/articulos', 'ArticulosController')->middleware('articulos');
 
 
 //Usuarios

@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class AdministradorController extends Controller
 {
-    public function index()
+    public function index() //Tablas del panel de administrador
     {
+        $movimientos = Movimientos::orderBy('created_at', 'DESC')->get();
         $roles = \DB::select('select * from roles');
         $tipos = \DB::select('select * from tipos_series');
-
         $usuariosSeries = \DB::select('select * from users');
         foreach ($usuariosSeries as $usuario) {
             $series =  \DB::select('select S.Nombre, T.Nombre as tipo from tipos_series T inner join series S inner join users U
@@ -27,36 +27,29 @@ class AdministradorController extends Controller
         }
         $series = \DB::select('select U.name as Nombre,S.id ,U.email as Email, T.Nombre as Tipo, S.Nombre as Serie from users U inner
         join tipos_series T inner join series S where T.id = S.id_tipo and S.id_usuario = u.id');
-
         $usuariosRoles = \DB::select('select * from users');
 
         foreach ($usuariosRoles as $usuario) {
-
-
             $rolesS = explode(",", $usuario->role);
             $str = "";
             foreach ($rolesS as $rol) {
-
                 $rolN = \DB::select('select Nombre from roles where id = ?', [$rol]);
                 if (isset($rolN[0]))
                     $str = $str . $rolN[0]->Nombre . ",";
             }
             $usuario->role = $str;
         }
-
-        $movimientos = Movimientos::orderBy('created_at','DESC')->get();
-
         return view('admin')->with(compact('movimientos'))->with(compact('roles'))->with(compact('tipos'))->with(compact('series'))->with(compact('usuariosSeries'))->with(compact('usuariosRoles'));
     }
 
-    public function seriesView($id)
+    public function seriesView($id) //Regresa todas las series ligadas a un usuario
     {
         $series = \DB::select('select S.id, S.Nombre,T.Nombre as Tipo from series S inner join tipos_Series T where S.id_usuario = ? and S.id_tipo = T.id', [$id]);
         $tipos = \DB::select('select * from tipos_series');
         return view('Auth.FSUsuarios')->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function rolesView($id)
+    public function rolesView($id)//Regresa todos los permisos ligados a un usuario
     {
         $roles = \DB::select('select * from roles');
         $rolesUsuario = \DB::select('select role from users where id=?', [$id]);
@@ -64,13 +57,13 @@ class AdministradorController extends Controller
         return view('Auth.FPUsuarios')->with(compact('roles'))->with(compact('rolesUsuario'))->with('id', $id);
     }
 
-    public function permisosEdit($id, Request $request)
+    public function permisosEdit($id, Request $request)//Actualiza los permisos de un usuario
     {
         $usuario = User::find($id);
+        $roles = explode(',', $usuario->role);
 
-        $roles = explode(',',$usuario->role);
-        if(in_array('101', $roles))
-            $roles = array_merge($request->roles,['101']);
+        if (in_array('101', $roles))
+            $roles = array_merge($request->roles, ['101']);
         else
             $roles = $request->roles;
         if (isset($request->roles))
@@ -78,21 +71,19 @@ class AdministradorController extends Controller
         else
             $usuario->role = "";
         $usuario->save();
-
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Cambio de permisos al usuario "."$usuario->name","Administrador");
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Cambio de permisos al usuario " . "$usuario->name", "Administrador");
 
         return redirect('/control')->with('success', "Permisos actualizados con éxito.");
     }
 
-    public function serieStore($id, seriesRequest $request)
+    public function serieStore($id, seriesRequest $request)//Crea una nueva serie
     {
         $rel = false;
-
         $series = \DB::select('select S.id, S.Nombre,T.Nombre as Tipo from series S inner join tipos_Series T where S.id_usuario = ? and S.id_tipo = T.id', [$id]);
         $tipos = \DB::select('select * from tipos_series');
         try {
             $rel = \DB::insert('insert into series (Nombre, id_tipo, id_usuario) values (?, ?, ?)', [$request->Nombre, $request->tipo, $id]);
-            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Nueva serie agregada para el usuario "."$id","Administrador");
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Nueva serie agregada para el usuario " . "$id", "Administrador");
         } catch (Exception $e) {
             return back()->withErrors(['La serie no se pudó asignar.'])->with(compact('series'))->with('id', $id)->with(compact('tipos'));
         }
@@ -100,10 +91,9 @@ class AdministradorController extends Controller
             return back()->with('success', "Serie asignada correctamente")->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function serieDestroy($id)
+    public function serieDestroy($id)//Elimina una serie
     {
         $rel = false;
-
         $series = \DB::select('select S.id, S.Nombre,T.Nombre as Tipo from series S inner join tipos_Series T where S.id_usuario = ? and S.id_tipo = T.id', [$id]);
         $tipos = \DB::select('select * from tipos_series');
         try {
@@ -111,7 +101,7 @@ class AdministradorController extends Controller
             $serie = $serie->Nombre;
             $rel = \DB::delete('delete from series where id=?', [$id]);
 
-            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Serie eliminada $serie ","Administrador");
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Serie eliminada $serie ", "Administrador");
         } catch (Exception $e) {
             return back()->withErrors(['La serie no se pudó borrar.'])->with(compact('series'))->with('id', $id)->with(compact('tipos'));
         }
@@ -119,13 +109,12 @@ class AdministradorController extends Controller
             return back()->with('success', "Serie eliminada correctamente")->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function permisosCreate(Request $request)
+    public function permisosCreate(Request $request)//Crea un nuevo permiso
     {
         $rel = false;
-
         try {
             $rel = \DB::insert('insert into roles (Nombre) values (?)', [$request->Nombre]);
-            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Permiso $request->Nombre creado ","Administrador");
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Permiso $request->Nombre creado ", "Administrador");
         } catch (Exception $e) {
             return back()->withErrors(['El permiso no pudó ser creado.']);
         }
@@ -133,19 +122,16 @@ class AdministradorController extends Controller
             return back()->with('success', "Permiso creado exitosamente.");
     }
 
-    public function tiposSeriesCreate(Request $request)
+    public function tiposSeriesCreate(Request $request)//Crea un nuevo tipo de serie
     {
         $rel = false;
-
         try {
             $rel = \DB::insert('insert into tipos_series (Nombre) values (?)', [$request->Nombre]);
-            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Tipo $request->Nombre de serie creado ","Administrador");
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Tipo $request->Nombre de serie creado ", "Administrador");
         } catch (Exception $e) {
             return back()->withErrors(['El tipo de serie no se pudó crear.']);
         }
         if ($rel)
             return back()->with('success', "Tipo de serie creado correctamente");
     }
-
-
 }

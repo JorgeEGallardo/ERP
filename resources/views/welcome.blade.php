@@ -189,6 +189,11 @@
             style="background-color:#2C3E4E; width:100%">
             <i class="fas fa-user mr-3"></i>Proveedores</a>
         @endif
+        @if(in_array("16", $roles))
+        <a href="/articulos" class="list-group-item white-text list-group-item-action waves-effect"
+            style="background-color:#2C3E4E; width:100%">
+            <i class="fas fa-user mr-3"></i>Árticulos</a>
+        @endif
         @if(in_array("101", $roles))
         <a href="/control" class="list-group-item white-text list-group-item-action waves-effect"
             style="background-color:#2C3E4E; width:100%">

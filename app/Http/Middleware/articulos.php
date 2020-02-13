@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
-
-class empresas
+use Auth;
+class articulos
 {
     /**
      * Handle an incoming request.
@@ -16,7 +15,7 @@ class empresas
      */
     public function handle($request, Closure $next)
     {
-        $role = 1; //Número de rol
+        $role = 16; //Número de rol
         if (!Auth::check()) {
             return redirect()->route('login'); //Página a la que se redireccionará si no se válida el inicio de sesión.
         }
@@ -24,13 +23,13 @@ class empresas
         $roles = Auth::user()->role;
         $roles = explode(",", $roles); //Código para sacar los roles que tiene asignado el usuario.
         if (in_array($role, $roles)) {
-            if ($method == "GET")
+            if ($method=="GET")
                 return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
-            else if (in_array(2, $roles) && $method == "POST")
+            else if (in_array(17, $roles)&&$method=="POST")
                 return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
-            else if (in_array(3, $roles) && $method == "DELETE")
+            else if (in_array(18, $roles)&&$method=="DELETE")
                 return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
-            else if (in_array(4, $roles) && $method == "PUT")
+            else if (in_array(19, $roles)&&$method=="PUT")
                 return $next($request); //Si el $role se encuentra entre los roles del usuario se redireccionará a la página deseada.
             else
                 return redirect()->back()->withErrors(['No tienes permisos para realizar esta acción']);
@@ -38,4 +37,5 @@ class empresas
             return redirect()->back()->withErrors(['No tienes permisos para acceder a esta aplicación']); //En caso de que no redireccionará a la página principal.
         }
     }
+
 }
