@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
 @if ($errors->any())
 <div class="alert alert-danger alert-dismissible fade show mt-4">
     <ul>
@@ -68,7 +66,7 @@
                 @php
                 $idNum++;
                 @endphp
-                <tr style="">
+                <tr >
                     <td style="width:2%">{{$idNum}}</td>
                     <td>{{$serie->name}}</td>
                     <td>{{$serie->email}}</td>
@@ -96,8 +94,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </td>
-
                     </td>
                     <td>
                         @php
@@ -149,7 +145,6 @@
                 @endforeach
             </tbody>
         </table>
-
     </div>
 </div>
 <div class="border">
@@ -180,7 +175,7 @@
             </thead>
             <tbody style="width:100%;">
                 @foreach ($movimientos as $movimiento)
-                <tr style="">
+                <tr >
                     <td style="width:2%">{{$movimiento->id}}</td>
                     <td>{{$movimiento->Nombre}}</td>
                     <td>{{$movimiento->Categoria}}</td>
@@ -190,7 +185,6 @@
                 @endforeach
             </tbody>
         </table>
-
     </div>
 </div>
 <div class="row" id="permisos">
@@ -219,7 +213,6 @@
                     <li class="list-group-item">{{$rol->id." | ".$rol->Nombre}}</li>
                     @endforeach
                 </ul>
-
             </div>
         </div>
     </div>
@@ -249,11 +242,8 @@
             </div>
         </div>
     </div>
-
 </div>
 </div>
-
-
 <script>
 function confirmDelete(id) {
     var result = confirm("El registro se borrará permanentemente. ¿Desea continuar?");

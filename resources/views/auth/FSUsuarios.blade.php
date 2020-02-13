@@ -79,7 +79,7 @@
                 @php
                 $idNum++;
                 @endphp
-                <tr style="">
+                <tr >
                     <td style="width:2%">{{$idNum}}</td>
                     <td>{{$serie->Nombre}}</td>
                     <td>{{$serie->Tipo}}</td>

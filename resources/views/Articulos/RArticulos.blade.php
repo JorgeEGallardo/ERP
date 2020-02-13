@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 @php
 $roles = Auth::user()->role;
@@ -39,10 +38,9 @@ $roles = explode(",",$roles);
                 @if(in_array("20", $roles))
                 <button type="button" onclick="exportExcel('Árticulos Desglose')"
                     class="btn btn-deep-purple float-right mr-4"
-                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                            class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
-            @endif
-
+                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important">
+                    <b><i class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
+                @endif
         </div>
         <div class="mt-4 px-4">
             <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
@@ -53,7 +51,6 @@ $roles = explode(",",$roles);
                         </th>
                         <th class="th-sm"><b>Nombre</b>
                         </th>
-
                         <th class="th-sm noExl"><b>Acciones</b>
                         </th>
                     </tr>
@@ -69,34 +66,23 @@ $roles = explode(",",$roles);
                     <tr>
                         <td style="width:2%">{{$idNum}}</td>
                         <td>{{$articulo->Nombre}}</td>
-
                         <td class="text-center p-1 noExl" style="width:20%">
-
-
-                            <form id="delete{{$articulo->id}}"
-                                action="{{ route('articulos.destroy', $articulo->id) }}" method="POST">
-                                @method('DELETE')
-                                @csrf
-
-
-                                <a href="/articulos/{{$articulo->id}}"><button type="button"
-                                        class="btn btn-primary" style="text-transform:none">
-                                        <i class="fas fa-info px-1 mr-2"></i>Desglose
-                                    </button></a>
-
-
-                                @isset($roles)
-                                @if(in_array("18", $roles))
-                                <button type="button" onclick="confirmDelete({{$articulo->id}})"
-                                    class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i>
-                                    Borrar</button>
-                                @endif
-                                @endisset
-
+                            <form id="delete{{$articulo->id}}" action="{{ route('articulos.destroy', $articulo->id) }}"
+                                    method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                <a href="/articulos/{{$articulo->id}}">
+                                <button type="button" class="btn btn-primary" style="text-transform:none">
+                                <i class="fas fa-info px-1 mr-2"></i>Desglose
+                                </button></a>
+                                    @isset($roles)
+                                    @if(in_array("18", $roles))
+                                    <button type="button" onclick="confirmDelete({{$articulo->id}})" class="btn btn-danger" style="text-transform:none">
+                                    <i class="fas fa-trash mr-2"></i>Borrar</button>
+                                    @endif
+                                    @endisset
                             </form>
-
                         </td>
-
                     </tr>
                     @endforeach
                 </tbody>
@@ -116,8 +102,8 @@ function confirmDelete(id) {
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1; //January is 0!
-
 var yyyy = today.getFullYear();
+
 if (dd < 10) {
     dd = '0' + dd;
 }
@@ -125,7 +111,6 @@ if (mm < 10) {
     mm = '0' + mm;
 }
 var today = dd + '-' + mm + '-' + yyyy;
-
 function getEmpresa(id) {
     $.ajax({
         url: '/empresas/' + id,

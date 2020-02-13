@@ -69,7 +69,7 @@ $roles = explode(",",$roles);
                     @php
                     $idNum++;
                     @endphp
-                    <tr style="">
+                    <tr >
                         <td style="width:2%">{{$idNum}}</td>
                         <td>{{$empresa->Nombre}}</td>
                         <td>{{$empresa->RFC}}</td>
