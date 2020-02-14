@@ -52,7 +52,14 @@ $roles = explode(",",$roles);
                         </th>
                         <th class="th-sm"><b>Nombre</b>
                         </th>
-
+                        <th class="th-sm"><b>Calle</b>
+                        </th>
+                        <th class="th-sm"><b>Colonia</b>
+                        </th>
+                        <th class="th-sm"><b>Población</b>
+                        </th>
+                        <th class="th-sm"><b>Municipio</b>
+                        </th>
                         <th class="th-sm noExl"><b>Acciones</b>
                         </th>
                     </tr>
@@ -68,7 +75,17 @@ $roles = explode(",",$roles);
                     <tr >
                         <td style="width:2%">{{$idNum}}</td>
                         <td>{{$proveedor->Nombre}}</td>
-
+                        <td>{{$proveedor->Calle}}
+                        @isset($proveedor->NExt)
+                         # {{$proveedor->NExt}}
+                        @endisset
+                        @isset($proveedor->Nint)
+                          Int: {{$proveedor->Nint}}
+                        @endisset
+                        </td>
+                        <td>{{$proveedor->Poblacion}}</td>
+                        <td>{{$proveedor->Colonia}}</td>
+                        <td>{{$proveedor->Estado}},{{$proveedor->Municipio}}</td>
                         <td class="text-center p-1 noExl" style="width:20%">
 
 
@@ -128,7 +145,7 @@ function getEmpresa(id) {
             $('#update').html(responseText);
         },
         error: function(responseText) {
-            alert('error');
+
         }
     });
 }
@@ -141,7 +158,7 @@ function edit(id) {
             $('#editModal').html(responseText);
         },
         error: function(responseText) {
-            alert('error');
+
         }
     });
 }

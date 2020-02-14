@@ -127,12 +127,13 @@
 </div>
 <script>
 function getStates(id) {
+
     $.ajax({
         url: '/getStates/' + id,
         type: 'GET',
         success: function(responseText) {
             $('#states').html(responseText);
-            getCities(1);
+            getCities(2436);
         },
         error: function(responseText) {
 
@@ -141,6 +142,7 @@ function getStates(id) {
 }
 
 function getCities(id) {
+
     $.ajax({
         url: '/getCities/' + id,
         type: 'GET',

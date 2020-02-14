@@ -119,7 +119,7 @@ function getEmpresa(id) {
             $('#update').html(responseText);
         },
         error: function(responseText) {
-            alert('error');
+
         }
     });
 }
@@ -132,7 +132,7 @@ function edit(id) {
             $('#editModal').html(responseText);
         },
         error: function(responseText) {
-            alert('error');
+
         }
     });
 }

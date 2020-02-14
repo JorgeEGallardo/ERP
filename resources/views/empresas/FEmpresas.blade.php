@@ -102,6 +102,8 @@
 </div>
 </div>
 <script>
+
+
     function getStates(id) {
         $.ajax({
             url: '/getStates/' + id,
@@ -127,5 +129,22 @@
             }
         });
     }
+    function getCountries() {
+    $.ajax({
+        url: '/getCountries',
+        type: 'GET',
+        success: function(responseText) {
+            $('#countries').html(responseText);
+            getStates(1);
+        },
+        error: function(responseText) {
+
+        }
+    });
+}
+    $(document).ready(function() {
+    getStates(1);
+    getCities(2436);
+});
 </script>
 @endsection

@@ -116,7 +116,7 @@
         </div>
     </nav>
     <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <main class="py-4  ">
 
             @yield('content')
