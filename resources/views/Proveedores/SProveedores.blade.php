@@ -36,18 +36,21 @@
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/proveedores"
-        method="POST">
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;"
+        action="/proveedores/{{$proveedor->id}}" method="POST">
         @csrf
+        @method('PUT')
         <div class="p-5">
             <div class="form-row mb-4">
 
                 <div class="col-2">
-                    <input type="text" class="form-control" name="clave" value="{{$proveedor->Clave}}" placeholder="Clave"
-                        required>
+                    <label>Clave</label>
+                    <input type="text" class="form-control" style="text-transform:capitalize" name="clave"
+                        value="{{$proveedor->Clave}}" placeholder="Clave" required>
                 </div>
 
                 <div class="col">
+                    <label>Nombre</label>
                     <input type="text" class="form-control" name="nombre" value="{{$proveedor->Nombre}}" required
                         placeholder="Nombre">
                 </div>
@@ -59,8 +62,9 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" class="form-control" name="calle" value="{{$proveedor->Calle}}" placeholder="Calle"
-                        required>
+                    <label>Calle</label>
+                    <input type="text" class="form-control" name="calle" value="{{$proveedor->Calle}}"
+                        placeholder="Calle" required>
                 </div>
             </div>
 
@@ -69,16 +73,19 @@
             <div class="form-row mb-4">
 
                 <div class="col-2">
+                    <label>No. Exterior</label>
                     <input type="text" class="form-control" name="next" value="{{$proveedor->NExt}}"
                         placeholder="Núm. Ext">
                 </div>
 
                 <div class="col-2">
+                    <label>No. Interior</label>
                     <input type="text" class="form-control" name="nInt" value="{{$proveedor->Nint}}"
                         placeholder="Núm. Int">
                 </div>
 
                 <div class="col">
+                    <label>Entre calle</label>
                     <input type="text" class="form-control" name="ecalle" value="{{$proveedor->ECalle}}"
                         placeholder="Entre calle">
                 </div>
@@ -88,29 +95,34 @@
 
             <div class="form-row mb-4">
                 <div class="col">
+                    <label>Y calle</label>
                     <input type="text" class="form-control" name="ecalle2" value="{{$proveedor->ECalle2}}"
-                        placeholder="Y calle" >
+                        placeholder="Y calle">
                 </div>
 
                 <div class="col-3">
+                    <label>Colonia</label>
                     <input type="text" class="form-control" name="colonia" value="{{$proveedor->Colonia}}" required
                         placeholder="Colonia">
                 </div>
                 <div class="col-3">
+                    <label>Código Postal</label>
                     <input type="text" class="form-control" name="CP" value="{{$proveedor->CP}}"
-                        placeholder="Código postal">
+                        placeholder="Código postal" required>
                 </div>
             </div>
 
 
             <div class="form-row mb-4">
 
-                <div class="col">
+                <div id="countries" onclick="countries()" class="col">
+                    <label>País</label>
                     <input type="text" class="form-control" name="pais" value="{{$proveedor->Pais}}" placeholder="País"
                         required>
                 </div>
 
-                <div class="col">
+                <div id="states" class="col">
+                    <label>Estado</label>
                     <input type="text" class="form-control" name="estado" value="{{$proveedor->Estado}}"
                         placeholder="Estado">
                 </div>
@@ -120,17 +132,20 @@
 
             <div class="form-row mb-4">
 
-                <div class="col-4">
-                    <input type="text" class="form-control" name="municipio" value="{{$proveedor->Municipio}}"
+                <div id="cities" class="col-4">
+                    <label>Municipio</label>
+                    <input type="text" class="form-control" name="ciudad" value="{{$proveedor->Municipio}}"
                         placeholder="Municipio" required>
                 </div>
 
                 <div class="col-4">
+                    <label>Población</label>
                     <input type="text" class="form-control" name="poblacion" value="{{$proveedor->Poblacion}}"
                         placeholder="Población">
                 </div>
 
                 <div class="col-4">
+                    <label>Nacionalidad</label>
                     <input type="text" class="form-control" name="nacionalidad" value="{{$proveedor->Nacionalidad}}"
                         placeholder="Nacionalidad">
                 </div>
@@ -139,21 +154,48 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" class="form-control" name="clasificacion" value="{{$proveedor->Clasificacion}}"
-                        placeholder="Clasificación" required>
+                    <label>Clasificación</label>
+                    <select class="form-control" name="clasificacion">
+                        @foreach($clasificacion as $class)
+                        <option type="text" class="form-control" value="{{ $class->Nombre }}" @if ($class->
+                            Nombre==$proveedor->Clasificacion)
+                            selected
+                            @endif
+                            placeholder="Clasificación" required>
+                            {{$class->Nombre}}
+                        </option>
+                        @endforeach
+                    </select>
+
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="giro" value="{{$proveedor->Giro}}" placeholder="Giro" required>
+                    <label>Giro</label>
+                    <select class="form-control" name="giro">
+                        @foreach($giros as $giro)
+                        <option type="text" class="form-control" value="{{ $giro->Nombre }}" placeholder="Clasificación"
+                            @if ($giro->Nombre==$proveedor->Giro)
+                            selected
+                            @endif
+
+                            required>
+                            {{$giro->Nombre}}
+                        </option>
+                        @endforeach
+                    </select>
+
                 </div>
             </div>
 
 
             <div class="form-row mb-4">
                 <div class="col">
+                    <label>RFC</label>
                     <input type="text" class="form-control" name="rfc" value="{{$proveedor->RFC}}" placeholder="RFC"
                         required>
                 </div>
+
                 <div class="col">
+                    <label>CURP</label>
                     <input type="text" class="form-control" name="curp" value="{{$proveedor->CURP}}" placeholder="CURP">
                 </div>
             </div>
@@ -163,28 +205,44 @@
             <p class="h4 mb-4 "> Saldo</p>
             <!-- DiasCredito	Saldo	Limite	Forma	Titular	Banco	Sucursal	Cuenta	Clabe---->
             <div class="form-row mb-4">
-                <div class="col">
-                    <input type="text" class="form-control" name="forma" value="{{$proveedor->Forma}}" placeholder="Forma"
+                <label>Forma de pago</label>
+
+                <select class="form-control" name="forma">
+                    @foreach($formas as $forma)
+                    <option type="text" class="form-control" value="{{ $forma->ID }}" placeholder="Clasificación"
+                        @if($forma->ID==$proveedor->Forma)
+                        selected
+                        @endif
                         required>
-                </div>
+
+                        {{$forma->Nombre}}
+                    </option>
+                    @endforeach
+                </select>
+
 
             </div>
             <div class="form-row mb-4">
                 <div class="col">
+                    <label>Días de crédtio</label>
                     <input type="text" class="form-control" name="dias" value="{{$proveedor->DiasCredito}}"
                         placeholder="Días de crédito" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="saldo" value="{{$proveedor->Saldo}}" placeholder="Saldo">
+                    <label>Saldo</label>
+                    <input type="text" class="form-control" name="saldo" value="{{$proveedor->Saldo}}"
+                        placeholder="Saldo">
                 </div>
             </div>
 
             <div class="form-row mb-4">
                 <div class="col">
+                    <label>Límite</label>
                     <input type="text" class="form-control" name="limite" value="{{$proveedor->Limite}}"
-                        placeholder="Límite de saldo" >
+                        placeholder="Límite de saldo">
                 </div>
                 <div class="col">
+                    <label>Titular</label>
                     <input type="text" class="form-control" name="titular" value="{{$proveedor->Titular}}"
                         placeholder="Titular">
                 </div>
@@ -192,10 +250,12 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" class="form-control" name="banco" value="{{$proveedor->Banco}}" placeholder="Banco"
-                        >
+                    <label>Banco</label>
+                    <input type="text" class="form-control" name="banco" value="{{$proveedor->Banco}}"
+                        placeholder="Banco">
                 </div>
                 <div class="col">
+                    <label>Sucursal</label>
                     <input type="text" class="form-control" name="sucursal" value="{{$proveedor->Sucursal}}"
                         placeholder="Sucursal">
                 </div>
@@ -203,11 +263,14 @@
 
             <div class="form-row mb-4">
                 <div class="col">
+                    <label>Cuenta</label>
                     <input type="text" class="form-control" name="cuenta" value="{{$proveedor->Cuenta}}"
-                        placeholder="Cuenta" >
+                        placeholder="Cuenta">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="clabe" value="{{$proveedor->Clabe}}" placeholder="Clabe">
+                    <label>Clabe</label>
+                    <input type="text" class="form-control" name="clabe" value="{{$proveedor->Clabe}}"
+                        placeholder="Clabe">
                 </div>
             </div>
 
@@ -215,21 +278,25 @@
             <p class="h4 mb-4 "> Contacto</p>
             <div class="form-row mb-4">
                 <div class="col">
+                    <label>Teléfono</label>
                     <input type="text" class="form-control" name="telefono" value="{{$proveedor->Telefono}}"
-                        placeholder="Teléfono" >
+                        placeholder="Teléfono">
                 </div>
                 <div class="col">
+                    <label>Fax</label>
                     <input type="text" class="form-control" name="fax" value="{{$proveedor->Fax}}" placeholder="Fax">
                 </div>
             </div>
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="email" class="form-control" name="email" value="{{$proveedor->email}}"
-                        placeholder="E-mail" >
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" value="{{ $proveedor->email }}"
+                        placeholder="E-mail">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="web" value="{{$proveedor->Pagina}}"
+                    <label>Página Web</label>
+                    <input type="text" class="form-control" name="web" value="{{ $proveedor->Pagina}}"
                         placeholder="Página web">
                 </div>
             </div>
@@ -244,31 +311,50 @@
 </div>
 </div>
 <script>
-/*
-    function getStates(id) {
-        $.ajax({
-            url: '/getStates/' + id,
-            type: 'GET',
-            success: function(responseText) {
-                $('#states').html(responseText);
-            },
-            error: function(responseText) {
+function getStates(id) {
+    $.ajax({
+        url: '/getStates/' + id,
+        type: 'GET',
+        success: function(responseText) {
+            $('#states').html(responseText);
+        },
+        error: function(responseText) {
 
-            }
-        });
-    }
+        }
+    });
+}
 
-    function getCities(id) {
-        $.ajax({
-            url: '/getCities/' + id,
-            type: 'GET',
-            success: function(responseText) {
-                $('#cities').html(responseText);
-            },
-            error: function(responseText) {
+function getCities(id) {
+    $.ajax({
+        url: '/getCities/' + id,
+        type: 'GET',
+        success: function(responseText) {
+            $('#cities').html(responseText);
+        },
+        error: function(responseText) {
 
-            }
-        });
-    }*/
+        }
+    });
+}
+
+function getCountries() {
+    $.ajax({
+        url: '/getCountries',
+        type: 'GET',
+        success: function(responseText) {
+            $('#countries').html(responseText);
+            getStates(1);
+        },
+        error: function(responseText) {
+
+        }
+    });
+}
+
+function countries() {
+    getStates(1);
+    getCities(2436);
+    getCountries();
+}
 </script>
 @endsection

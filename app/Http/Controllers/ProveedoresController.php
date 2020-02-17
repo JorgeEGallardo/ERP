@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\proveedoresRequest;
 use App\Proveedores;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProveedoresController extends Controller
@@ -88,11 +89,7 @@ class ProveedoresController extends Controller
         $giros = \DB::select('Select * from giros');
         $formas = \DB::select('Select * from formas_pagos');
         $clasificacion = \DB::select('Select * from clasificacion');
-
         $proveedor = Proveedores::find($id);
-        $proveedor->Municipio =  \DB::select('Select * from cities where id=?',[$proveedor->Municipio]);
-        $proveedor->Estado = \DB::select('Select * from states where id=?',[$proveedor->Estado]);
-        $proveedor->Pais =  \DB::select('Select * from countries where id=?',[$proveedor->Pais]);
         return view('proveedores.SProveedores')->with(compact('proveedor'))->with(compact('clasificacion'))->with(compact('giros'))->with(compact('formas'));
     }
 
@@ -127,7 +124,7 @@ class ProveedoresController extends Controller
         $proveedor->CP = $request->CP;
         $proveedor->Pais = $request->pais;
         $proveedor->Estado = $request->estado;
-        $proveedor->Municipio = $request->municipio;
+        $proveedor->Municipio = $request->ciudad;
         $proveedor->Poblacion = $request->poblacion;
         $proveedor->Nacionalidad = $request->nacionalidad;
         $proveedor->Clasificacion = $request->clasificacion;
@@ -148,8 +145,8 @@ class ProveedoresController extends Controller
         $proveedor->Email = $request->email;
         $proveedor->Pagina = $request->web;
         $proveedor->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $request->nombre actualizado.", "Proveedor");
-        return redirect('proveedores')->with('success', "Proveedor actualizado con éxito.");
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $request->nombre actualizado.", "Proveedores");
+        return redirect()->back()->with('success', "Proveedor actualizado con éxito.");
     }
 
     /**
@@ -163,7 +160,7 @@ class ProveedoresController extends Controller
         $proveedor = Proveedores::find($id);
         $proveedor = $proveedor->Nombre;
         Proveedores::destroy($id);
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $proveedor eliminado.", "Proveedor");
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Proveedor $proveedor eliminado.", "Proveedores");
         return redirect('proveedores')->with('success', "Proveedor $proveedor eliminado con éxito.");
     }
 }

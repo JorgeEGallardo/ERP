@@ -46,6 +46,7 @@ class empresasRequest extends FormRequest
         'telefono2.regex' => 'El teléfono adicional tiene un formato incorrecto. Solo se permiten números.',
         'numero.regex' => 'El número de calle tiene un formato incorrecto. Solo se permiten números.',
         'CP.regex' => 'El código postal tiene un formato incorrecto. Solo se permiten números.',
+
     ];
 }
 }

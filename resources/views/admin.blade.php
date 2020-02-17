@@ -147,46 +147,64 @@
         </table>
     </div>
 </div>
-<div class="border">
-    <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
-        <h2 class="text-left white-text m-1">Movimientos
-            <button type="button" onclick="exportExcelMov('Movimientos Desglose')"
-                class="btn btn-deep-purple float-right mr-4"
-                style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                        class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
+<hr>
+<div class="row" id="permisos">
+    <div class="col-sm">
+        <div class="card mdb">
+            <div class="card-body">
+                <h5 class="card-title">Clasificaciones proveedores</h5>
+                <form class="text-left border border-light  z-depth-1 white" style="padding:0% 1% 0% 1%;"
+                    action="/clasificaciones" method="POST">
+                    @csrf
+                    <div class="p-5">
+                        <div class="form-row mb-4">
+                            <div class="col" id="states">
+                                <input type="text" name="Nombre" value="{{ old('serie') }}" class="form-control"
+                                    placeholder="Clasificacion" required>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-mdb-color py-1 mb-1" style="text-transform: none; width:100%">
+                                    Agregar nueva clasificacion</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ul class="list-group">
+                    @foreach ($clasificaciones as $clasificacion)
+                    <li class="list-group-item">{{$clasificacion->id." | ".$clasificacion->Nombre}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
-    <hr>
-    <div class="mt-4 px-4">
-        <table id="workers" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
-            style="width:100%;">
-            <thead style="width:100%" class="indigo-text">
-                <tr>
-                    <th class="th-sm"><b>#</b>
-                    </th>
-                    <th class="th-sm"><b>Acción</b>
-                    </th>
-                    <th class="th-sm"><b>Categoría</b>
-                    </th>
-                    <th class="th-sm"><b>Usuario</b>
-                    </th>
-                    <th class="th-sm"><b>Fecha</b>
-                    </th>
-                </tr>
-            </thead>
-            <tbody style="width:100%;">
-                @foreach ($movimientos as $movimiento)
-                <tr >
-                    <td style="width:2%">{{$movimiento->id}}</td>
-                    <td>{{$movimiento->Nombre}}</td>
-                    <td>{{$movimiento->Categoria}}</td>
-                    <td>{{$movimiento->Usuario}}</td>
-                    <td>{{$movimiento->created_at}}</td>
-                </tr>
+    <div class="col-sm" id="tipos">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Giros de proveedores</h5>
+                <form class="text-left border border-light  z-depth-1 white" style="padding:0% 1% 0% 1%;"
+                    action="/giros" method="POST">
+                    @csrf
+                    <div class="p-5">
+                        <div class="form-row mb-4">
+                            <div class="col" id="states">
+                                <input type="text" name="Nombre" value="{{ old('serie') }}" class="form-control"
+                                    placeholder="Giro" required>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-mdb-color py-1 mb-1" style="text-transform: none; width:100%">
+                                    Agregar nuevo giro</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                @foreach ($giros as $giro)
+                <li class="list-group-item">{{$giro->id." | ".$giro->Nombre}}</li>
                 @endforeach
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
 </div>
+<hr>
 <div class="row" id="permisos">
     <div class="col-sm">
         <div class="card mdb">
@@ -243,6 +261,47 @@
         </div>
     </div>
 </div>
+<div class="border">
+    <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
+        <h2 class="text-left white-text m-1">Movimientos
+            <button type="button" onclick="exportExcelMov('Movimientos Desglose')"
+                class="btn btn-deep-purple float-right mr-4"
+                style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                        class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
+    </div>
+    <hr>
+    <div class="mt-4 px-4">
+        <table id="workers" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
+            style="width:100%;">
+            <thead style="width:100%" class="indigo-text">
+                <tr>
+                    <th class="th-sm"><b>#</b>
+                    </th>
+                    <th class="th-sm"><b>Acción</b>
+                    </th>
+                    <th class="th-sm"><b>Categoría</b>
+                    </th>
+                    <th class="th-sm"><b>Usuario</b>
+                    </th>
+                    <th class="th-sm"><b>Fecha</b>
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="width:100%;">
+                @foreach ($movimientos as $movimiento)
+                <tr >
+                    <td style="width:2%">{{$movimiento->id}}</td>
+                    <td>{{$movimiento->Nombre}}</td>
+                    <td>{{$movimiento->Categoria}}</td>
+                    <td>{{$movimiento->Usuario}}</td>
+                    <td>{{$movimiento->created_at}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </div>
 <script>
 function confirmDelete(id) {

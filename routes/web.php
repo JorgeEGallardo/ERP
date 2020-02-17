@@ -44,7 +44,8 @@ Route::delete('/series/{id}', 'registroController@destroy')->name('series.destro
 Route::delete('/serie/{id}', 'AdministradorController@serieDestroy')->name('serie.destroy')->middleware('admin');
 Route::post('/series/{id}', 'AdministradorController@serieStore')->name('series.store')->middleware('admin');
 Route::post('/series', 'AdministradorController@tiposSeriesCreate')->name('tiposSeriesCreate.store')->middleware('admin');
-
+Route::post('/giros', 'AdministradorController@girosCreate')->name('giros.store')->middleware('admin');
+Route::post('/clasificaciones', 'AdministradorController@clasificacionCreate')->name('clasificacion.store')->middleware('admin');
 //No middleware routes
 route::get('/getStates/{id}', 'auxController@getStates');
 route::get('/getCities/{id}', 'auxController@getCities');

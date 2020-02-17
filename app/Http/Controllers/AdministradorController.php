@@ -14,6 +14,8 @@ class AdministradorController extends Controller
     {
         $movimientos = Movimientos::orderBy('created_at', 'DESC')->get();
         $roles = \DB::select('select * from roles');
+        $giros = \DB::select('select * from giros');
+        $clasificaciones = \DB::select('select * from clasificacion');
         $tipos = \DB::select('select * from tipos_series');
         $usuariosSeries = \DB::select('select * from users');
         foreach ($usuariosSeries as $usuario) {
@@ -39,7 +41,7 @@ class AdministradorController extends Controller
             }
             $usuario->role = $str;
         }
-        return view('admin')->with(compact('movimientos'))->with(compact('roles'))->with(compact('tipos'))->with(compact('series'))->with(compact('usuariosSeries'))->with(compact('usuariosRoles'));
+        return view('admin')->with(compact('clasificaciones'))->with(compact('giros'))->with(compact('movimientos'))->with(compact('roles'))->with(compact('tipos'))->with(compact('series'))->with(compact('usuariosSeries'))->with(compact('usuariosRoles'));
     }
 
     public function seriesView($id) //Regresa todas las series ligadas a un usuario
@@ -133,5 +135,31 @@ class AdministradorController extends Controller
         }
         if ($rel)
             return back()->with('success', "Tipo de serie creado correctamente");
+    }
+
+    public function clasificacionCreate(Request $request)//Crea un nuevo tipo de serie
+    {
+        $rel = false;
+        try {
+            $rel = \DB::insert('insert into clasificacion (Nombre) values (?)', [$request->Nombre]);
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Clasificación $request->Nombre creada ", "Administrador");
+        } catch (Exception $e) {
+            return back()->withErrors(['El tipo de clasificación no se pudó crear.']);
+        }
+        if ($rel)
+            return back()->with('success', "Clasificación creada correctamente");
+    }
+
+    public function girosCreate(Request $request)//Crea un nuevo tipo de serie
+    {
+        $rel = false;
+        try {
+            $rel = \DB::insert('insert into giros (Nombre) values (?)', [$request->Nombre]);
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Giro $request->Nombre  creado ", "Administrador");
+        } catch (Exception $e) {
+            return back()->withErrors(['El Giro no se pudó crear.']);
+        }
+        if ($rel)
+            return back()->with('success', "Giro creado correctamente");
     }
 }
