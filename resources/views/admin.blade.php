@@ -48,10 +48,13 @@
                     </th>
                     <th class="th-sm"><b>Usuario</b>
                     </th>
+                    <th class="th-sm"><b>Tipo de usuario</b>
+                    </th>
                     <th class="th-sm"><b>E-mail</b>
                     </th>
                     <th class="th-sm"><b>Permisos</b>
                     </th>
+
                     <th class="th-sm"><b>Series</b>
                     </th>
                     <th class="th-sm noExl"><b>Acciones</b>
@@ -69,6 +72,7 @@
                 <tr >
                     <td style="width:2%">{{$idNum}}</td>
                     <td>{{$serie->name}}</td>
+                    <td>{{$usuariosTipos[$idNum-1]->role}}</td>
                     <td>{{$serie->email}}</td>
                     <td>
                         @php
@@ -125,6 +129,12 @@
                             method="POST">
                             @method('DELETE')
                             @csrf
+                            <a href="/usuario/{{$serie->id}}"><button type="button" class="btn btn-primary"
+                                    style="text-transform:none">
+                                    <i class="fas fa-user-edit px-1 mr-2"></i>Usuario
+                                </button></a>
+                            <button type="button" onclick="confirmDelete({{$serie->id}})" class="btn btn-danger"
+                                style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
                             <a href="/permisos/{{$serie->id}}"><button type="button" class="btn btn-primary"
                                     style="text-transform:none">
                                     <i class="fas fa-plus px-1 mr-2"></i>Permisos
@@ -133,12 +143,7 @@
                                     style="text-transform:none">
                                     <i class="fas fa-plus px-1 mr-2"></i>Series
                                 </button></a>
-                            <a href="/usuario/{{$serie->id}}"><button type="button" class="btn btn-primary"
-                                    style="text-transform:none">
-                                    <i class="fas fa-user-edit px-1 mr-2"></i>Usuario
-                                </button></a>
-                            <button type="button" onclick="confirmDelete({{$serie->id}})" class="btn btn-danger"
-                                style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
+
                         </form>
                     </td>
                 </tr>
@@ -261,6 +266,64 @@
         </div>
     </div>
 </div>
+<hr>
+<div class="row">
+    <div class="col-sm">
+        <div class="card mdb">
+            <div class="card-body">
+                <h5 class="card-title">Ubicaciones</h5>
+                <form class="text-left border border-light  z-depth-1 white" style="padding:0% 1% 0% 1%;"
+                    action="/ubicaciones" method="POST">
+                    @csrf
+                    <div class="p-5">
+                        <div class="form-row mb-4">
+                            <div class="col" id="states">
+                                <input type="text" name="Nombre" value="{{ old('serie') }}" class="form-control"
+                                    placeholder="Ubicación" required>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-mdb-color py-1 mb-1" style="text-transform: none; width:100%">
+                                    Agregar nueva ubicación</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ul class="list-group">
+                    @foreach ($ubicaciones as $ubicacion)
+                    <li class="list-group-item">{{$ubicacion->ID." | ".$ubicacion->Nombre}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm" >
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tipos de usuarios</h5>
+                <form class="text-left border border-light  z-depth-1 white" style="padding:0% 1% 0% 1%;"
+                    action="/tiposusuarios" method="POST">
+                    @csrf
+                    <div class="p-5">
+                        <div class="form-row mb-4">
+                            <div class="col" id="states">
+                                <input type="text" name="Nombre" value="{{ old('Nombre') }}" class="form-control"
+                                    placeholder="Tipo de usuario" required>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-mdb-color py-1 mb-1" style="text-transform: none; width:100%">
+                                    Agregar nuevo tipo de usuarios</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                @foreach ($tiposUsuarios as $tipo)
+                <li class="list-group-item">{{$tipo->ID." | ".$tipo->Nombre}}</li>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
 <div class="border">
     <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
         <h2 class="text-left white-text m-1">Movimientos

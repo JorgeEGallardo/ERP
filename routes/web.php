@@ -46,6 +46,8 @@ Route::post('/series/{id}', 'AdministradorController@serieStore')->name('series.
 Route::post('/series', 'AdministradorController@tiposSeriesCreate')->name('tiposSeriesCreate.store')->middleware('admin');
 Route::post('/giros', 'AdministradorController@girosCreate')->name('giros.store')->middleware('admin');
 Route::post('/clasificaciones', 'AdministradorController@clasificacionCreate')->name('clasificacion.store')->middleware('admin');
+Route::post('/ubicaciones', 'AdministradorController@ubicacionesCreate')->name('ubicaciones.store')->middleware('admin');
+Route::post('/tiposusuarios', 'AdministradorController@tiposUsuariosCreate')->name('tiposUsuarios.store')->middleware('admin');
 //No middleware routes
 route::get('/getStates/{id}', 'auxController@getStates');
 route::get('/getCities/{id}', 'auxController@getCities');

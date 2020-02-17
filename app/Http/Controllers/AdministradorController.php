@@ -15,6 +15,8 @@ class AdministradorController extends Controller
         $movimientos = Movimientos::orderBy('created_at', 'DESC')->get();
         $roles = \DB::select('select * from roles');
         $giros = \DB::select('select * from giros');
+        $ubicaciones = \DB::select('select * from ubicaciones');
+        $tiposUsuarios = \DB::select('select * from tipos_usuarios');
         $clasificaciones = \DB::select('select * from clasificacion');
         $tipos = \DB::select('select * from tipos_series');
         $usuariosSeries = \DB::select('select * from users');
@@ -30,7 +32,7 @@ class AdministradorController extends Controller
         $series = \DB::select('select U.name as Nombre,S.id ,U.email as Email, T.Nombre as Tipo, S.Nombre as Serie from users U inner
         join tipos_series T inner join series S where T.id = S.id_tipo and S.id_usuario = u.id');
         $usuariosRoles = \DB::select('select * from users');
-
+        $usuariosTipos = \DB::select('select * from USERS');
         foreach ($usuariosRoles as $usuario) {
             $rolesS = explode(",", $usuario->role);
             $str = "";
@@ -41,7 +43,27 @@ class AdministradorController extends Controller
             }
             $usuario->role = $str;
         }
-        return view('admin')->with(compact('clasificaciones'))->with(compact('giros'))->with(compact('movimientos'))->with(compact('roles'))->with(compact('tipos'))->with(compact('series'))->with(compact('usuariosSeries'))->with(compact('usuariosRoles'));
+        foreach ($usuariosTipos as $usuario) {
+            $rolesS = explode(",", $usuario->role);
+            $str = "";
+            foreach ($rolesS as $rol) {
+                $rolN = \DB::select('select Nombre from tipos_usuarios where id = ?', [$rol]);
+                if (isset($rolN[0]))
+                    $str = $str . $rolN[0]->Nombre . ",";
+            }
+            $usuario->role = $str;
+        }
+        return view('admin')->with(compact('tiposUsuarios'))
+        ->with(compact('ubicaciones'))
+        ->with(compact('clasificaciones'))
+        ->with(compact('giros'))
+        ->with(compact('movimientos'))
+        ->with(compact('roles'))
+        ->with(compact('tipos'))
+        ->with(compact('series'))
+        ->with(compact('usuariosSeries'))
+        ->with(compact('usuariosRoles'))
+        ->with(compact('usuariosTipos'));
     }
 
     public function seriesView($id) //Regresa todas las series ligadas a un usuario
@@ -54,9 +76,10 @@ class AdministradorController extends Controller
     public function rolesView($id)//Regresa todos los permisos ligados a un usuario
     {
         $roles = \DB::select('select * from roles');
+        $tiposUsuarios = \DB::select('select * from tipos_usuarios');
         $rolesUsuario = \DB::select('select role from users where id=?', [$id]);
         $rolesUsuario = explode(",", $rolesUsuario[0]->role);
-        return view('Auth.FPUsuarios')->with(compact('roles'))->with(compact('rolesUsuario'))->with('id', $id);
+        return view('Auth.FPUsuarios')->with(compact('roles'))->with(compact('rolesUsuario'))->with('id', $id)->with(compact('tiposUsuarios'));
     }
 
     public function permisosEdit($id, Request $request)//Actualiza los permisos de un usuario
@@ -149,7 +172,30 @@ class AdministradorController extends Controller
         if ($rel)
             return back()->with('success', "Clasificación creada correctamente");
     }
-
+    public function tiposUsuariosCreate(Request $request)//Crea un nuevo tipo de serie
+    {
+        $rel = false;
+        try {
+            $rel = \DB::insert('insert into tipos_usuarios (Nombre) values (?)', [$request->Nombre]);
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("El tipo de usuario $request->Nombre creado ", "Administrador");
+        } catch (Exception $e) {
+            return back()->withErrors(['El tipo de usuario no se pudó crear.']);
+        }
+        if ($rel)
+            return back()->with('success', "Tipo de usuario creado correctamente");
+    }
+    public function ubicacionesCreate(Request $request)//Crea un nuevo tipo de serie
+    {
+        $rel = false;
+        try {
+            $rel = \DB::insert('insert into ubicaciones (Nombre) values (?)', [$request->Nombre]);
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Ubicación $request->Nombre creada ", "Administrador");
+        } catch (Exception $e) {
+            return back()->withErrors(['La ubicación no se pudó crear.'.$e]);
+        }
+        if ($rel)
+            return back()->with('success', "Ubicación creada correctamente");
+    }
     public function girosCreate(Request $request)//Crea un nuevo tipo de serie
     {
         $rel = false;
