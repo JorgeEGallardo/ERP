@@ -69,7 +69,7 @@
                 @php
                 $idNum++;
                 @endphp
-                <tr >
+                <tr>
                     <td style="width:2%">{{$idNum}}</td>
                     <td>{{$serie->name}}</td>
                     <td>{{$usuariosTipos[$idNum-1]->role}}</td>
@@ -137,7 +137,7 @@
                                 style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
                             <a href="/permisos/{{$serie->id}}"><button type="button" class="btn btn-primary"
                                     style="text-transform:none">
-                                    <i class="fas fa-plus px-1 mr-2"></i>Permisos
+                                    <i class="fas fa-plus px-1 mr-2"></i>Permisos y roles
                                 </button></a>
                             <a href="/series/{{$serie->id}}"><button type="button" class="btn btn-primary"
                                     style="text-transform:none">
@@ -182,7 +182,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm" id="tipos">
+    <div class="col-sm" id="giros">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Giros de proveedores</h5>
@@ -267,7 +267,7 @@
     </div>
 </div>
 <hr>
-<div class="row">
+<div class="row" id="ubicaciones">
     <div class="col-sm">
         <div class="card mdb">
             <div class="card-body">
@@ -296,7 +296,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm" >
+    <div class="col-sm">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Tipos de usuarios</h5>
@@ -352,7 +352,7 @@
             </thead>
             <tbody style="width:100%;">
                 @foreach ($movimientos as $movimiento)
-                <tr >
+                <tr>
                     <td style="width:2%">{{$movimiento->id}}</td>
                     <td>{{$movimiento->Nombre}}</td>
                     <td>{{$movimiento->Categoria}}</td>
@@ -396,6 +396,7 @@ function exportExcel(str) {
         preserveColors: true
     });
 }
+
 function exportExcelMov(str) {
     $("#workers").table2excel({
         exclude: ".noExl",

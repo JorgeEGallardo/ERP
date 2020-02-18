@@ -7,6 +7,8 @@ use App\Movimientos;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class AdministradorController extends Controller
 {
@@ -194,10 +196,12 @@ class AdministradorController extends Controller
             return back()->withErrors(['La ubicación no se pudó crear.'.$e]);
         }
         if ($rel)
-            return back()->with('success', "Ubicación creada correctamente");
+        return Redirect::to(URL::previous() . "#ubicaciones")->with('success', "Ubicación creada correctamente");
     }
     public function girosCreate(Request $request)//Crea un nuevo tipo de serie
     {
+
+
         $rel = false;
         try {
             $rel = \DB::insert('insert into giros (Nombre) values (?)', [$request->Nombre]);
@@ -206,6 +210,6 @@ class AdministradorController extends Controller
             return back()->withErrors(['El Giro no se pudó crear.']);
         }
         if ($rel)
-            return back()->with('success', "Giro creado correctamente");
+        return Redirect::to(URL::previous() . "#giros")->with('success', "Giro creado correctamente");
     }
 }

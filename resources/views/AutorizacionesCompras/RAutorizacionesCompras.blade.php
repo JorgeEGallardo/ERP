@@ -30,15 +30,12 @@ $roles = explode(",",$roles);
     @endif
     <div class="border">
         <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
-            <h2 class="text-left white-text m-1">Departamentos
+            <h2 class="text-left white-text m-1">Autorizaciones Compras
                 @if(in_array("7", $roles))
-                <a href="/departamentos/create"><button class="btn btn-deep-purple float-right"
+                <a href="/autorizacionesCompras/create"><button class="btn btn-deep-purple float-right"
                         style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="fas fa-plus mr-2"></i>Crear nuevo departamento</b></button></a>
+                                class="fas fa-plus mr-2"></i>Crear nueva autorización</b></button></a>
                 @endif
-                <a href="/autorizaciones"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="fas fa-chalkboard-teacher mr-2"></i>Autorizaciones</b></button></a>
                 @if(in_array("10", $roles))
                 <button type="button" onclick="exportExcel('Departamentos Desglose')"
                     class="btn btn-deep-purple float-right mr-4"
@@ -54,9 +51,11 @@ $roles = explode(",",$roles);
                     <tr>
                         <th class="th-sm"><b>#</b>
                         </th>
-                        <th class="th-sm"><b>Nombre</b>
+                        <th class="th-sm"><b>Usuarios</b>
                         </th>
-                        <th class="th-sm"><b>Ubicación</b>
+                        <th class="th-sm"><b>Límite inferior</b>
+                        </th>
+                        <th class="th-sm noExl"><b>Límite superior</b>
                         </th>
                         <th class="th-sm noExl"><b>Acciones</b>
                         </th>
@@ -66,24 +65,25 @@ $roles = explode(",",$roles);
                     @php
                     $idNum = 0;
                     @endphp
-                    @foreach ($departamentos as $departamento)
+                    @foreach ($usuarios as $usuario)
                     @php
                     $idNum++;
                     @endphp
                     <tr>
                         <td style="width:2%">{{$idNum}}</td>
-                        <td>{{$departamento->Nombre}}</td>
-                        <td>{{$departamento->Ubicacion}}</td>
+                        <td>{{$usuario->Nombre}}</td>
+                        <td>{{$usuario->LimiteInferior}}</td>
+                        <td>{{$usuario->LimiteSuperior}}</td>
                         <td class="text-center p-1 noExl" style="width:20%">
 
 
-                            <form id="delete{{$departamento->id}}"
-                                action="{{ route('departamentos.destroy', $departamento->id) }}" method="POST">
+                            <form id="delete{{$usuario->id}}"
+                                action="{{ route('autorizacionesCompras.destroy', $usuario->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
 
 
-                                <a href="/departamentos/{{$departamento->id}}"><button type="button"
+                                <a href="/autorizacionesCompras/{{$usuario->id}}"><button type="button"
                                         class="btn btn-primary" style="text-transform:none">
                                         <i class="fas fa-info px-1 mr-2"></i>Desglose
                                     </button></a>
@@ -91,7 +91,7 @@ $roles = explode(",",$roles);
 
                                 @isset($roles)
                                 @if(in_array("8", $roles))
-                                <button type="button" onclick="confirmDelete({{$departamento->id}})"
+                                <button type="button" onclick="confirmDelete({{$usuario->id}})"
                                     class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i>
                                     Borrar</button>
                                 @endif

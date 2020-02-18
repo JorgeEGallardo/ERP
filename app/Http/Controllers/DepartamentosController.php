@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\departamentos as Departamentos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DepartamentosController extends Controller
 {
@@ -12,9 +13,11 @@ class DepartamentosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        $departamentos = Departamentos::all();
+        $departamentos = DB::select('select D.id,D.Nombre, U.Nombre as Ubicacion from departamentos D inner join ubicaciones U where D.ubicacion=U.ID');
         return view('departamentos.RDepartamentos')->with(compact('departamentos'));
     }
 
@@ -25,7 +28,8 @@ class DepartamentosController extends Controller
      */
     public function create()
     {
-        return view('departamentos.FDepartamentos');
+        $ubicaciones = DB::select('select * from ubicaciones');
+        return view('departamentos.FDepartamentos')->with(compact('ubicaciones'));
     }
 
     /**
@@ -37,7 +41,11 @@ class DepartamentosController extends Controller
     public function store(Request $request)
     {
         $departamento = new Departamentos();
+        $existe= DB::select('select * from departamentos where Nombre = ? and Ubicacion = ?',[$request->nombre, $request->ubicacion]);
+        if(isset($existe[0]))
+            return back()->withErrors('Este departamento ya existe.');
         $departamento->Nombre = $request->nombre;
+        $departamento->Ubicacion = $request->ubicacion;
         $departamento->save();
         \App\Helpers\AuxFunction::instance()->movimientoNuevo("Departamento $request->nombre agregado.","Administrador");
         return back()->with('success', "Departamento agregado con éxito.");
@@ -52,7 +60,8 @@ class DepartamentosController extends Controller
     public function show($id)
     {
         $departamento = Departamentos::find($id);
-        return view('departamentos.SDepartamentos')->with(compact('departamento'));
+        $ubicaciones = DB::select('select * from ubicaciones');
+        return view('departamentos.SDepartamentos')->with(compact('ubicaciones'))->with(compact('departamento'));
     }
 
     /**

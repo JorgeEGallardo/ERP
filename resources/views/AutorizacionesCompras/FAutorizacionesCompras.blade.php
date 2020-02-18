@@ -29,14 +29,14 @@
 
 
     <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
-        <h2 class="text-left white-text m-1">Crear nuevo departamento
-            <a href="/departamentos"><button class="btn btn-deep-purple float-right"
+        <h2 class="text-left white-text m-1">Crear nueva autorización compras
+            <a href="/autorizacionesCompras"><button class="btn btn-deep-purple float-right"
                     style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
                             class="far fa-eye mr-2"></i>Ver registros</b></button></a>
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/departamentos"
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/autorizacionesCompras"
         method="POST">
         @csrf
         <div class="p-5">
@@ -44,19 +44,22 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" id="NDepartamento" name="nombre" class="form-control"
-                        placeholder="Nombre del departamento" value="{{ old('nombre') }}" required>
+                    <input type="text" id="LInferior" name="linferior" class="form-control"
+                        placeholder="Limite inferior" value="{{ old('linferior') }}" >
                 </div>
-
+                <div class="col">
+                    <input type="text" id="LSuperior" name="lsuperior" class="form-control"
+                        placeholder="Limite superior" value="{{ old('lsuperior') }}" >
+                </div>
             </div>
             <div class="form-row mb-4">
-                <label>Ubicación</label>
+                <label>Autorizadores</label>
 
-                <select class="form-control" name="ubicacion">
-                    @foreach($ubicaciones as $ubicacion)
-                    <option type="text" class="form-control" value="{{ $ubicacion->ID }}" placeholder="Ubicacion"
+                <select class="form-control" name="usuario">
+                    @foreach($usuarios as $usuario)
+                    <option type="text" class="form-control" value="{{ $usuario->ID }}" placeholder="Ubicacion"
                         required>
-                        {{$ubicacion->Nombre}}
+                        {{$usuario->Nombre}}
                     </option>
                     @endforeach
                 </select>
@@ -65,38 +68,12 @@
             </div>
             <hr>
 
-            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Crear nuevo
-                departamento</button>
+            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Crear nueva autorización de compras</button>
         </div>
     </form>
 </div>
 </div>
 <script>
-/*
-    function getStates(id) {
-        $.ajax({
-            url: '/getStates/' + id,
-            type: 'GET',
-            success: function(responseText) {
-                $('#states').html(responseText);
-            },
-            error: function(responseText) {
 
-            }
-        });
-    }
-
-    function getCities(id) {
-        $.ajax({
-            url: '/getCities/' + id,
-            type: 'GET',
-            success: function(responseText) {
-                $('#cities').html(responseText);
-            },
-            error: function(responseText) {
-
-            }
-        });
-    }*/
 </script>
 @endsection

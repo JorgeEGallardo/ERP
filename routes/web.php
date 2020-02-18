@@ -23,12 +23,17 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Auth::routes();
 
 Route::resource('/departamentos', 'DepartamentosController')->middleware('departamentos');
+Route::resource('/autorizaciones', 'AutorizacionesController')->middleware('departamentos');
 Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
 Route::resource('/proveedores', 'ProveedoresController')->middleware('proveedores');
 Route::resource('/articulos', 'ArticulosController')->middleware('articulos');
-
+Route::resource('/autorizacionesCompras', 'AutorizacionesComprasController')->middleware('articulos');
 
 //Usuarios
+Route::get('temporal', function () {
+
+});
+
 Route::get('/registro', 'registroController@create')->name('registro')->middleware('admin');
 Route::post('/registro/create', 'registroController@store')->name('registro/create')->middleware('admin');
 Route::get('/usuarios', 'registroController@index')->name('usuarios')->middleware('admin');
@@ -48,6 +53,7 @@ Route::post('/giros', 'AdministradorController@girosCreate')->name('giros.store'
 Route::post('/clasificaciones', 'AdministradorController@clasificacionCreate')->name('clasificacion.store')->middleware('admin');
 Route::post('/ubicaciones', 'AdministradorController@ubicacionesCreate')->name('ubicaciones.store')->middleware('admin');
 Route::post('/tiposusuarios', 'AdministradorController@tiposUsuariosCreate')->name('tiposUsuarios.store')->middleware('admin');
+
 //No middleware routes
 route::get('/getStates/{id}', 'auxController@getStates');
 route::get('/getCities/{id}', 'auxController@getCities');
