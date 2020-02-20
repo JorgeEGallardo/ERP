@@ -355,7 +355,7 @@
                     <div class="additional">
                         <div class="user-card">
                             <div class="level center">
-                                Administrador
+                                Configuración
                             </div>
                         </div>
                         <div class="more-info">
@@ -395,7 +395,7 @@
                     <div class="additional">
                         <div class="user-card">
                             <div class="level center">
-                                Administrador
+                                Configuración
                             </div>
                         </div>
                         <div class="more-info">
@@ -434,7 +434,7 @@
                     <div class="additional">
                         <div class="user-card">
                             <div class="level center">
-                                Administrador
+                                Configuración
                             </div>
                         </div>
                         <div class="more-info">
@@ -473,7 +473,7 @@
                     <div class="additional">
                         <div class="user-card">
                             <div class="level center">
-                                Administrador
+                                Configuración
                             </div>
                         </div>
                         <div class="more-info">
@@ -513,11 +513,11 @@
                     <div class="additional">
                         <div class="user-card">
                             <div class="level center">
-                                Administrador
+                                Configuración
                             </div>
                         </div>
                         <div class="more-info">
-                            <h2>Adminstrador</h2>
+                            <h2>Administrador</h2>
                             <div class="stats">
                                 <div>
                                     <a style="color:white" href="/control">
