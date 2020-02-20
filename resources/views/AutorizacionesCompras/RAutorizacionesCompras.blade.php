@@ -91,8 +91,8 @@ $roles = explode(",",$roles);
 
                                 @isset($roles)
                                 @if(in_array("8", $roles))
-                                <button type="button" onclick="confirmDelete({{$usuario->id}})"
-                                    class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i>
+                                <button type="button" onclick="confirmDelete({{$usuario->id}})" class="btn btn-danger"
+                                    style="text-transform:none"><i class="fas fa-trash mr-2"></i>
                                     Borrar</button>
                                 @endif
                                 @endisset

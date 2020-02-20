@@ -30,11 +30,14 @@
 
     <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
         <h2 class="text-left white-text m-1">Crear nuevo departamento
-            <a href="/departamentos"><button class="btn btn-deep-purple float-right" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye mr-2"></i>Ver registros</b></button></a>
+            <a href="/departamentos"><button class="btn btn-deep-purple float-right"
+                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                            class="far fa-eye mr-2"></i>Ver registros</b></button></a>
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/departamentos/{{$departamento->id}}" method="POST">
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;"
+        action="/departamentos/{{$departamento->id}}" method="POST">
         @csrf
         @method('PUT')
         <div class="p-5">
@@ -42,19 +45,29 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" id="NDepartamento" name="nombre" class="form-control" placeholder="Nombre del departamento" value="{{ $departamento->Nombre }}" required>
+                    <input type="text" id="NDepartamento" autofocus name="nombre" class="form-control"
+                        placeholder="Nombre del departamento" value="{{ $departamento->Nombre }}" required>
                 </div>
 
             </div>
+            <select class="form-control" name="ubicacion">
+                @foreach($ubicaciones as $ubicacion)
+                <option type="text" @if($ubicacion->id = $departamento->Ubicacion) selected @endif class="form-control"
+                    value="{{ $ubicacion->ID }}" placeholder="Ubicacion" required>
+                    {{$ubicacion->Nombre}}
+                </option>
+                @endforeach
+            </select>
             <hr>
 
-            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Editar departamento</button>
+            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Editar
+                departamento</button>
         </div>
     </form>
 </div>
 </div>
 <script>
-    /*
+/*
     function getStates(id) {
         $.ajax({
             url: '/getStates/' + id,

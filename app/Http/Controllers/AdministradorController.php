@@ -75,32 +75,46 @@ class AdministradorController extends Controller
         return view('Auth.FSUsuarios')->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function rolesView($id)//Regresa todos los permisos ligados a un usuario
+    public function rolesView($id, $user=null)//Regresa todos los permisos ligados a un usuario
     {
+        $usuarios = \DB::select('select * from users');
         $roles = \DB::select('select * from roles');
         $tiposUsuarios = \DB::select('select * from tipos_usuarios');
         $rolesUsuario = \DB::select('select role from users where id=?', [$id]);
         $rolesUsuario = explode(",", $rolesUsuario[0]->role);
-        return view('Auth.FPUsuarios')->with(compact('roles'))->with(compact('rolesUsuario'))->with('id', $id)->with(compact('tiposUsuarios'));
+        if(isset($user))
+            $id=$user;
+        return view('Auth.FPUsuarios')->with(compact('usuarios'))->with(compact('roles'))->with(compact('rolesUsuario'))->with('id', $id)->with(compact('tiposUsuarios'));
     }
 
     public function permisosEdit($id, Request $request)//Actualiza los permisos de un usuario
     {
         $usuario = User::find($id);
         $roles = explode(',', $usuario->role);
+        if (!isset($roles))
+            $roles=array();
+        try{
 
-        if (in_array('101', $roles))
-            $roles = array_merge($request->roles, ['101']);
-        else
-            $roles = $request->roles;
-        if (isset($request->roles))
+        if (isset($request->roles)){
+            if (in_array('101', $roles))
+                $roles = array_merge($request->roles, ['101']);
+            else
+                $roles = $request->roles;
             $usuario->role = implode(",", $roles);
+        }
         else
-            $usuario->role = "";
+            if (in_array('101', $roles))
+                $usuario->role = "101";
+            else
+                $usuario->role = "";
+
         $usuario->save();
         \App\Helpers\AuxFunction::instance()->movimientoNuevo("Cambio de permisos al usuario " . "$usuario->name", "Administrador");
 
         return redirect('/control')->with('success', "Permisos actualizados con éxito.");
+        }catch(Exception $e){
+            return redirect('/control')->withErrors('Hubó un error al intentar actualizar los permisos'.$e);
+        }
     }
 
     public function serieStore($id, seriesRequest $request)//Crea una nueva serie

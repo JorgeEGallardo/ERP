@@ -44,7 +44,7 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" id="NDepartamento" name="nombre" class="form-control"
+                    <input type="text" id="NDepartamento" autofocus name="nombre" class="form-control"
                         placeholder="Nombre del departamento" value="{{ old('nombre') }}" required>
                 </div>
 
@@ -98,5 +98,8 @@
             }
         });
     }*/
+    $( document ).ready(function() {
+        $("input:text:visible:first").focus();
+});
 </script>
 @endsection

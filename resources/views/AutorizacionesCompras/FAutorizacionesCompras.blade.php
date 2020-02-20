@@ -36,8 +36,8 @@
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/autorizacionesCompras"
-        method="POST">
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;"
+        action="/autorizacionesCompras" method="POST">
         @csrf
         <div class="p-5">
             <p class="h4 mb-4 "> Datos generales</p>
@@ -45,11 +45,11 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <input type="text" id="LInferior" name="linferior" class="form-control"
-                        placeholder="Limite inferior" value="{{ old('linferior') }}" >
+                        placeholder="Limite inferior" value="{{ old('linferior') }}">
                 </div>
                 <div class="col">
                     <input type="text" id="LSuperior" name="lsuperior" class="form-control"
-                        placeholder="Limite superior" value="{{ old('lsuperior') }}" >
+                        placeholder="Limite superior" value="{{ old('lsuperior') }}">
                 </div>
             </div>
             <div class="form-row mb-4">
@@ -68,7 +68,8 @@
             </div>
             <hr>
 
-            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Crear nueva autorización de compras</button>
+            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Crear nueva autorización de
+                compras</button>
         </div>
     </form>
 </div>

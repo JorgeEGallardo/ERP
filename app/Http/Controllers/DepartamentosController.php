@@ -84,7 +84,11 @@ class DepartamentosController extends Controller
     public function update(Request $request, $id)
     {
         $departamento=Departamentos::find($id);
+        $existe= DB::select('select * from departamentos where Nombre = ? and Ubicacion = ?',[$request->nombre, $request->ubicacion]);
+        if(isset($existe[0]))
+            return back()->withErrors('Este departamento ya existe.');
         $departamento->Nombre = $request->nombre;
+        $departamento->Ubicacion = $request->ubicacion;
         $departamento->save();
         \App\Helpers\AuxFunction::instance()->movimientoNuevo("Departamento $request->nombre actualizado.","Administrador");
         return redirect('departamentos')->with('success', "Departamento actualizado con éxito.");

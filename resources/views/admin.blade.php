@@ -54,7 +54,6 @@
                     </th>
                     <th class="th-sm"><b>Permisos</b>
                     </th>
-
                     <th class="th-sm"><b>Series</b>
                     </th>
                     <th class="th-sm noExl"><b>Acciones</b>
@@ -174,11 +173,19 @@
                         </div>
                     </div>
                 </form>
-                <ul class="list-group">
-                    @foreach ($clasificaciones as $clasificacion)
-                    <li class="list-group-item">{{$clasificacion->id." | ".$clasificacion->Nombre}}</li>
-                    @endforeach
-                </ul>
+                <button class="btn btn-primary" style="text-transform:none" onclick="parentNode.removeChild(this)"
+                    type="button" data-toggle="collapse" data-target="#collapseClasificacion" aria-expanded="false"
+                    aria-controls="collapseClasificacion">
+                    Mostrar registros
+                </button>
+
+                <div class="collapse" id="collapseClasificacion">
+                        <ul class="list-group">
+                            @foreach ($clasificaciones as $clasificacion)
+                            <li class="list-group-item">{{$clasificacion->id." | ".$clasificacion->Nombre}}</li>
+                            @endforeach
+                        </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -202,9 +209,16 @@
                         </div>
                     </div>
                 </form>
+                <button class="btn btn-primary" style="text-transform:none" onclick="parentNode.removeChild(this)"
+                    type="button" data-toggle="collapse" data-target="#collapseGiros" aria-expanded="false"
+                    aria-controls="collapseGiros">
+                    Mostrar registros
+                </button>
+                <div class="collapse" id="collapseGiros">
                 @foreach ($giros as $giro)
                 <li class="list-group-item">{{$giro->id." | ".$giro->Nombre}}</li>
                 @endforeach
+            </div>
             </div>
         </div>
     </div>
@@ -231,11 +245,18 @@
                         </div>
                     </div>
                 </form>
+                <button class="btn btn-primary" style="text-transform:none" onclick="parentNode.removeChild(this)"
+                    type="button" data-toggle="collapse" data-target="#collapseRoles" aria-expanded="false"
+                    aria-controls="collapseRoles">
+                    Mostrar registros
+                </button>
+                <div class="collapse" id="collapseRoles">
                 <ul class="list-group">
                     @foreach ($roles as $rol)
                     <li class="list-group-item">{{$rol->id." | ".$rol->Nombre}}</li>
                     @endforeach
                 </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -259,10 +280,17 @@
                         </div>
                     </div>
                 </form>
+                <button class="btn btn-primary" style="text-transform:none" onclick="parentNode.removeChild(this)"
+                    type="button" data-toggle="collapse" data-target="#collapseTipos" aria-expanded="false"
+                    aria-controls="collapseTipos">
+                    Mostrar registros
+                </button>
+                <div class="collapse" id="collapseTipos">
                 @foreach ($tipos as $tipo)
                 <li class="list-group-item">{{$tipo->id." | ".$tipo->Nombre}}</li>
                 @endforeach
             </div>
+        </div>
         </div>
     </div>
 </div>
@@ -288,11 +316,18 @@
                         </div>
                     </div>
                 </form>
+                <button class="btn btn-primary" style="text-transform:none" onclick="parentNode.removeChild(this)"
+                    type="button" data-toggle="collapse" data-target="#collapseUbicacion" aria-expanded="false"
+                    aria-controls="collapseUbicacion">
+                    Mostrar registros
+                </button>
+                <div class="collapse" id="collapseUbicacion">
                 <ul class="list-group">
                     @foreach ($ubicaciones as $ubicacion)
                     <li class="list-group-item">{{$ubicacion->ID." | ".$ubicacion->Nombre}}</li>
                     @endforeach
                 </ul>
+            </div>
             </div>
         </div>
     </div>
@@ -316,15 +351,22 @@
                         </div>
                     </div>
                 </form>
+                <button class="btn btn-primary" style="text-transform:none" onclick="parentNode.removeChild(this)"
+                    type="button" data-toggle="collapse" data-target="#collapseTUsuarios" aria-expanded="false"
+                    aria-controls="collapseTUsuarios">
+                    Mostrar registros
+                </button>
+                <div class="collapse" id="collapseTUsuarios">
                 @foreach ($tiposUsuarios as $tipo)
                 <li class="list-group-item">{{$tipo->ID." | ".$tipo->Nombre}}</li>
                 @endforeach
             </div>
         </div>
+        </div>
     </div>
 </div>
 <hr>
-<div class="border">
+<div class="border" id="movimientos">
     <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
         <h2 class="text-left white-text m-1">Movimientos
             <button type="button" onclick="exportExcelMov('Movimientos Desglose')"

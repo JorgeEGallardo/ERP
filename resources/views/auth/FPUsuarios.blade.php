@@ -74,6 +74,18 @@
         action="/permisos/{{$id}}" method="POST">
         @csrf
         @method('PUT')
+        <div class="form-row mb-4">
+            <div class="col">
+                <select id="usuarios" onchange="window.location.href = '/permisos/'+this.value+'/{{$id}}'"  class="form-control" placeholder="País" >
+                <option value=""></option>
+                @foreach($usuarios as $usuario)
+                    <option value="{{$usuario->id}}">{{$usuario->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+        </div>
+
         <div class="p-5">
             <div style="width:40%; float:left;margin:0px">
                 <h2>Tipos de usuario</h2>

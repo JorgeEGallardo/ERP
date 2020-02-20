@@ -36,8 +36,8 @@
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/autorizacionesCompras/{{$autorizacion->id}}"
-        method="POST">
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;"
+        action="/autorizacionesCompras/{{$autorizacion->id}}" method="POST">
         @csrf
         @method('PUT')
         <div class="p-5">
@@ -46,11 +46,11 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <input type="text" id="LInferior" name="linferior" class="form-control"
-                        placeholder="Limite inferior" value="{{ $autorizacion->LimiteInferior }}" >
+                        placeholder="Limite inferior" value="{{ $autorizacion->LimiteInferior }}">
                 </div>
                 <div class="col">
                     <input type="text" id="LSuperior" name="lsuperior" class="form-control"
-                        placeholder="Limite superior" value="{{ $autorizacion->LimiteSuperior }}" >
+                        placeholder="Limite superior" value="{{ $autorizacion->LimiteSuperior }}">
                 </div>
             </div>
             <div class="form-row mb-4">
@@ -58,7 +58,8 @@
 
                 <select class="form-control" name="usuario">
                     @foreach($usuarios as $usuario)
-                    <option type="text" @if($usuario->ID==$autorizacion->id_tipo_usuario) selected @endif class="form-control" value="{{ $usuario->ID }}" placeholder="Ubicacion"
+                    <option type="text" @if($usuario->ID==$autorizacion->id_tipo_usuario) selected @endif
+                        class="form-control" value="{{ $usuario->ID }}" placeholder="Ubicacion"
                         required>
                         {{$usuario->Nombre}}
                     </option>
@@ -69,7 +70,8 @@
             </div>
             <hr>
 
-            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Actualizar autorización de compras</button>
+            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Actualizar autorización de
+                compras</button>
         </div>
     </form>
 </div>

@@ -41,7 +41,7 @@ Route::get('/usuario/{id}', 'registroController@Edit')->name('usuarios.Edit')->m
 Route::put('/usuario/edit/{id}', 'registroController@usuarioEdit')->name('usuario.Edit')->middleware('admin');
 Route::get('/control', 'AdministradorController@index')->name('control')->middleware('admin');
 Route::get('/series/{id}', 'AdministradorController@seriesView')->name('series')->middleware('admin');
-Route::get('/permisos/{id}', 'AdministradorController@rolesView')->name('roles')->middleware('admin');
+Route::get('/permisos/{id}/{name?}', 'AdministradorController@rolesView')->name('roles')->middleware('admin');
 Route::delete('/permisos/{id}', 'AdministradorController@destroy')->name('permisos.destroy')->middleware('admin');
 Route::put('/permisos/{id}', 'AdministradorController@PermisosEdit')->name('permisos/edit')->middleware('admin');
 Route::post('/permisos', 'AdministradorController@permisosCreate')->name('permisos/edit')->middleware('admin');
