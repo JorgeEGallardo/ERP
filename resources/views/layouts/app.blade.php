@@ -123,6 +123,8 @@
                     $avisosC = count($avisos);
                     $avisoImg=array('ey','alerta.svg','ey');
                     $empresas = \DB::select('select * from empresas');
+
+                    if(!isset(session(['key'])))
                     @endphp
                     <div class="dropdown2 mr-4">
                         @if($avisosC>0)
@@ -142,6 +144,7 @@
                                     </li>
                                     @endforeach
                                 </ul>
+
                             </div>
                         </div>
                     </div>
