@@ -348,7 +348,7 @@
             <i class="fas fa-user mr-3"></i> Panel <strong>Administrador</strong></a>
         @endif
 --->
-    @if(in_array("1", $roles))
+        @if(in_array("1", $roles))
         <a href="/empresas">
             <div class="center">
                 <div class="card">

@@ -38,31 +38,56 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-    .dropdown2 {
-        position: relative;
-        display: inline-block;
-    }
+        .dropdown2 {
+            position: relative;
+            display: inline-block;
+        }
 
-    .dropdown2-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-    }
+        .dropdown2-content {
+            display: none;
+            margin-left: -50%;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
 
-    .dropdown2-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
+        .dropdown2-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
 
 
-    .dropdown2:hover .dropdown2-content {
-        display: block;
-    }
+        .dropdown2:hover .dropdown2-content {
+            display: block;
+        }
+
+        .notify {
+            border-radius: 5%;
+            width: 16rem;
+            display: block;
+            overflow: hidden;
+        }
+
+        .notify img {
+            width: 1rem;
+            margin-right: 0.5rem;
+
+            margin-bottom: 0.5rem;
+        }
+
+        .badge2 {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            padding: 2% 10% 2% 10%;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
     </style>
 </head>
 
@@ -77,8 +102,7 @@
             </a>
 
             <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -94,6 +118,44 @@
                 <ul class="navbar-nav nav-flex-icons">
 
                     @if(isset(Auth::user()->name))
+                    @php
+                    $avisos=\DB::select('select * from avisos');
+                    $avisosC = count($avisos);
+                    $avisoImg=array('ey','alerta.svg','ey');
+                    $empresas = \DB::select('select * from empresas');
+                    @endphp
+                    <div class="dropdown2 mr-4">
+                        @if($avisosC>0)
+                        <span class="badge2" style="font-size:12px"><strong>{{$avisosC}}</strong></span>
+                        @endif
+                        <span>
+                            <h4><i class="far fa-comments mr-4"></i></h4>
+                        </span>
+                        <div class="dropdown2-content">
+                            <div class="notify">
+                                <ul class="list-group">
+                                    @foreach($avisos as $aviso)
+                                    <li class="list-group-item"><img src="img/{{$avisoImg[$aviso->tipo]}}" alt="Avatar">
+                                        <strong>{{$aviso->titulo}}</strong>
+                                        <hr style="margin:0px">
+                                        {{$aviso->mensaje}}
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown2 mr-4">
+                        <select class="form-control" name="autorizador">
+                            @foreach($empresas as $empresa)
+                            <option type="text" class="form-control" value="{{ $empresa->id}}" placeholder="Ubicacion" required>
+                                {{$empresa->Nombre}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="dropdown2 mr-4">
                         <span>{{Auth::user()->name}}</span>
                         <div class="dropdown2-content">
@@ -116,9 +178,8 @@
         </div>
     </nav>
     <div id="app" class=" z-depth-1" style="margin:2rem; background-color:#ffffff; min-height:92vh">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <main class="py-4  ">
-
             @yield('content')
         </main>
     </div>
@@ -135,15 +196,15 @@
     <script type="text/javascript" src="{{asset('js/addons/datatables.min.js')}}"></script>
     <script type="text/javascript"></script>
     <script>
-    $(document).ready(function() {
-        $.noConflict();
-        $('#workers').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-    });
-    $(document).ready(function() {
-        $('#dtBasicExample').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-    });
+        $(document).ready(function() {
+            $.noConflict();
+            $('#workers').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        $(document).ready(function() {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
     </script>
 </body>
 

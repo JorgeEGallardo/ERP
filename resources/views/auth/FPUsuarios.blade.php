@@ -76,6 +76,7 @@
         @method('PUT')
         <div class="form-row mb-4">
             <div class="col">
+            <label class="mt-4"> <strong>Copiar permisos de un usuario</strong></label>
                 <select id="usuarios" onchange="window.location.href = '/permisos/'+this.value+'/{{$id}}'"  class="form-control" placeholder="País" >
                 <option value=""></option>
                 @foreach($usuarios as $usuario)
