@@ -56,5 +56,6 @@ Route::post('/tiposusuarios', 'AdministradorController@tiposUsuariosCreate')->na
 
 //No middleware routes
 route::get('/getStates/{id}', 'auxController@getStates');
+route::get('/cambioEmpresa/{id}', 'auxController@empresaSesion');
 route::get('/getCities/{id}', 'auxController@getCities');
 route::get('/getCountries', 'auxController@getCountries');

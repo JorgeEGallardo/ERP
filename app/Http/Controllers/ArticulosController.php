@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\articulos;
+use App\Lineas;
+use App\Proveedores;
 use Illuminate\Http\Request;
 
 class ArticulosController extends Controller
@@ -25,7 +27,9 @@ class ArticulosController extends Controller
      */
     public function create()
     {
-        return view('articulos.FArticulos');
+        $lineas = Lineas::all();
+        $proveedores = Proveedores::all();
+        return view('articulos.FArticulos')->with(compact('lineas'))->with(compact('proveedores'));
     }
 
     /**
@@ -37,9 +41,29 @@ class ArticulosController extends Controller
     public function store(Request $request)
     {
         $articulo = new Articulos();
-        $articulo->Nombre = $request->nombre;
+        $articulo->Clave = $request->clave;
+        $articulo->ClaveAlterna = $request->clavealterna; //Nullable
+        $articulo->Descripcion = $request->descripcion;
+        $articulo->id_linea = $request->linea;
+        $articulo->UnidadEntrada = $request->unidadentrada;
+        $articulo->UnidadSalida = $request->unidadsalida;
+        $articulo->Factor = $request->factor;
+        $articulo->Existencia = $request->existencia;
+        $articulo->Minimo = $request->minimo;
+        $articulo->Maximo = $request->maximo;
+        $articulo->Esquema = $request->esquema;
+        $articulo->CostoPromedio = $request->costopromedio;
+        $articulo->CostoUltimo = $request->costoultimo;
+        $articulo->Volumen = $request->volumen;
+        $articulo->Peso = $request->peso;
+        $articulo->Precio = $request->precio;
+        $articulo->ClaveSat = $request->clavesat;
+        $articulo->ClaveUnidad = $request->claveunidad;
+        $articulo->id_proveedor = $request->proveedor;
+        $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad');
+        $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
         $articulo->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Árticulo $request->nombre agregado.", "Árticulos");
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Árticulo $request->clave agregado.", "Árticulos");
         return back()->with('success', "Árticulo agregado con éxito.");
     }
 
