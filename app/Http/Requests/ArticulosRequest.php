@@ -24,19 +24,38 @@ class ArticulosRequest extends FormRequest
     public function rules()
     {
         $id = $this->route('articulo');
+        $linea = $this->input('linea');
+        $linea = \DB::select('select * from lineas where id = ?', [$linea]);
+        $linea =  $linea[0]->Clave;
         return [
-            'clave'=>['required', 'unique:articulos, clave,'.$id],
-            'descripcion'=>['required'],
-            'unidadentrada'=>['required'],
-            'unidadsalida'=>['required'],
-            'factor'=>['required'],
-            'claveadicional'=>['nullable','unique:articulos, claveadicional,'.$id],
-            'lineas'=>['required'],
-            'proveedores'=>['required'],
-            'existencia'=>['nullable'],
-            'clave'=>['required'],
-            'clave'=>['required'],
-            'clave'=>['required'],
+            'clave' => ['required', 'unique:articulos,Clave,' . $id, 'regex: /' . $linea . '(.*)/'],
+            'descripcion' => ['required'],
+            'unidadentrada' => ['required'],
+            'unidadsalida' => ['required'],
+            'factor' => ['required', 'regex: /(\d)*\.*(\d)*/'],
+            'claveadicional' => ['nullable', 'unique:articulos,ClaveAlterna,' . $id],
+            'linea' => ['required'],
+            'proveedor' => ['required'],
+            'existencia' => ['nullable', 'regex: /(\d)*\.*(\d)*/'],
+            'minimo' => ['nullable', 'regex: /(\d)*\.*(\d)*/'],
+            'maximo' => ['nullable', 'regex: /(\d)*\.*(\d)*/', 'gte:minimo'],
+            'volumen' => ['nullable', 'regex: /(\d)*\.*(\d)*/'],
+            'peso' => ['nullable', 'regex: /(\d)*\.*(\d)*/'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'clave.unique' => 'Ya existe un artículo con esta clave.',
+            'claveadicional.unique' => 'Ya existe un árticulo con esta clave adicional.',
+            'clave.regex' => 'La clave tiene un formato incorrecto, linea + clave.',
+            'factor.regex' => 'El factor tiene un formato incorrecto. Solo se permiten números.',
+            'existencia.regex' => 'El existencia adicional tiene un formato incorrecto. Solo se permiten números.',
+            'minimo.regex' => 'El mínimo  tiene un formato incorrecto. Solo se permiten números.',
+            'maximo.regex' => 'El máximo  tiene un formato incorrecto. Solo se permiten números.',
+            'volumen.regex' => 'El volumen  tiene un formato incorrecto. Solo se permiten números.',
+            'peso.regex' => 'El peso tiene un formato incorrecto. Solo se permiten números.',
+            'maximo.gte' => 'El valor de stock máximo es menor al valor de stock mínimo.',
         ];
     }
 }

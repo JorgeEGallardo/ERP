@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\articulos;
+use App\Http\Requests\lineasRequest;
 use App\Lineas;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,8 @@ class LineasController extends Controller
      */
     public function index()
     {
-        //
+        $lineas = Lineas::all();
+        return view('Articulos.Lineas.RLineas')->with(compact('lineas'));
     }
 
     /**
@@ -24,7 +27,7 @@ class LineasController extends Controller
      */
     public function create()
     {
-        //
+        return view('Articulos.Lineas.FLineas');
     }
 
     /**
@@ -33,9 +36,13 @@ class LineasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(lineasRequest $request)
     {
-        //
+        $linea = new Lineas;
+        $linea->Clave = $request->clave; 
+        $linea->Nombre = $request->nombre; 
+        $linea->save();
+        return back()->with('success', 'La línea se ha agregado con éxito.'); 
     }
 
     /**
@@ -44,9 +51,10 @@ class LineasController extends Controller
      * @param  \App\Lineas  $lineas
      * @return \Illuminate\Http\Response
      */
-    public function show(Lineas $lineas)
+    public function show( $lineas)
     {
-        //
+        $linea = Lineas::find($lineas);
+        return view('Articulos.Lineas.SLineas')->with(compact('linea'));
     }
 
     /**
@@ -55,9 +63,10 @@ class LineasController extends Controller
      * @param  \App\Lineas  $lineas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lineas $lineas)
+    public function edit($lineas)
     {
-        //
+        $linea = Lineas::find($lineas);
+        return view('Articulos.Lineas.SLineas')->with(compact('linea'));
     }
 
     /**
@@ -67,9 +76,20 @@ class LineasController extends Controller
      * @param  \App\Lineas  $lineas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lineas $lineas)
+    public function update(lineasRequest $request, $lineas)
     {
-        //
+        $linea = Lineas::find($lineas);
+        $articulos = articulos::where('id_linea',$lineas)->get();
+        foreach($articulos as $articulo){
+            $articulo::find($articulo->id);
+            $articulo->Clave = substr($articulo->Clave,strlen($linea->Clave));
+            $articulo->Clave = $request->clave.$articulo->Clave;
+            $articulo->save();
+        }
+        $linea->Clave = $request->clave; 
+        $linea->Nombre = $request->nombre; 
+        $linea->save();
+        return redirect('/lineas')->with('success','Línea actualizada con éxito.');
     }
 
     /**
@@ -78,8 +98,9 @@ class LineasController extends Controller
      * @param  \App\Lineas  $lineas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lineas $lineas)
+    public function destroy($lineas)
     {
-        //
+        Lineas::destroy($lineas);
+        return back()->with('success','La línea se ha eliminado con éxito.');
     }
 }

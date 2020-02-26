@@ -235,6 +235,29 @@
     right: 1rem;
     font-size: 0.9em;
 }
+.notify {
+            border-radius: 5%;
+            width: 16rem;
+            display: block;
+            overflow: hidden;
+        }
+
+        .notify img {
+            width: 1rem;
+            margin-right: 0.5rem;
+
+            margin-bottom: 0.5rem;
+        }
+
+        .badge2 {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            padding: 2% 10% 2% 10%;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
 </style>
 
 <body class="grey lighten-3">
@@ -363,7 +386,7 @@
                     <i class="fas fa-table mr-3"></i>Compradores</a>
                 <a href="#" class="list-group-item white-text list-group-item-action waves-effect"
                     style="background-color:#2C3E4E; width:100%">
-                    <i class="fas fa-map mr-3"></i>Árticulos</a>
+                    <i class="fas fa-map mr-3"></i>Artículos</a>
                 <a href="#" class="list-group-item white-text list-group-item-action waves-effect"
                     style="background-color:#2C3E4E; width:100%">
                     <i class="fas fa-money-bill-alt mr-3"></i>Proveedores</a>
@@ -405,7 +428,7 @@
         @if(in_array("16", $roles))
         <a href="/articulos" class="list-group-item white-text list-group-item-action waves-effect"
             style="background-color:#2C3E4E; width:100%">
-            <i class="fas fa-user mr-3"></i>Árticulos</a>
+            <i class="fas fa-user mr-3"></i>Artículos</a>
         @endif
         @if(in_array("101", $roles))
         <a href="/control" class="list-group-item white-text list-group-item-action waves-effect"
@@ -492,7 +515,51 @@
             </div>
         </a>
         @endif
-
+        <a href="/articulos">
+            <div class="center">
+                <div class="card">
+                    <div class="additional">
+                        <div class="user-card">
+                            <div class="level center">
+                                Configuración
+                            </div>
+                        </div>
+                        <div class="more-info">
+                            <h2>Artículos</h2>
+                            <div class="stats">
+                                <div>
+                                    <a style="color:white" href="/articulos">
+                                        <div class="title">Registros
+                                            <i class="fa fa-table"></i>
+                                            <div class="value"><i class="fa fa-angle-double-right"></i></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a style="color:white" href="/articulos/create">
+                                        <div class="title">Altas
+                                            <i class="fa fa-plus"></i>
+                                            <div class="value"><i class="fa fa-angle-double-right"></i></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a style="color:white" href="/lineas">
+                                        <div class="title">Líneas
+                                            <i class="fa fa-table"></i>
+                                            <div class="value"><i class="fa fa-angle-double-right"></i></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="general">
+                        <h2>Artículos</h2>
+                    </div>
+                </div>
+            </div>
+        </a>
         <a href="/autorizaciones">
             <div class="center">
                 <div class="card">

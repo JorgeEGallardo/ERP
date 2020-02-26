@@ -28,7 +28,7 @@ Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
 Route::resource('/proveedores', 'ProveedoresController')->middleware('proveedores');
 Route::resource('/articulos', 'ArticulosController')->middleware('articulos');
 Route::resource('/autorizacionesCompras', 'AutorizacionesComprasController')->middleware('articulos');
-
+Route::resource('/lineas', 'LineasController')->middleware('departamentos');
 //Usuarios
 Route::get('temporal', function () {
 

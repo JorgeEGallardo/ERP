@@ -152,7 +152,7 @@
                             <div class="notify">
                                 <ul class="list-group">
                                     @foreach($avisos as $aviso)
-                                    <li class="list-group-item"><img src="img/{{$avisoImg[$aviso->tipo]}}" alt="Avatar">
+                                    <li class="list-group-item"><img src="/img/{{$avisoImg[$aviso->tipo]}}" alt="Avatar">
                                         <strong>{{$aviso->titulo}}</strong>
                                         <hr style="margin:0px">
                                         {{$aviso->mensaje}}

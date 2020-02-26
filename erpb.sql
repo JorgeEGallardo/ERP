@@ -48710,7 +48710,7 @@ INSERT INTO `roles` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
 (13, 'Eliminar proveedores', NULL, NULL),
 (14, 'Editar proveedores', NULL, NULL),
 (15, 'Generar el reporte proveedores', NULL, NULL),
-(16, 'Acceder al CRUD Árticulos', NULL, NULL),
+(16, 'Acceder al CRUD Artículos', NULL, NULL),
 (17, 'Insertar árticulos', NULL, NULL),
 (18, 'Eliminar árticulos', NULL, NULL),
 (19, 'Editar árticulos', NULL, NULL),
