@@ -295,6 +295,10 @@
     </div>
 </div>
 <hr>
+<div class="row" id="avisos">
+    <h1>Avisos</h1>
+</div>
+<hr>
 <div class="row" id="ubicaciones">
     <div class="col-sm">
         <div class="card mdb">

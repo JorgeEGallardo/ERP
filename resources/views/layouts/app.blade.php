@@ -120,7 +120,7 @@
                 <h4 class="orange-text" style="text-transform:uppercase">
                     <a href="/"> <strong class="blue-text">ERP B /</strong></a>
                     <a href="/" class="orange-text" ><strong> {{$sNombre}}  </strong></a>/
-                    <a href="/" class="orange-text">{{$url}}</a>
+                    <a href="/{{$url}}" class="orange-text">{{$url}}</a>
                 </h4>
             </p>
 
