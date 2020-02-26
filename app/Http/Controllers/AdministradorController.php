@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Avisos;
 use App\Http\Requests\seriesRequest;
 use App\Movimientos;
 use App\User;
@@ -14,6 +15,7 @@ class AdministradorController extends Controller
 {
     public function index() //Tablas del panel de administrador
     {
+        $avisos = Avisos::all();
         $movimientos = Movimientos::orderBy('created_at', 'DESC')->get();
         $roles = \DB::select('select * from roles');
         $giros = \DB::select('select * from giros');
@@ -65,7 +67,8 @@ class AdministradorController extends Controller
         ->with(compact('series'))
         ->with(compact('usuariosSeries'))
         ->with(compact('usuariosRoles'))
-        ->with(compact('usuariosTipos'));
+        ->with(compact('usuariosTipos'))
+        ->with(compact('avisos'));
     }
 
     public function seriesView($id) //Regresa todas las series ligadas a un usuario

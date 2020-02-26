@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use App\Avisos;
 use Illuminate\Http\Request;
 
@@ -35,7 +35,13 @@ class AvisosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $aviso = new Avisos(); 
+        $aviso->usuario = Auth::user()->name;
+        $aviso->titulo = $request->titulo; 
+        $aviso->mensaje=$request->mensaje;
+        $aviso->tipo=$request->tipo; 
+        $aviso->save();
+        return redirect('/control');
     }
 
     /**
