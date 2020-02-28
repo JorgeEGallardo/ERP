@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lineas extends Model
 {
-    protected $fillable = ['Nombre', 'Clave'];
+    protected $fillable = ['Nombre', 'Clave', 'id_grupo' ];
 }

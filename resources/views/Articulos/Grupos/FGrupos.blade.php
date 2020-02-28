@@ -29,8 +29,8 @@
 
 
     <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
-        <h2 class="text-left white-text m-1">Crear nueva línea
-            <a href="/lineas"><button class="btn btn-deep-purple float-right"
+        <h2 class="text-left white-text m-1">Crear nueva grupo
+            <a href="/grupos"><button class="btn btn-deep-purple float-right"
                     style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
                             class="far fa-eye mr-2"></i>Ver registros</b></button></a>
             <a href="/articulos"><button class="btn btn-deep-purple float-right mr-4"
@@ -39,7 +39,7 @@
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/lineas"
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/grupos"
         method="POST">
         @csrf
         <div class="p-5">
@@ -48,28 +48,18 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <input type="text" id="Nombre" autofocus name="nombre" class="form-control"
-                        placeholder="Nombre de la línea" value="{{ old('nombre') }}" required>
+                        placeholder="Nombre de la grupo" value="{{ old('nombre') }}" required>
                 </div>
                 <div class="col">
                     <input type="text" id="Clave" autofocus name="clave" class="form-control" placeholder="Clave"
                         value="{{ old('clave') }}" required>
                 </div>
             </div>
-                <div class="form-row mb-4">
-                <div class="col">
-                    <label>Grupo</label>
-                    <select id="grupo" name="grupo" class="form-control" required>
-                        @foreach($grupos as $grupo)
-                        <option value="{{$grupo->id}}">{{$grupo->Clave." | ".$grupo->Nombre}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
 
             <hr>
 
-            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Insertar nueva
-                línea</button>
+            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Insertar nuevo
+                grupo</button>
         </div>
     </form>
 </div>

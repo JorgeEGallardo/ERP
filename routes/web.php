@@ -30,7 +30,7 @@ Route::resource('/articulos', 'ArticulosController')->middleware('articulos');
 Route::resource('/autorizacionesCompras', 'AutorizacionesComprasController')->middleware('articulos');
 Route::resource('/lineas', 'LineasController')->middleware('departamentos');
 Route::resource('/avisos', 'AvisosController')->middleware('admin');
-
+Route::resource('/grupos', 'GruposController')->middleware('admin');
 //Usuarios
 Route::get('temporal', function () {
 

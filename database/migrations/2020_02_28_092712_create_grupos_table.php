@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLineasTable extends Migration
+class CreateGruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateLineasTable extends Migration
      */
     public function up()
     {
-        Schema::create('lineas', function (Blueprint $table) {
+        Schema::create('grupos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Nombre');
             $table->string('Clave');
-            $table->BigInteger('id_grupo')->unsigned();//
-            $table->foreign('id_grupo')->references('id')->on('grupos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateLineasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lineas');
+        Schema::dropIfExists('grupos');
     }
 }

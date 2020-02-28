@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLineasTable extends Migration
+class lineasM extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,7 @@ class CreateLineasTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('lineas');
         Schema::create('lineas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Nombre');
@@ -30,6 +31,6 @@ class CreateLineasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lineas');
+        Schema::dropIfExists('lineas');Schema::dropIfExists('lineas');
     }
 }
