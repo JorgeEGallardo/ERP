@@ -26,12 +26,15 @@ class lineasRequest extends FormRequest
         $id = $this->route('linea');
         return [
             'nombre'=>['required', 'unique:lineas,nombre,'.$id],
-            'clave'=>['required', 'unique:lineas,clave,'.$id],
+            'clave'=>['required', 'unique:lineas,clave,'.$id, 'max:2', 'min:2', 'regex: /^(\d)*\.*(\d)*$/'],
         ];
     }
     public function messages()
     {
         return [
+            'clave.max' => 'La clave debe tener 2 carácteres.',
+            'clave.regex' => 'La clave debe contener solo números.',
+            'clave.min' => 'La clave debe tener 2 carácteres.',
             'nombre.unique'=>'Ya existe una línea con este nombre.',
             'clave.unique'=>'Ya existe una línea con esta clave.',
             'nombre.required'=>'El campo nombre es necesario.',

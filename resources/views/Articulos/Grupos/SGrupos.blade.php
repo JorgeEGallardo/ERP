@@ -30,12 +30,17 @@
 
     <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
         <h2 class="text-left white-text m-1">Editar grupo
-            <a href="/grupos"><button class="btn btn-deep-purple float-right" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye mr-2"></i>Ver registros </b></button></a>
-            <a href="/lineas"><button class="btn btn-deep-purple float-right mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye mr-2 "></i>Líneas </b></button></a>
+            <a href="/grupos"><button class="btn btn-deep-purple float-right"
+                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                            class="far fa-eye mr-2"></i>Ver registros </b></button></a>
+            <a href="/lineas"><button class="btn btn-deep-purple float-right mr-4"
+                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                            class="far fa-eye mr-2 "></i>Líneas </b></button></a>
         </h2>
     </div>
 
-    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;" action="/grupos/{{$grupo->id}}" method="POST">
+    <form class="text-left border border-light  z-depth-1 white" style="padding:0% 15% 0% 15%;"
+        action="/grupos/{{$grupo->id}}" method="POST">
         @csrf
         @method('PUT')
         <div class="p-5">
@@ -44,23 +49,25 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <label>Nombre</label>
-                    <input type="text" id="Nombre" autofocus name="nombre" class="form-control" placeholder="Nombre de la línea" value="{{ $grupo->Nombre }}" required>
+                    <input type="text" id="Nombre" autofocus name="nombre" class="form-control"
+                        placeholder="Nombre de la línea" value="{{ $grupo->Nombre }}" required>
                 </div>
                 <div class="col">
                     <label>Clave</label>
-                    <input type="text" id="Clave" autofocus name="clave" class="form-control" placeholder="Clave" value="{{ $grupo->Clave }}" required>
+                    <input type="text" id="Clave" autofocus name="clave" class="form-control" placeholder="Clave"
+                        value="{{ $grupo->Clave }}" required>
                 </div>
             </div>
 
             <hr>
 
-            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Editar grupo   </button>
+            <button class="btn btn-mdb-color py-3" style="text-transform: none; width:100%"> Editar grupo </button>
         </div>
     </form>
 </div>
 </div>
 <script>
-    /*
+/*
     function getStates(id) {
         $.ajax({
             url: '/getStates/' + id,

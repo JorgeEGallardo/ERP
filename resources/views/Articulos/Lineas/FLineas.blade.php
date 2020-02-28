@@ -51,11 +51,11 @@
                         placeholder="Nombre de la línea" value="{{ old('nombre') }}" required>
                 </div>
                 <div class="col">
-                    <input type="text" id="Clave" autofocus name="clave" class="form-control" placeholder="Clave"
+                    <input type="text" id="Clave"  maxlength="2" minlength="2" autofocus name="clave" class="form-control" placeholder="Clave"
                         value="{{ old('clave') }}" required>
                 </div>
             </div>
-                <div class="form-row mb-4">
+            <div class="form-row mb-4">
                 <div class="col">
                     <label>Grupo</label>
                     <select id="grupo" name="grupo" class="form-control" required>

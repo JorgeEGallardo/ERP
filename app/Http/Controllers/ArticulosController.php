@@ -28,13 +28,13 @@ class ArticulosController extends Controller
             $GrupoO = Grupos::find(Lineas::find($articulo->id_linea)->id_grupo);
             $articulo->id_linea = $LineaO->Nombre;
             $articulo->id_grupo = $GrupoO->Nombre;
-            $articulo->id_proveedor = Proveedores::find($articulo->id_proveedor)->Nombre;
+          //  $articulo->id_proveedor = Proveedores::find($articulo->id_proveedor)->Nombre;
             if ($grupo != $articulo->id_grupo) {
                 $grupo = $articulo->id_grupo;
                 $grupoA  = new Articulos();
                 $grupoA->id_grupo = $grupo;
                 $grupoA->Clave = $GrupoO->Clave . "0000000";
-                $grupoA->id = -1;
+                $grupoA->id = -2;
                 array_push($articulos, $grupoA);
             }
             if ($linea != $articulo->id_linea) {
@@ -42,7 +42,7 @@ class ArticulosController extends Controller
                 $grupo = $articulo->id_grupo;
                 $lineaA  = new Articulos();
                 $lineaA->id_linea = $linea;
-                $lineaA->id_grupo = $grupo;
+                $lineaA->id_grupo = "$grupo";
                 $lineaA->Clave = $LineaO->Clave . "00000";
                 $lineaA->id = -1;
                 array_push($articulos, $lineaA);
@@ -98,11 +98,10 @@ class ArticulosController extends Controller
         $articulo->Precio = $request->precio;
         $articulo->ClaveSat = $request->clavesat;
         $articulo->ClaveUnidad = $request->claveunidad;
-        $articulo->id_proveedor = $request->proveedor;
         $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad');
         $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
         $aExists = articulos::where('Clave', $articulo->Clave)->get();
-        if ($aExists[0] == NULL) {
+        if (!isset($aExists[0])) {
             $articulo->save();
             \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Administrador");
             return back()->with('success', "Artículo agregado con éxito.");

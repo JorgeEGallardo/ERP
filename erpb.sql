@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-02-2020 a las 23:57:19
+-- Tiempo de generación: 29-02-2020 a las 00:15:39
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -30,10 +30,44 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `articulos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Clave` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ClaveAlterna` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Descripcion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_linea` bigint(20) UNSIGNED NOT NULL,
+  `UnidadEntrada` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `UnidadSalida` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Factor` double NOT NULL,
+  `Existencia` double NOT NULL,
+  `Minimo` double NOT NULL,
+  `Maximo` double NOT NULL,
+  `Esquema` double NOT NULL,
+  `CostoPromedio` double NOT NULL,
+  `FechaUltimaVenta` timestamp NULL DEFAULT NULL,
+  `FechaUltimaCompra` timestamp NULL DEFAULT NULL,
+  `CostoUltimo` double NOT NULL,
+  `Volumen` double NOT NULL,
+  `Peso` double NOT NULL,
+  `Precio` double NOT NULL,
+  `ClaveSat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ClaveUnidad` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_proveedor` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `articulos`
+--
+
+INSERT INTO `articulos` (`id`, `Clave`, `ClaveAlterna`, `Descripcion`, `id_linea`, `UnidadEntrada`, `UnidadSalida`, `Factor`, `Existencia`, `Minimo`, `Maximo`, `Esquema`, `CostoPromedio`, `FechaUltimaVenta`, `FechaUltimaCompra`, `CostoUltimo`, `Volumen`, `Peso`, `Precio`, `ClaveSat`, `ClaveUnidad`, `id_proveedor`, `created_at`, `updated_at`) VALUES
+(2, '030100002', NULL, 'iCON i350', 4, 'pz', 'pz', 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 5, '2020-02-28 19:02:24', '2020-02-28 19:40:11'),
+(3, '030100001', NULL, '1', 4, '1', '1', 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 3, '2020-02-28 19:11:50', '2020-02-28 19:40:11'),
+(6, '030100005', NULL, 'a1', 4, '1', '1', 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 3, '2020-02-28 22:56:38', '2020-02-28 22:56:38'),
+(7, '222222222', NULL, '22', 7, '22', '22', 22, 22, 22, 22, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 3, '2020-02-28 23:02:35', '2020-02-28 23:02:55'),
+(8, '030111111', NULL, 'A', 4, 'AA', 'A', 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 'A', 'A', NULL, '2020-02-28 23:06:45', '2020-02-28 23:06:45'),
+(9, '0301aaaaa', NULL, 'a', 4, '1', '1a1', 1, 1, 1, 1, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2020-02-28 23:10:24', '2020-02-28 23:10:24'),
+(10, '0301222aa', NULL, 'a', 4, '1', '1a1', 1, 1, 1, 1, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2020-02-28 23:10:36', '2020-02-28 23:10:36'),
+(11, '0301sssss', NULL, '123123', 4, '1', '1', 1, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2020-02-28 23:10:55', '2020-02-28 23:10:55');
 
 -- --------------------------------------------------------
 
@@ -88,9 +122,34 @@ CREATE TABLE `autorizaciones_compras` (
 --
 
 INSERT INTO `autorizaciones_compras` (`id`, `LimiteInferior`, `LimiteSuperior`, `id_tipo_usuario`, `created_at`, `updated_at`) VALUES
-(3, NULL, 40000, 104, '2020-02-18 23:01:14', '2020-02-18 23:35:50'),
-(4, 40000, 400001, 105, '2020-02-18 23:03:47', '2020-02-18 23:36:04'),
-(5, 400000, NULL, 106, '2020-02-18 23:04:40', '2020-02-18 23:04:40');
+(7, NULL, 40000, 1004, '2020-02-24 19:23:54', '2020-02-24 19:23:54'),
+(8, 40000, 400000, 1005, '2020-02-24 19:24:40', '2020-02-24 19:25:01'),
+(9, 400000, NULL, 1006, '2020-02-24 19:24:53', '2020-02-24 19:24:53');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `avisos`
+--
+
+CREATE TABLE `avisos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `usuario` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mensaje` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `avisos`
+--
+
+INSERT INTO `avisos` (`id`, `usuario`, `titulo`, `mensaje`, `tipo`, `created_at`, `updated_at`) VALUES
+(7, 'Administrador', 'Ejemplo de alerta', 'El módulo artículos esta bajo prueba.', 0, '2020-02-27 18:30:54', '2020-02-27 18:30:54'),
+(8, 'Administrador', 'Ejemplo de aviso', 'El módulo de líneas funciona correctamente.', 1, '2020-02-27 18:35:08', '2020-02-27 18:35:08'),
+(9, 'Administrador', 'Ejemplo de advertencia', 'La eliminación de una línea causará que se eliminen todos los artículos vinculados a la misma.', 2, '2020-02-27 18:35:55', '2020-02-27 18:35:55');
 
 -- --------------------------------------------------------
 
@@ -48426,6 +48485,14 @@ CREATE TABLE `empresas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `empresas`
+--
+
+INSERT INTO `empresas` (`id`, `Nombre`, `RFC`, `RegistroPatronal`, `Calle`, `Numero`, `Colonia`, `Ciudad`, `Estado`, `Pais`, `CP`, `Email`, `Telefono`, `Telefono2`, `created_at`, `updated_at`) VALUES
+(1, 'Empresa 2', 'LOMP8206281H0', 'asdasdada', 'Antonio Escudero 206, 231231', '5654654', '465465465', 'Durango', 'Durango', '1', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', NULL, '2020-02-24 23:49:44', '2020-02-26 23:10:51'),
+(2, 'Empresa 1', 'LOMP8206281H1', 'adsasdasad', 'Antonio Escudero 206, 231231', '46546', '6546', 'Durango', 'Durango', '1', '34225', 'JORGEGALLARDOG4@GMAIL.COM', '6181704044', NULL, '2020-02-24 23:50:06', '2020-02-26 23:10:40');
+
 -- --------------------------------------------------------
 
 --
@@ -48467,6 +48534,54 @@ INSERT INTO `giros` (`id`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `grupos`
+--
+
+CREATE TABLE `grupos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Clave` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `grupos`
+--
+
+INSERT INTO `grupos` (`id`, `Nombre`, `Clave`, `created_at`, `updated_at`) VALUES
+(2, 'Materia prima', '03', '2020-02-28 19:00:21', '2020-02-28 19:40:11'),
+(4, '2', '22', '2020-02-28 23:01:33', '2020-02-28 23:01:33'),
+(5, 'a', '12', '2020-02-28 23:13:50', '2020-02-28 23:13:50');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lineas`
+--
+
+CREATE TABLE `lineas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Clave` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_grupo` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `lineas`
+--
+
+INSERT INTO `lineas` (`id`, `Nombre`, `Clave`, `id_grupo`, `created_at`, `updated_at`) VALUES
+(4, 'Materiales de oro', '0301', 2, '2020-02-28 19:01:02', '2020-02-28 19:40:11'),
+(5, 'Materiales varios', '0302', 2, '2020-02-28 19:34:20', '2020-02-28 19:40:53'),
+(7, '22', '2222', 4, '2020-02-28 23:01:58', '2020-02-28 23:01:58'),
+(8, 'aa', '03aa', 2, '2020-02-28 23:11:19', '2020-02-28 23:11:19');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `migrations`
 --
 
@@ -48494,7 +48609,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (32, '2020_02_13_095427_create_articulos_table', 4),
 (34, '2020_02_18_095137_departamentos_fk', 5),
 (35, '2020_02_18_115922_autorizaciones', 6),
-(37, '2020_02_18_161627_create_autorizaciones_compras_table', 7);
+(37, '2020_02_18_161627_create_autorizaciones_compras_table', 7),
+(38, '2020_02_24_163545_create_avisos_table', 8),
+(48, '2020_02_25_095225_create_lineas_table', 9),
+(49, '2020_02_25_100346_create_sessions_table', 9),
+(50, '2020_02_25_115413_create_articulos_table', 10),
+(51, '2020_02_28_092712_create_grupos_table', 11),
+(52, '2020_02_28_093253_lineas_m', 12);
 
 -- --------------------------------------------------------
 
@@ -48609,7 +48730,84 @@ INSERT INTO `movimientos` (`id`, `Nombre`, `Categoria`, `Usuario`, `created_at`,
 (91, 'Departamento d agregado.', 'Administrador', 'Administrador', '2020-02-20 16:05:13', '2020-02-20 16:05:13'),
 (92, 'Departamento e agregado.', 'Administrador', 'Administrador', '2020-02-20 16:05:15', '2020-02-20 16:05:15'),
 (93, 'Departamento f agregado.', 'Administrador', 'Administrador', '2020-02-20 16:05:18', '2020-02-20 16:05:18'),
-(94, 'Departamento g agregado.', 'Administrador', 'Administrador', '2020-02-20 16:05:20', '2020-02-20 16:05:20');
+(94, 'Departamento g agregado.', 'Administrador', 'Administrador', '2020-02-20 16:05:20', '2020-02-20 16:05:20'),
+(95, 'El tipo de usuario Prueba creado ', 'Administrador', 'Administrador', '2020-02-24 19:26:32', '2020-02-24 19:26:32'),
+(96, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 19:50:32', '2020-02-25 19:50:32'),
+(97, 'Árticulo 132123 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:22:50', '2020-02-25 23:22:50'),
+(98, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:30:32', '2020-02-25 23:30:32'),
+(99, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:34:14', '2020-02-25 23:34:14'),
+(100, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:34:56', '2020-02-25 23:34:56'),
+(101, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:35:08', '2020-02-25 23:35:08'),
+(102, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:40:59', '2020-02-25 23:40:59'),
+(103, 'Árticulo 1 agregado.', 'Árticulos', 'Administrador', '2020-02-25 23:41:00', '2020-02-25 23:41:00'),
+(104, 'Árticulo 01011 agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:09:10', '2020-02-26 16:09:10'),
+(105, 'Árticulo 01011545 agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:09:21', '2020-02-26 16:09:21'),
+(106, 'Árticulo 010115452 agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:25:30', '2020-02-26 16:25:30'),
+(107, 'Árticulo 01015468 agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:25:51', '2020-02-26 16:25:51'),
+(108, 'Árticulo 0101 agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:26:02', '2020-02-26 16:26:02'),
+(109, 'Árticulo 01012 agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:27:06', '2020-02-26 16:27:06'),
+(110, 'Árticulo 01012a agregado.', 'Árticulos', 'Administrador', '2020-02-26 16:46:06', '2020-02-26 16:46:06'),
+(111, 'Árticulo 01012 actualizado.', 'Administrador', 'Administrador', '2020-02-26 16:49:56', '2020-02-26 16:49:56'),
+(112, 'Árticulo 01012 actualizado.', 'Administrador', 'Administrador', '2020-02-26 16:50:12', '2020-02-26 16:50:12'),
+(113, 'Árticulo 01012 actualizado.', 'Administrador', 'Administrador', '2020-02-26 16:50:22', '2020-02-26 16:50:22'),
+(114, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:06:42', '2020-02-26 17:06:42'),
+(115, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:10:36', '2020-02-26 17:10:36'),
+(116, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:12:28', '2020-02-26 17:12:28'),
+(117, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:12:44', '2020-02-26 17:12:44'),
+(118, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:17:41', '2020-02-26 17:17:41'),
+(119, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:17:51', '2020-02-26 17:17:51'),
+(120, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:17:57', '2020-02-26 17:17:57'),
+(121, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:21:23', '2020-02-26 17:21:23'),
+(122, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:21:38', '2020-02-26 17:21:38'),
+(123, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:21:50', '2020-02-26 17:21:50'),
+(124, 'Artículo 010112 actualizado.', 'Administrador', 'Administrador', '2020-02-26 17:22:05', '2020-02-26 17:22:05'),
+(125, 'Artículo  eliminado.', 'Administrador', 'Administrador', '2020-02-26 18:03:22', '2020-02-26 18:03:22'),
+(126, 'Artículo  eliminado.', 'Administrador', 'Administrador', '2020-02-26 18:03:25', '2020-02-26 18:03:25'),
+(127, 'Artículo  eliminado.', 'Administrador', 'Administrador', '2020-02-26 18:03:28', '2020-02-26 18:03:28'),
+(128, 'Artículo  eliminado.', 'Administrador', 'Administrador', '2020-02-26 18:03:32', '2020-02-26 18:03:32'),
+(129, 'Artículo 10144 agregado.', 'Artículos', 'Administrador', '2020-02-26 18:11:16', '2020-02-26 18:11:16'),
+(130, 'Artículo  eliminado.', 'Administrador', 'Administrador', '2020-02-26 22:17:51', '2020-02-26 22:17:51'),
+(131, 'Artículo 010215 agregado.', 'Artículos', 'Administrador', '2020-02-27 16:19:59', '2020-02-27 16:19:59'),
+(132, 'Artículo 123 agregado.', 'Administrador', 'Administrador', '2020-02-27 22:22:52', '2020-02-27 22:22:52'),
+(133, 'Artículo 123456 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:24:15', '2020-02-27 22:24:15'),
+(134, 'Artículo 12 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:24:56', '2020-02-27 22:24:56'),
+(135, 'Artículo 10001 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:25:08', '2020-02-27 22:25:08'),
+(136, 'Artículo 100012 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:25:17', '2020-02-27 22:25:17'),
+(137, 'Artículo 1 agregado.', 'Administrador', 'Administrador', '2020-02-27 22:38:47', '2020-02-27 22:38:47'),
+(138, 'Artículo 10001 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:46:48', '2020-02-27 22:46:48'),
+(139, 'Artículo 10001 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:47:30', '2020-02-27 22:47:30'),
+(140, 'Artículo 00001 actualizado.', 'Administrador', 'Administrador', '2020-02-27 22:48:09', '2020-02-27 22:48:09'),
+(141, 'Artículo 00002 agregado.', 'Administrador', 'Administrador', '2020-02-27 22:49:19', '2020-02-27 22:49:19'),
+(142, 'Artículo 00003 agregado.', 'Administrador', 'Administrador', '2020-02-27 22:49:52', '2020-02-27 22:49:52'),
+(143, 'Artículo 10001 agregado.', 'Administrador', 'Administrador', '2020-02-27 22:50:17', '2020-02-27 22:50:17'),
+(144, 'Artículo 00001 agregado.', 'Administrador', 'Administrador', '2020-02-27 22:52:31', '2020-02-27 22:52:31'),
+(145, 'Proveedor Grapadoras SA de CV actualizado.', 'Proveedores', 'Administrador', '2020-02-27 22:57:20', '2020-02-27 22:57:20'),
+(146, 'Proveedor Ferretera El Cubo SA de CV actualizado.', 'Proveedores', 'Administrador', '2020-02-27 22:58:05', '2020-02-27 22:58:05'),
+(147, 'Artículo 00001 actualizado.', 'Administrador', 'Administrador', '2020-02-27 23:24:42', '2020-02-27 23:24:42'),
+(148, 'Artículo 00001 actualizado.', 'Administrador', 'Administrador', '2020-02-27 23:25:00', '2020-02-27 23:25:00'),
+(149, 'Artículo 00001 agregado.', 'Administrador', 'Administrador', '2020-02-28 18:36:41', '2020-02-28 18:36:41'),
+(150, 'Artículo 01 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:02:24', '2020-02-28 19:02:24'),
+(151, 'Artículo 00001 actualizado.', 'Administrador', 'Administrador', '2020-02-28 19:10:54', '2020-02-28 19:10:54'),
+(152, 'Artículo 00001 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:11:50', '2020-02-28 19:11:50'),
+(153, 'Artículo 00001 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:22:46', '2020-02-28 19:22:46'),
+(154, 'Artículo 00001 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:22:58', '2020-02-28 19:22:58'),
+(155, 'Artículo 00001 actualizado.', 'Administrador', 'Administrador', '2020-02-28 19:25:25', '2020-02-28 19:25:25'),
+(156, 'Artículo 00003 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:28:56', '2020-02-28 19:28:56'),
+(157, 'Artículo 00002 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:29:14', '2020-02-28 19:29:14'),
+(158, 'Artículo 00001 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:29:22', '2020-02-28 19:29:22'),
+(159, 'Artículo 00002 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:29:43', '2020-02-28 19:29:43'),
+(160, 'Artículo 01 agregado.', 'Administrador', 'Administrador', '2020-02-28 19:34:20', '2020-02-28 19:34:20'),
+(161, 'Artículo 00004 agregado.', 'Administrador', 'Administrador', '2020-02-28 22:36:35', '2020-02-28 22:36:35'),
+(162, 'Artículo 0201 agregado.', 'Administrador', 'Administrador', '2020-02-28 22:49:52', '2020-02-28 22:49:52'),
+(163, 'Artículo 00005 agregado.', 'Administrador', 'Administrador', '2020-02-28 22:56:38', '2020-02-28 22:56:38'),
+(164, 'Artículo 22 agregado.', 'Administrador', 'Administrador', '2020-02-28 23:01:58', '2020-02-28 23:01:58'),
+(165, 'Artículo 22222 agregado.', 'Administrador', 'Administrador', '2020-02-28 23:02:35', '2020-02-28 23:02:35'),
+(166, 'Artículo 22222 agregado.', 'Administrador', 'Administrador', '2020-02-28 23:02:55', '2020-02-28 23:02:55'),
+(167, 'Artículo 11111 agregado.', 'Administrador', 'Administrador', '2020-02-28 23:06:45', '2020-02-28 23:06:45'),
+(168, 'Artículo aaaaa agregado.', 'Administrador', 'Administrador', '2020-02-28 23:10:25', '2020-02-28 23:10:25'),
+(169, 'Artículo 222aa agregado.', 'Administrador', 'Administrador', '2020-02-28 23:10:36', '2020-02-28 23:10:36'),
+(170, 'Artículo sssss agregado.', 'Administrador', 'Administrador', '2020-02-28 23:10:55', '2020-02-28 23:10:55'),
+(171, 'Artículo aa agregado.', 'Administrador', 'Administrador', '2020-02-28 23:11:19', '2020-02-28 23:11:19');
 
 -- --------------------------------------------------------
 
@@ -48673,8 +48871,8 @@ CREATE TABLE `proveedores` (
 
 INSERT INTO `proveedores` (`id`, `Nombre`, `Clave`, `Calle`, `NExt`, `Nint`, `ECalle`, `ECalle2`, `Colonia`, `CP`, `Pais`, `Estado`, `Municipio`, `Poblacion`, `Nacionalidad`, `Clasificacion`, `Giro`, `RFC`, `CURP`, `Telefono`, `Fax`, `email`, `Pagina`, `DiasCredito`, `Saldo`, `Limite`, `Forma`, `Titular`, `Banco`, `Sucursal`, `Cuenta`, `Clabe`, `id_contacto`, `created_at`, `updated_at`) VALUES
 (3, 'a', 'A123D', 'b', 'c', 'd', 'e', 'f', 'g', '1', 'Mexico', 'Durango', 'Ocampo', '2', '3', 'PRUM', 'Refacciones', 'LOMP8206281H9', NULL, '6181704044', '9', 'JORGEGALLARDOG4@GMAIL.COM', '10', 1, 2, 3, 1, '4', '5', '6', '7', '8', NULL, '2020-02-17 17:23:34', '2020-02-17 18:14:57'),
-(4, '1', 'R010P', '1', '1', NULL, '1', '1', '1', '1', 'Mexico', 'Durango', 'Durango', '1', '1', 'PRUM', '1', 'RRM010601UV1', 'GAGJ980513HDGLMR09', '1', '1', '12345@gmail.com', '1', 1, 11, 1, NULL, '1', '1', '1', '11', '11', NULL, '2020-02-17 18:18:24', '2020-02-17 18:18:24'),
-(5, 'Proveedor de ejemplo', 'E120D', 'Predio Las mesas', '582', 'Segundo piso', 'Doroteo Arango', 'Pino Suarez', 'Joyas', '34568', 'Mexico', 'Durango', 'Durango', 'Victoria de Durango', 'Mexicana', 'PRUN', 'ISP', 'LOMP8206281B5', 'GAGJ980513HDGLMR49', '6181704545', 'ABC2132', 'addasda@sadfasd.com', '1321.com', 30, 123, 213, 1, 'Jorge', 'SCOTIABANK', 'Durango', '12356487465465', '465487468435135', NULL, '2020-02-17 19:21:46', '2020-02-17 19:27:55'),
+(4, 'Grapadoras SA de CV', 'R010P', '1', '1', NULL, '1', '1', '1', '1', 'Mexico', 'Durango', 'Durango', '1', '1', 'PRUM', 'Refacciones', 'RRM010601UV1', 'GAGJ980513HDGLMR09', '1', '1', '12345@gmail.com', '1', 1, 11, 1, 1, '1', '1', '1', '11', '11', NULL, '2020-02-17 18:18:24', '2020-02-27 22:57:20'),
+(5, 'Ferretera El Cubo SA de CV', 'E120D', 'Predio Las mesas', '582', 'Segundo piso', 'Doroteo Arango', 'Pino Suarez', 'Joyas', '34568', 'Mexico', 'Durango', 'Durango', 'Victoria de Durango', 'Mexicana', 'PRUN', 'ISP', 'LOMP8206281B5', 'GAGJ980513HDGLMR49', '6181704545', 'ABC2132', 'addasda@sadfasd.com', '1321.com', 30, 123, 213, 1, 'Jorge', 'SCOTIABANK', 'Durango', '12356487465465', '465487468435135', NULL, '2020-02-17 19:21:46', '2020-02-27 22:58:05'),
 (6, '1', 'b111P', '1', '1', NULL, '1', '11', '1', '1', 'Mexico', 'Durango', 'Durango', '11', '1', 'PRUM', '1', 'LOMP8206281A7', NULL, '1', '1', '12345@gmail.com', '1', 1, 1, 11, NULL, '1', '1', '1', '11', '1', NULL, '2020-02-17 19:25:57', '2020-02-17 19:25:57');
 
 -- --------------------------------------------------------
@@ -48710,7 +48908,7 @@ INSERT INTO `roles` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
 (13, 'Eliminar proveedores', NULL, NULL),
 (14, 'Editar proveedores', NULL, NULL),
 (15, 'Generar el reporte proveedores', NULL, NULL),
-(16, 'Acceder al CRUD Artículos', NULL, NULL),
+(16, 'Acceder al CRUD Árticulos', NULL, NULL),
 (17, 'Insertar árticulos', NULL, NULL),
 (18, 'Eliminar árticulos', NULL, NULL),
 (19, 'Editar árticulos', NULL, NULL),
@@ -48729,6 +48927,21 @@ CREATE TABLE `series` (
   `id_usuario` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -52837,11 +53050,11 @@ CREATE TABLE `tipos_usuarios` (
 --
 
 INSERT INTO `tipos_usuarios` (`ID`, `Nombre`) VALUES
-(102, 'Autorizadores'),
-(103, 'Compradores'),
-(104, 'Autorizador Compras Nivel 1'),
-(105, 'Autorizador Compras Nivel 2'),
-(106, 'Autorizador Compras Nivel 3');
+(1002, 'Autorizadores'),
+(1003, 'Compradores'),
+(1004, 'Autorizador Compras Nivel 1'),
+(1005, 'Autorizador Compras Nivel 2'),
+(1006, 'Autorizador Compras Nivel 3');
 
 -- --------------------------------------------------------
 
@@ -52902,7 +53115,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `passwo
 -- Indices de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `articulos_id_linea_foreign` (`id_linea`),
+  ADD KEY `articulos_id_proveedor_foreign` (`id_proveedor`);
 
 --
 -- Indices de la tabla `autorizaciones`
@@ -52918,6 +53133,12 @@ ALTER TABLE `autorizaciones`
 ALTER TABLE `autorizaciones_compras`
   ADD PRIMARY KEY (`id`),
   ADD KEY `autorizaciones_compras_id_tipo_usuario_foreign` (`id_tipo_usuario`);
+
+--
+-- Indices de la tabla `avisos`
+--
+ALTER TABLE `avisos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `cities`
@@ -52971,6 +53192,19 @@ ALTER TABLE `giros`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `lineas`
+--
+ALTER TABLE `lineas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lineas_id_grupo_foreign` (`id_grupo`);
+
+--
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
@@ -53010,6 +53244,12 @@ ALTER TABLE `series`
   ADD UNIQUE KEY `series_nombre_unique` (`Nombre`),
   ADD KEY `series_id_tipo_foreign` (`id_tipo`),
   ADD KEY `series_id_usuario_foreign` (`id_usuario`);
+
+--
+-- Indices de la tabla `sessions`
+--
+ALTER TABLE `sessions`
+  ADD UNIQUE KEY `sessions_id_unique` (`id`);
 
 --
 -- Indices de la tabla `states`
@@ -53052,7 +53292,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `autorizaciones`
@@ -53064,7 +53304,13 @@ ALTER TABLE `autorizaciones`
 -- AUTO_INCREMENT de la tabla `autorizaciones_compras`
 --
 ALTER TABLE `autorizaciones_compras`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `avisos`
+--
+ALTER TABLE `avisos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `cities`
@@ -53100,7 +53346,7 @@ ALTER TABLE `departamentos`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `formas_pagos`
@@ -53115,16 +53361,28 @@ ALTER TABLE `giros`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `lineas`
+--
+ALTER TABLE `lineas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -53160,7 +53418,7 @@ ALTER TABLE `tipos_series`
 -- AUTO_INCREMENT de la tabla `tipos_usuarios`
 --
 ALTER TABLE `tipos_usuarios`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
 
 --
 -- AUTO_INCREMENT de la tabla `ubicaciones`
@@ -53177,6 +53435,13 @@ ALTER TABLE `users`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `articulos`
+--
+ALTER TABLE `articulos`
+  ADD CONSTRAINT `articulos_id_linea_foreign` FOREIGN KEY (`id_linea`) REFERENCES `lineas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `articulos_id_proveedor_foreign` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `autorizaciones`
@@ -53196,6 +53461,12 @@ ALTER TABLE `autorizaciones_compras`
 --
 ALTER TABLE `departamentos`
   ADD CONSTRAINT `departamentos_ubicacion_foreign` FOREIGN KEY (`Ubicacion`) REFERENCES `ubicaciones` (`ID`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `lineas`
+--
+ALTER TABLE `lineas`
+  ADD CONSTRAINT `lineas_id_grupo_foreign` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `proveedores`

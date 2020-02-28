@@ -23,17 +23,16 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Auth::routes();
 
 Route::resource('/departamentos', 'DepartamentosController')->middleware('departamentos');
-Route::resource('/autorizaciones', 'AutorizacionesController')->middleware('departamentos');
+Route::resource('/autorizaciones', 'AutorizacionesController')->middleware('auth');
 Route::resource('/empresas', 'EmpresasController')->middleware('empresas');
 Route::resource('/proveedores', 'ProveedoresController')->middleware('proveedores');
 Route::resource('/articulos', 'ArticulosController')->middleware('articulos');
 Route::resource('/autorizacionesCompras', 'AutorizacionesComprasController')->middleware('articulos');
-Route::resource('/lineas', 'LineasController')->middleware('departamentos');
+Route::resource('/lineas', 'LineasController')->middleware('auth');
 Route::resource('/avisos', 'AvisosController')->middleware('admin');
 Route::resource('/grupos', 'GruposController')->middleware('admin');
 //Usuarios
 Route::get('temporal', function () {
-
 });
 
 Route::get('/registro', 'registroController@create')->name('registro')->middleware('admin');

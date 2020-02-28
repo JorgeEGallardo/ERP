@@ -44,11 +44,11 @@
             <p class="h4 mb-4 "> Datos generales</p>
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" id="clave" name="clave" class="form-control" placeholder="Clave"
+                    <input type="text" id="clave"  maxlength="5" minlength="5"  name="clave" class="form-control" placeholder="Clave"
                         value="{{ old('clave') }}" required>
                 </div>
                 <div class="col">
-                    <input type="text" id="claveAdicional" name="claveadicional" class="form-control"
+                    <input type="hidden"  id="claveAdicional" name="claveadicional" class="form-control"
                         placeholder="Clave adicional" value="{{ old('claveadicional') }}">
                 </div>
             </div>
@@ -67,6 +67,7 @@
                         @endforeach
                     </select>
                 </div>
+                <!-------
                 <div class="col">
                     <label>Proveedores</label>
                     <select id="proveedores" name="proveedor" class="form-control" required>
@@ -75,6 +76,7 @@
                         @endforeach
                     </select>
                 </div>
+                <---------->
             </div>
 
             <hr>

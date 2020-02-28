@@ -26,12 +26,15 @@ class gruposRequest extends FormRequest
         $id = $this->route('grupo');
         return [
             'nombre' => ['required', 'unique:grupos,nombre,' . $id],
-            'clave' => ['required', 'unique:grupos,clave,' . $id],
+            'clave' => ['required', 'unique:grupos,clave,' . $id, 'max:2', 'min:2', 'regex: /^(\d)*\.*(\d)*$/'],
         ];
     }
     public function messages()
     {
         return [
+            'clave.max' => 'La clave debe tener 2 carácteres.',
+            'clave.regex' => 'La clave debe contener solo números.',
+            'clave.min' => 'La clave debe tener 2 carácteres.',
             'nombre.unique' => 'Ya existe un grupo con este nombre.',
             'clave.unique' => 'Ya existe un grupo con esta clave.',
             'nombre.required' => 'El campo nombre es necesario.',

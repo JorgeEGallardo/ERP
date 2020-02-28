@@ -28,14 +28,13 @@ class ArticulosRequest extends FormRequest
         $linea = \DB::select('select * from lineas where id = ?', [$linea]);
         $linea =  $linea[0]->Clave;
         return [
-            'clave' => ['required', 'unique:articulos,Clave,' . $id],
+            'clave' => ['required', 'unique:articulos,Clave,' . $id, 'max:5', 'min:5', 'regex: /^(\d)*\.*(\d)*$/'],
             'descripcion' => ['required'],
             'unidadentrada' => ['required'],
             'unidadsalida' => ['required'],
             'factor' => ['required', 'regex: /(\d)*\.*(\d)*/'],
             'claveadicional' => ['nullable', 'unique:articulos,ClaveAlterna,' . $id],
             'linea' => ['required'],
-            'proveedor' => ['required'],
             'existencia' => ['nullable', 'regex: /(\d)*\.*(\d)*/'],
             'minimo' => ['nullable', 'regex: /(\d)*\.*(\d)*/'],
             'maximo' => ['nullable', 'regex: /(\d)*\.*(\d)*/', 'gte:minimo'],
@@ -46,9 +45,12 @@ class ArticulosRequest extends FormRequest
     public function messages()
     {
         return [
+            'clave.max' => 'La clave debe tener 5 carácteres.',
+            'clave.regex' => 'La clave debe contener solo números.',
+            'clave.min' => 'La clave debe tener 5 carácteres.',
             'clave.unique' => 'Ya existe un artículo con esta clave.',
             'claveadicional.unique' => 'Ya existe un árticulo con esta clave adicional.',
-            'clave.regex' => 'La clave tiene un formato incorrecto, linea + clave.',
+            'clave.regex' => 'La clave tiene un formato incorrecto, solo se aceptan números.',
             'factor.regex' => 'El factor tiene un formato incorrecto. Solo se permiten números.',
             'existencia.regex' => 'El existencia adicional tiene un formato incorrecto. Solo se permiten números.',
             'minimo.regex' => 'El mínimo  tiene un formato incorrecto. Solo se permiten números.',

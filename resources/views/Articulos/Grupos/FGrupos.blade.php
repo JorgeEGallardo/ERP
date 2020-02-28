@@ -51,7 +51,7 @@
                         placeholder="Nombre de la grupo" value="{{ old('nombre') }}" required>
                 </div>
                 <div class="col">
-                    <input type="text" id="Clave" autofocus name="clave" class="form-control" placeholder="Clave"
+                    <input type="text" id="Clave" maxlength="2" minlength="2" autofocus name="clave" class="form-control" placeholder="Clave"
                         value="{{ old('clave') }}" required>
                 </div>
             </div>
