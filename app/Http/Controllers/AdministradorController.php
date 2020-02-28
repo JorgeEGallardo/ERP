@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Avisos;
 use App\Http\Requests\seriesRequest;
 use App\Movimientos;
 use App\User;
@@ -14,7 +15,8 @@ class AdministradorController extends Controller
 {
     public function index() //Tablas del panel de administrador
     {
-        $movimientos = Movimientos::orderBy('created_at', 'DESC')->get();
+        $avisos = Avisos::all();
+        $movimientos = Movimientos::orderBy('created_at', 'ASC')->get();
         $roles = \DB::select('select * from roles');
         $giros = \DB::select('select * from giros');
         $ubicaciones = \DB::select('select * from ubicaciones');
@@ -56,16 +58,17 @@ class AdministradorController extends Controller
             $usuario->role = $str;
         }
         return view('admin')->with(compact('tiposUsuarios'))
-        ->with(compact('ubicaciones'))
-        ->with(compact('clasificaciones'))
-        ->with(compact('giros'))
-        ->with(compact('movimientos'))
-        ->with(compact('roles'))
-        ->with(compact('tipos'))
-        ->with(compact('series'))
-        ->with(compact('usuariosSeries'))
-        ->with(compact('usuariosRoles'))
-        ->with(compact('usuariosTipos'));
+            ->with(compact('ubicaciones'))
+            ->with(compact('clasificaciones'))
+            ->with(compact('giros'))
+            ->with(compact('movimientos'))
+            ->with(compact('roles'))
+            ->with(compact('tipos'))
+            ->with(compact('series'))
+            ->with(compact('usuariosSeries'))
+            ->with(compact('usuariosRoles'))
+            ->with(compact('usuariosTipos'))
+            ->with(compact('avisos'));
     }
 
     public function seriesView($id) //Regresa todas las series ligadas a un usuario
@@ -75,49 +78,48 @@ class AdministradorController extends Controller
         return view('Auth.FSUsuarios')->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function rolesView($id, $user=null)//Regresa todos los permisos ligados a un usuario
+    public function rolesView($id, $user = null) //Regresa todos los permisos ligados a un usuario
     {
         $usuarios = \DB::select('select * from users');
         $roles = \DB::select('select * from roles');
         $tiposUsuarios = \DB::select('select * from tipos_usuarios');
         $rolesUsuario = \DB::select('select role from users where id=?', [$id]);
         $rolesUsuario = explode(",", $rolesUsuario[0]->role);
-        if(isset($user))
-            $id=$user;
+        if (isset($user))
+            $id = $user;
         return view('Auth.FPUsuarios')->with(compact('usuarios'))->with(compact('roles'))->with(compact('rolesUsuario'))->with('id', $id)->with(compact('tiposUsuarios'));
     }
 
-    public function permisosEdit($id, Request $request)//Actualiza los permisos de un usuario
+    public function permisosEdit($id, Request $request) //Actualiza los permisos de un usuario
     {
         $usuario = User::find($id);
         $roles = explode(',', $usuario->role);
         if (!isset($roles))
-            $roles=array();
-        try{
+            $roles = array();
+        try {
 
-        if (isset($request->roles)){
-            if (in_array('101', $roles))
-                $roles = array_merge($request->roles, ['101']);
-            else
-                $roles = $request->roles;
-            $usuario->role = implode(",", $roles);
-        }
-        else
+            if (isset($request->roles)) {
+                if (in_array('101', $roles))
+                    $roles = array_merge($request->roles, ['101']);
+                else
+                    $roles = $request->roles;
+                $usuario->role = implode(",", $roles);
+            } else
             if (in_array('101', $roles))
                 $usuario->role = "101";
             else
                 $usuario->role = "";
 
-        $usuario->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Cambio de permisos al usuario " . "$usuario->name", "Administrador");
+            $usuario->save();
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Cambio de permisos al usuario " . "$usuario->name", "Administrador");
 
-        return redirect('/control')->with('success', "Permisos actualizados con éxito.");
-        }catch(Exception $e){
-            return redirect('/control')->withErrors('Hubó un error al intentar actualizar los permisos'.$e);
+            return redirect('/control')->with('success', "Permisos actualizados con éxito.");
+        } catch (Exception $e) {
+            return redirect('/control')->withErrors('Hubó un error al intentar actualizar los permisos' . $e);
         }
     }
 
-    public function serieStore($id, seriesRequest $request)//Crea una nueva serie
+    public function serieStore($id, seriesRequest $request) //Crea una nueva serie
     {
         $rel = false;
         $series = \DB::select('select S.id, S.Nombre,T.Nombre as Tipo from series S inner join tipos_Series T where S.id_usuario = ? and S.id_tipo = T.id', [$id]);
@@ -132,7 +134,7 @@ class AdministradorController extends Controller
             return back()->with('success', "Serie asignada correctamente")->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function serieDestroy($id)//Elimina una serie
+    public function serieDestroy($id) //Elimina una serie
     {
         $rel = false;
         $series = \DB::select('select S.id, S.Nombre,T.Nombre as Tipo from series S inner join tipos_Series T where S.id_usuario = ? and S.id_tipo = T.id', [$id]);
@@ -150,7 +152,7 @@ class AdministradorController extends Controller
             return back()->with('success', "Serie eliminada correctamente")->with(compact('series'))->with('id', $id)->with(compact('tipos'));
     }
 
-    public function permisosCreate(Request $request)//Crea un nuevo permiso
+    public function permisosCreate(Request $request) //Crea un nuevo permiso
     {
         $rel = false;
         try {
@@ -163,7 +165,7 @@ class AdministradorController extends Controller
             return back()->with('success', "Permiso creado exitosamente.");
     }
 
-    public function tiposSeriesCreate(Request $request)//Crea un nuevo tipo de serie
+    public function tiposSeriesCreate(Request $request) //Crea un nuevo tipo de serie
     {
         $rel = false;
         try {
@@ -176,7 +178,7 @@ class AdministradorController extends Controller
             return back()->with('success', "Tipo de serie creado correctamente");
     }
 
-    public function clasificacionCreate(Request $request)//Crea un nuevo tipo de serie
+    public function clasificacionCreate(Request $request) //Crea un nuevo tipo de serie
     {
         $rel = false;
         try {
@@ -188,7 +190,7 @@ class AdministradorController extends Controller
         if ($rel)
             return back()->with('success', "Clasificación creada correctamente");
     }
-    public function tiposUsuariosCreate(Request $request)//Crea un nuevo tipo de serie
+    public function tiposUsuariosCreate(Request $request) //Crea un nuevo tipo de serie
     {
         $rel = false;
         try {
@@ -200,19 +202,19 @@ class AdministradorController extends Controller
         if ($rel)
             return back()->with('success', "Tipo de usuario creado correctamente");
     }
-    public function ubicacionesCreate(Request $request)//Crea un nuevo tipo de serie
+    public function ubicacionesCreate(Request $request) //Crea un nuevo tipo de serie
     {
         $rel = false;
         try {
             $rel = \DB::insert('insert into ubicaciones (Nombre) values (?)', [$request->Nombre]);
             \App\Helpers\AuxFunction::instance()->movimientoNuevo("Ubicación $request->Nombre creada ", "Administrador");
         } catch (Exception $e) {
-            return back()->withErrors(['La ubicación no se pudó crear.'.$e]);
+            return back()->withErrors(['La ubicación no se pudó crear.' . $e]);
         }
         if ($rel)
-        return Redirect::to(URL::previous() . "#ubicaciones")->with('success', "Ubicación creada correctamente");
+            return Redirect::to(URL::previous() . "#ubicaciones")->with('success', "Ubicación creada correctamente");
     }
-    public function girosCreate(Request $request)//Crea un nuevo tipo de serie
+    public function girosCreate(Request $request) //Crea un nuevo tipo de serie
     {
 
 
@@ -224,6 +226,6 @@ class AdministradorController extends Controller
             return back()->withErrors(['El Giro no se pudó crear.']);
         }
         if ($rel)
-        return Redirect::to(URL::previous() . "#giros")->with('success', "Giro creado correctamente");
+            return Redirect::to(URL::previous() . "#giros")->with('success', "Giro creado correctamente");
     }
 }

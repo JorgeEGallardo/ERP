@@ -30,40 +30,37 @@ $roles = explode(",",$roles);
     <div class="border">
         <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
             <h2 class="text-left white-text m-1">Artículos
+
                 @if(in_array("12", $roles))
-                <a href="/articulos/create"><button class="btn btn-deep-purple float-right"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="fas fa-plus mr-2"></i>Crear nuevo árticulo</b></button></a>
+                <a href="/articulos/create"><button class="btn btn-deep-purple float-right" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="fas fa-plus mr-2"></i>Crear nuevo árticulo</b></button></a>
                 @endif
                 @if(in_array("20", $roles))
-                <button type="button" onclick="exportExcel('Artículos Desglose')"
-                    class="btn btn-deep-purple float-right mr-4"
-                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important">
-                    <b><i class="far fa-file-alt mr-2"></i> Generar reporte</b></button>
-                <a href="/lineas"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Líneas</b></button></a>
 
+                <button type="button" onclick="exportExcel('Artículos Desglose')" class="btn btn-deep-purple float-right mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important">
+                    <b><i class="far fa-file-alt mr-2"></i> Generar reporte</b></button>
+                <a href="/grupos"><button class="btn btn-deep-purple float-right mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye mr-2"></i>Grupos </b></button></a>
+                <a href="/lineas"><button class="btn btn-deep-purple float-right mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye mr-2"></i>Líneas</b></button></a>
             </h2>
 
             @endif
         </div>
         <div class="mt-4 px-4">
-            <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
-                style="width:100%;">
+            <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0" style="width:100%;">
                 <thead style="width:100%" class="indigo-text">
                     <tr>
                         <th class="th-sm"><b>#</b>
                         </th>
-                        <th class="th-sm"><b>Clave</b>
+                        <th class="th-sm"><b>Grupo</b>
+                        </th>
+                        <th class="th-sm"><b>Línea</b>
                         </th>
                         <th class="th-sm"><b>Descripción</b>
                         </th>
+                        <th class="th-sm"><b>Clave</b>
+                        </th>
                         <th class="th-sm"><b>Cantidad</b>
                         </th>
-                        <th class="th-sm"><b>Mínimo</b>
-                        </th>
-                        <th class="th-sm"><b>Máximo</b>
+                        <th class="th-sm"><b>Proveedor</b>
                         </th>
                         <th class="th-sm"><b>Estado</b>
                         </th>
@@ -79,17 +76,17 @@ $roles = explode(",",$roles);
                     @php
                     $idNum++;
                     @endphp
-                    <tr>
+                    <tr @if($articulo->id==-1) class="" style="background-color:rgba(2,21,222,0.4)" @endif>
                         <td style="width:2%">{{$idNum}}</td>
-                        <td>{{$articulo->Clave}}</td>
+                        <td>{{$articulo->id_grupo}}</td>
+                        <td>{{$articulo->id_linea}}</td>
                         <td>{{$articulo->Descripcion}}</td>
+                        <td>{{$articulo->Clave}}</td>
                         <td>{{$articulo->Existencia}}</td>
-                        <td>{{$articulo->Minimo}}</td>
-                        <td>{{$articulo->Maximo}}</td>
+                        <td>{{$articulo->id_proveedor}}</td>
                         <td>{{$articulo->Estado}}</td>
-                        <td class="text-center p-1 noExl" style="width:20%">
-                            <form id="delete{{$articulo->id}}" action="{{ route('articulos.destroy', $articulo->id) }}"
-                                method="POST">
+                        <td class="text-center p-1 noExl" style="width:20%">@if($articulo->id!=-1)
+                            <form id="delete{{$articulo->id}}" action="{{ route('articulos.destroy', $articulo->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <a href="/articulos/{{$articulo->id}}">
@@ -98,12 +95,12 @@ $roles = explode(",",$roles);
                                     </button></a>
                                 @isset($roles)
                                 @if(in_array("18", $roles))
-                                <button type="button" onclick="confirmDelete({{$articulo->id}})" class="btn btn-danger"
-                                    style="text-transform:none">
+                                <button type="button" onclick="confirmDelete({{$articulo->id}})" class="btn btn-danger" style="text-transform:none">
                                     <i class="fas fa-trash mr-2"></i>Borrar</button>
                                 @endif
                                 @endisset
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -114,61 +111,61 @@ $roles = explode(",",$roles);
 </div>
 
 <script>
-function confirmDelete(id) {
-    var result = confirm("El registro se borrará permanentemente. ¿Desea continuar?");
-    if (result) {
-        document.getElementById("delete" + id).submit();
+    function confirmDelete(id) {
+        var result = confirm("El registro se borrará permanentemente. ¿Desea continuar?");
+        if (result) {
+            document.getElementById("delete" + id).submit();
+        }
     }
-}
 
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
 
-if (dd < 10) {
-    dd = '0' + dd;
-}
-if (mm < 10) {
-    mm = '0' + mm;
-}
-var today = dd + '-' + mm + '-' + yyyy;
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    var today = dd + '-' + mm + '-' + yyyy;
 
-function getEmpresa(id) {
-    $.ajax({
-        url: '/empresas/' + id,
-        type: 'GET',
-        success: function(responseText) {
-            $('#update').html(responseText);
-        },
-        error: function(responseText) {
+    function getEmpresa(id) {
+        $.ajax({
+            url: '/empresas/' + id,
+            type: 'GET',
+            success: function(responseText) {
+                $('#update').html(responseText);
+            },
+            error: function(responseText) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
-function edit(id) {
-    $.ajax({
-        url: '/empresas/' + id + '/edit',
-        type: 'GET',
-        success: function(responseText) {
-            $('#editModal').html(responseText);
-        },
-        error: function(responseText) {
+    function edit(id) {
+        $.ajax({
+            url: '/empresas/' + id + '/edit',
+            type: 'GET',
+            success: function(responseText) {
+                $('#editModal').html(responseText);
+            },
+            error: function(responseText) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
-function exportExcel(str) {
-    $("#dtBasicExample").table2excel({
-        exclude: ".noExl",
-        name: "Worksheet Name",
-        filename: str + " " + today,
-        fileext: ".xls",
-        preserveColors: true
-    });
+    function exportExcel(str) {
+        $("#dtBasicExample").table2excel({
+            exclude: ".noExl",
+            name: "Worksheet Name",
+            filename: str + " " + today,
+            fileext: ".xls",
+            preserveColors: true
+        });
 
-}
+    }
 </script>
 @endsection

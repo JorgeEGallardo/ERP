@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\articulos;
+use App\Grupos;
 use App\Http\Requests\lineasRequest;
 use App\Lineas;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class LineasController extends Controller
      */
     public function create()
     {
-        return view('Articulos.Lineas.FLineas');
+        $grupos=Grupos::all();
+        return view('Articulos.Lineas.FLineas')->with(compact('grupos'));
     }
 
     /**
@@ -39,10 +41,20 @@ class LineasController extends Controller
     public function store(lineasRequest $request)
     {
         $linea = new Lineas;
-        $linea->Clave = $request->clave; 
-        $linea->Nombre = $request->nombre; 
-        $linea->save();
-        return back()->with('success', 'La línea se ha agregado con éxito.'); 
+        $linea->Clave = Grupos::find($request->grupo)->Clave.$request->clave;
+        $linea->Nombre = $request->nombre;
+        $linea->id_grupo = $request->grupo;
+
+        $aExists = Lineas::where('Clave', $linea->Clave)->where('id','<>',$linea->id)->get();
+        if (!isset($aExists[0])) {
+            $linea->save();
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Administrador");
+            return back()->with('success', "Línea agregada con éxito.");
+        } else {
+            return back()->withErrors("Ya existe una línea con esa clave.");
+        }
+
+
     }
 
     /**
@@ -53,8 +65,12 @@ class LineasController extends Controller
      */
     public function show( $lineas)
     {
+
         $linea = Lineas::find($lineas);
-        return view('Articulos.Lineas.SLineas')->with(compact('linea'));
+        $grupos = Grupos::all();
+        $grupo = Grupos::find($linea->id_grupo);
+        $linea->Clave = substr($linea->Clave,strlen($grupo->Clave));
+        return view('Articulos.Lineas.SLineas')->with(compact('linea'))->with(compact('grupos'));
     }
 
     /**
@@ -80,14 +96,23 @@ class LineasController extends Controller
     {
         $linea = Lineas::find($lineas);
         $articulos = articulos::where('id_linea',$lineas)->get();
+
+
+        $request->clave = Grupos::find($request->grupo)->Clave.$request->clave;
+
+        $aExists = Lineas::where('clave', $request->clave)->where('id','<>',$linea->id)->get();
+        if (isset($aExists[0])) {
+            return back()->withErrors("Ya existe una línea con esa clave.");
+        }
         foreach($articulos as $articulo){
             $articulo::find($articulo->id);
             $articulo->Clave = substr($articulo->Clave,strlen($linea->Clave));
             $articulo->Clave = $request->clave.$articulo->Clave;
             $articulo->save();
         }
-        $linea->Clave = $request->clave; 
-        $linea->Nombre = $request->nombre; 
+        $linea->id_grupo = $request->grupo;
+        $linea->Clave = $request->clave;
+        $linea->Nombre = $request->nombre;
         $linea->save();
         return redirect('/lineas')->with('success','Línea actualizada con éxito.');
     }

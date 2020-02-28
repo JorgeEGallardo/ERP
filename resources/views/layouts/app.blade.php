@@ -96,7 +96,7 @@
     @php
     $avisos=\DB::select('select * from avisos');
     $avisosC = count($avisos);
-    $avisoImg=array('ey','alerta.svg','ey');
+    $avisoImg=array('alerta1.svg','alerta.svg','alerta2.svg');
     $empresas = \DB::select('select * from empresas');
     if(!Session::has('empresa')){
     \session::put('empresa', $empresas[0]->id);
@@ -120,7 +120,7 @@
                 <h4 class="orange-text" style="text-transform:uppercase">
                     <a href="/"> <strong class="blue-text">ERP B /</strong></a>
                     <a href="/" class="orange-text" ><strong> {{$sNombre}}  </strong></a>/
-                    <a href="/" class="orange-text">{{$url}}</a>
+                    <a href="/{{$url}}" class="orange-text">{{$url}}</a>
                 </h4>
             </p>
 

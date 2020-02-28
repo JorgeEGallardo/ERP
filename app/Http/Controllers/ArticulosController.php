@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\articulos;
+use App\Grupos;
 use App\Http\Requests\ArticulosRequest;
 use App\Lineas;
 use App\Proveedores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticulosController extends Controller
 {
@@ -17,14 +19,43 @@ class ArticulosController extends Controller
      */
     public function index()
     {
-        $articulos = Articulos::all();
-        foreach ($articulos as $articulo) {
+        $articulosO = DB::select('select A.* from articulos A  inner join lineas L where A.id_linea = L.id order by L.id_grupo');
+        $articulos = array();
+        $linea = "";
+        $grupo = "";
+        foreach ($articulosO as $articulo) {
+            $LineaO = Lineas::find($articulo->id_linea);
+            $GrupoO = Grupos::find(Lineas::find($articulo->id_linea)->id_grupo);
+            $articulo->id_linea = $LineaO->Nombre;
+            $articulo->id_grupo = $GrupoO->Nombre;
+            $articulo->id_proveedor = Proveedores::find($articulo->id_proveedor)->Nombre;
+            if ($grupo != $articulo->id_grupo) {
+                $grupo = $articulo->id_grupo;
+                $grupoA  = new Articulos();
+                $grupoA->id_grupo = $grupo;
+                $grupoA->Clave = $GrupoO->Clave . "0000000";
+                $grupoA->id = -1;
+                array_push($articulos, $grupoA);
+            }
+            if ($linea != $articulo->id_linea) {
+                $linea = $articulo->id_linea;
+                $grupo = $articulo->id_grupo;
+                $lineaA  = new Articulos();
+                $lineaA->id_linea = $linea;
+                $lineaA->id_grupo = $grupo;
+                $lineaA->Clave = $LineaO->Clave . "00000";
+                $lineaA->id = -1;
+                array_push($articulos, $lineaA);
+            }
             $articulo->Estado = "Bien";
             if ($articulo->Existencia > $articulo->Maximo)
                 $articulo->Estado = "Saturado";
             if ($articulo->Existencia < $articulo->Minimo)
                 $articulo->Estado = "Faltante";
+
+            array_push($articulos, $articulo);
         }
+
         return view('articulos.RArticulos')->with(compact('articulos'));
     }
 
@@ -49,7 +80,7 @@ class ArticulosController extends Controller
     public function store(ArticulosRequest $request)
     {
         $articulo = new Articulos();
-        $articulo->Clave = $request->clave;
+        $articulo->Clave = Lineas::find($request->linea)->Clave . $request->clave;;
         $articulo->ClaveAlterna = $request->claveadicional; //Nullable
         $articulo->Descripcion = $request->descripcion;
         $articulo->id_linea = $request->linea;
@@ -70,9 +101,14 @@ class ArticulosController extends Controller
         $articulo->id_proveedor = $request->proveedor;
         $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad');
         $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
-        $articulo->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Artículos");
-        return back()->with('success', "Artículo agregado con éxito.");
+        $aExists = articulos::where('Clave', $articulo->Clave)->get();
+        if ($aExists[0] == NULL) {
+            $articulo->save();
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Administrador");
+            return back()->with('success', "Artículo agregado con éxito.");
+        } else {
+            return back()->withErrors("Ya existe un artículo con esa clave.");
+        }
     }
 
     /**
@@ -86,6 +122,9 @@ class ArticulosController extends Controller
         $lineas = Lineas::all();
         $proveedores = Proveedores::all();
         $articulo = Articulos::find($id);
+
+        $linea = Lineas::find($articulo->id_linea);
+        $articulo->Clave = substr($articulo->Clave, strlen($linea->Clave));
         return view('articulos.SArticulos')->with(compact('articulo'))->with(compact('lineas'))->with(compact('proveedores'));
     }
 
@@ -108,8 +147,9 @@ class ArticulosController extends Controller
      */
     public function update(ArticulosRequest $request, $id)
     {
+        $linea = Lineas::find($request->linea)->Clave;
         $articulo = Articulos::find($id);
-        $articulo->Clave = $request->clave;
+        $articulo->Clave = $linea . $request->clave;
         $articulo->ClaveAlterna = $request->claveadicional; //Nullable
         $articulo->Descripcion = $request->descripcion;
         $articulo->id_linea = $request->linea;
@@ -130,9 +170,14 @@ class ArticulosController extends Controller
         $articulo->id_proveedor = $request->proveedor;
         $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad', 'FechaUltimaVenta', 'FechaUltimaCompra');
         $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
-        $articulo->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave actualizado.", "Administrador");
-        return redirect('articulos')->with('success', "Artículo actualizado con éxito.");
+        $aExists = articulos::where('Clave', $articulo->Clave)->where('id','<>',$articulo->id)->get();
+        if (!isset($aExists[0])) {
+            $articulo->save();
+            \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Administrador");
+            return back()->with('success', "Artículo actualizado con éxito.");
+        } else {
+            return back()->withErrors("Ya existe un artículo con esa clave.");
+        }
     }
 
     /**

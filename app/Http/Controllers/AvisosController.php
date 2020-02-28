@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Avisos;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,13 @@ class AvisosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $aviso = new Avisos();
+        $aviso->usuario = Auth::user()->name;
+        $aviso->titulo = $request->titulo;
+        $aviso->mensaje = $request->mensaje;
+        $aviso->tipo = $request->tipo;
+        $aviso->save();
+        return redirect('/control');
     }
 
     /**
@@ -78,8 +85,9 @@ class AvisosController extends Controller
      * @param  \App\Avisos  $avisos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Avisos $avisos)
+    public function destroy($avisos)
     {
-        //
+        Avisos::destroy($avisos);
+        return redirect('/control#avisos')->with('success', 'Aviso eliminado con éxito.');
     }
 }
