@@ -28,7 +28,7 @@ class ArticulosRequest extends FormRequest
         $linea = \DB::select('select * from lineas where id = ?', [$linea]);
         $linea =  $linea[0]->Clave;
         return [
-            'clave' => ['required', 'unique:articulos,Clave,' . $id, 'regex: /' . $linea . '(.*)/'],
+            'clave' => ['required', 'unique:articulos,Clave,' . $id],
             'descripcion' => ['required'],
             'unidadentrada' => ['required'],
             'unidadsalida' => ['required'],

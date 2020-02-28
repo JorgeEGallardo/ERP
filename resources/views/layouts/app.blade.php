@@ -96,7 +96,7 @@
     @php
     $avisos=\DB::select('select * from avisos');
     $avisosC = count($avisos);
-    $avisoImg=array('ey','alerta.svg','ey');
+    $avisoImg=array('alerta1.svg','alerta.svg','alerta2.svg');
     $empresas = \DB::select('select * from empresas');
     if(!Session::has('empresa')){
     \session::put('empresa', $empresas[0]->id);

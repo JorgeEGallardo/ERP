@@ -17,14 +17,30 @@ class ArticulosController extends Controller
      */
     public function index()
     {
-        $articulos = Articulos::all();
-        foreach ($articulos as $articulo) {
+        $articulosO = Articulos::orderBy('id_linea', 'DESC')->get();;
+        $articulos =array();
+        $linea = "";
+        foreach ($articulosO as $articulo) {
+            $LineaO = Lineas::find($articulo->id_linea);
+            $articulo->id_linea = $LineaO->Nombre;
+            $articulo->id_proveedor = Proveedores::find($articulo->id_proveedor)->Nombre;
+            if ($linea != $articulo->id_linea){
+                $linea = $articulo->id_linea;
+                $lineaA  = new Articulos();
+                $lineaA->id_linea = $linea;
+                $lineaA->Clave = $LineaO->Clave."00000";
+                $lineaA->id=-1;
+                array_push($articulos,$lineaA);
+            }
             $articulo->Estado = "Bien";
             if ($articulo->Existencia > $articulo->Maximo)
                 $articulo->Estado = "Saturado";
             if ($articulo->Existencia < $articulo->Minimo)
                 $articulo->Estado = "Faltante";
+
+            array_push($articulos,$articulo);
         }
+
         return view('articulos.RArticulos')->with(compact('articulos'));
     }
 
@@ -49,7 +65,7 @@ class ArticulosController extends Controller
     public function store(ArticulosRequest $request)
     {
         $articulo = new Articulos();
-        $articulo->Clave = $request->clave;
+        $articulo->Clave = Lineas::find( $request->linea)->Clave.$request->clave;;
         $articulo->ClaveAlterna = $request->claveadicional; //Nullable
         $articulo->Descripcion = $request->descripcion;
         $articulo->id_linea = $request->linea;
@@ -71,7 +87,7 @@ class ArticulosController extends Controller
         $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad');
         $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
         $articulo->save();
-        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Artículos");
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Artículo $request->clave agregado.", "Administrador");
         return back()->with('success', "Artículo agregado con éxito.");
     }
 
@@ -86,6 +102,9 @@ class ArticulosController extends Controller
         $lineas = Lineas::all();
         $proveedores = Proveedores::all();
         $articulo = Articulos::find($id);
+
+        $linea = Lineas::find($articulo->id_linea);
+        $articulo->Clave = substr($articulo->Clave,strlen($linea->Clave));
         return view('articulos.SArticulos')->with(compact('articulo'))->with(compact('lineas'))->with(compact('proveedores'));
     }
 
@@ -108,8 +127,9 @@ class ArticulosController extends Controller
      */
     public function update(ArticulosRequest $request, $id)
     {
+        $linea = Lineas::find( $request->linea)->Clave;
         $articulo = Articulos::find($id);
-        $articulo->Clave = $request->clave;
+        $articulo->Clave = $linea.$request->clave;
         $articulo->ClaveAlterna = $request->claveadicional; //Nullable
         $articulo->Descripcion = $request->descripcion;
         $articulo->id_linea = $request->linea;

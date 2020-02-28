@@ -275,7 +275,9 @@
                         </div>
                         <div class="form-group">
                             <select id="my-select" class="custom-select" name="tipo">
-                                <option value=1>Aviso</option>
+                                <option value=0>Alerta (Amarillo)</option>
+                                <option value=1>Aviso (Verde)</option>
+                                <option value=2>Advertencia (Rojo)</option>
                             </select>
                         </div>
                         <div class="col">
@@ -290,7 +292,13 @@
             </button>
             <div class="collapse" id="collapseTipos">
                 @foreach ($avisos as $aviso)
-                <li class="list-group-item">{{$aviso->id." | ".$aviso->usuario." | "}}<strong> {{ $aviso->titulo}} </strong> :  {{$aviso->mensaje}}</li>
+                <li class="list-group-item">{{$aviso->id." | ".$aviso->usuario." | "}}<strong> {{ $aviso->titulo}} </strong> :  {{$aviso->mensaje}}
+                <form  action="{{ route('avisos.destroy', $aviso->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit"  class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i> Borrar</button>
+                        </form>
+                </li>
                 @endforeach
             </div>
         </div>

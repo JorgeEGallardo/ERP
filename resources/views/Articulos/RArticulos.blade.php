@@ -55,15 +55,15 @@ $roles = explode(",",$roles);
                     <tr>
                         <th class="th-sm"><b>#</b>
                         </th>
+                        <th class="th-sm"><b>Línea</b>
+                        </th>
                         <th class="th-sm"><b>Clave</b>
                         </th>
                         <th class="th-sm"><b>Descripción</b>
                         </th>
                         <th class="th-sm"><b>Cantidad</b>
                         </th>
-                        <th class="th-sm"><b>Mínimo</b>
-                        </th>
-                        <th class="th-sm"><b>Máximo</b>
+                        <th class="th-sm"><b>Proveedor</b>
                         </th>
                         <th class="th-sm"><b>Estado</b>
                         </th>
@@ -79,15 +79,15 @@ $roles = explode(",",$roles);
                     @php
                     $idNum++;
                     @endphp
-                    <tr>
+                    <tr @if($articulo->id==-1) class="" style="background-color:rgba(2,21,222,0.4)"  @endif>
                         <td style="width:2%">{{$idNum}}</td>
+                        <td>{{$articulo->id_linea}}</td>
                         <td>{{$articulo->Clave}}</td>
                         <td>{{$articulo->Descripcion}}</td>
                         <td>{{$articulo->Existencia}}</td>
-                        <td>{{$articulo->Minimo}}</td>
-                        <td>{{$articulo->Maximo}}</td>
+                        <td>{{$articulo->id_proveedor}}</td>
                         <td>{{$articulo->Estado}}</td>
-                        <td class="text-center p-1 noExl" style="width:20%">
+                        <td class="text-center p-1 noExl" style="width:20%">@if($articulo->id!=-1)
                             <form id="delete{{$articulo->id}}" action="{{ route('articulos.destroy', $articulo->id) }}"
                                 method="POST">
                                 @method('DELETE')
@@ -104,6 +104,7 @@ $roles = explode(",",$roles);
                                 @endif
                                 @endisset
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

@@ -44,6 +44,7 @@ class AutorizacionesComprasController extends Controller
         $autorizacion->LimiteSuperior = $request->lsuperior;
         $autorizacion->id_tipo_usuario = $request->usuario;
         $autorizacion->save();
+        \App\Helpers\AuxFunction::instance()->movimientoNuevo("Autorización creada para el usuario $request->usuario", "Administrador");
         return redirect('autorizacionesCompras')->with('success','Autorización de compra agregada con éxito.');
     }
 
