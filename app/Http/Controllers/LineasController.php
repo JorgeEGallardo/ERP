@@ -100,7 +100,7 @@ class LineasController extends Controller
 
         $request->clave = Grupos::find($request->grupo)->Clave.$request->clave;
 
-        $aExists = Lineas::where('clave', $request->clave)->where('id','<>',$linea->id)->get();
+        $aExists = Lineas::where('clave', $request->clave)->where('id','<>',$request->id)->get();
         if (isset($aExists[0])) {
             return back()->withErrors("Ya existe una línea con esa clave.");
         }
