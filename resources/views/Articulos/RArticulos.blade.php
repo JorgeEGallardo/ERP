@@ -30,27 +30,29 @@ $roles = explode(",",$roles);
     <div class="border">
         <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
             <h2 class="text-left white-text m-1">Artículos
-
-                @if(in_array("12", $roles))
                 <a href="/articulos/create"><button class="btn btn-deep-purple float-right"
                         style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
                                 class="fas fa-plus mr-2"></i>Crear nuevo árticulo</b></button></a>
-                @endif
-                @if(in_array("20", $roles))
-
                 <button type="button" onclick="exportExcel('Artículos Desglose')"
                     class="btn btn-deep-purple float-right mr-4"
                     style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important">
                     <b><i class="far fa-file-alt mr-2"></i> Generar reporte</b></button>
-                <a href="/grupos"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Grupos </b></button></a>
-                <a href="/lineas"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Líneas</b></button></a>
-            </h2>
 
-            @endif
+                <div class="dropdownTable mr-1 float-right" style="position:static; margin-top:-0.35rem">
+                    <a><button class="btn btn-deep-purple  mr-4"
+                            style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                                    class="far fa-eye mr-2"></i>Más registros </b></button></a>
+                    <div class="dropdownTable-content">
+                        <a href="/grupos"><button class="btn btn-deep-purple float-right"
+                                style="text-transform:none;width: 100%; display: block; background-color:#3F729B!important;"><b>
+                                    <i class="far fa-eye"></i>Grupos </b></button></a>
+                        <br>
+                        <a href="/lineas"><button class="btn btn-deep-purple float-right"
+                                style="text-transform:none; background-color:#3F729B!important"><b> <i
+                                        class="far fa-eye "></i>Líneas</b></button></a>
+                    </div>
+                </div>
+            </h2>
         </div>
         <div class="mt-4 px-4">
             <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
@@ -83,7 +85,8 @@ $roles = explode(",",$roles);
                     @php
                     $idNum++;
                     @endphp
-                    <tr @if($articulo->id==-1)style="background-color:rgba(2,22,222,0.07)" @endif @if($articulo->id==-2)style="background-color:rgba(55,55,222,0.2)" @endif>
+                    <tr @if($articulo->id==-1)style="background-color:rgba(2,22,222,0.07)" @endif
+                        @if($articulo->id==-2)style="background-color:rgba(55,55,222,0.2)" @endif>
                         <td style="width:2%">{{$idNum}}</td>
                         <td>{{$articulo->id_grupo}}</td>
                         <td>{{$articulo->id_linea}}</td>
@@ -151,6 +154,7 @@ function getEmpresa(id) {
         }
     });
 }
+
 
 function edit(id) {
     $.ajax({

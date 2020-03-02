@@ -42,16 +42,25 @@
             <p class="h4 mb-4 "> Datos generales</p>
             <div class="form-row mb-4">
                 <div class="col">
-                    <label>Clave</label>
-                    <input type="text" id="clave" name="clave" class="form-control" placeholder="Clave"
-                        value="{{$articulo->Clave }}" required>
-                </div>
-                <div class="col">
-                    <label>Clave adicional</label>
-                    <input type="text" id="claveAdicional" name="claveadicional" class="form-control"
-                        placeholder="Clave adicional" value="{{ $articulo->ClaveAlterna }}">
+                    <input type="checkbox" checked onchange="claves()" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" checked>Es artículo</label>
                 </div>
             </div>
+
+            <div class="form-row mb-4">
+                <div class="col">
+                    <label>Clave artículo</label>
+                    <input type="text" id="clave" maxlength="5" minlength="5" name="clave" class="form-control"
+                        placeholder="Clave Artículo" value="{{$articulo->Clave }}" required>
+
+                </div>
+                <div class="col">
+                    <label>Clave lote</label>
+                    <input type="text" disabled id="clave2" name="clave" class="form-control" placeholder="Clave lote"
+                        value="{{$articulo->Clave }}" requiered>
+                </div>
+            </div>
+
             <div class="form-row mb-4">
                 <div class="col">
                     <label>Descripción</label>
@@ -69,6 +78,7 @@
                         @endforeach
                     </select>
                 </div>
+                <!-------
                 <div class="col">
                     <label>Proveedores</label>
                     <select id="proveedores" name="proveedor" class="form-control" required>
@@ -78,6 +88,7 @@
                         @endforeach
                     </select>
                 </div>
+                 <---------->
             </div>
 
             <hr>
@@ -149,4 +160,14 @@
     </form>
 </div>
 </div>
+<script>
+     $(document).ready(function() {
+    document.getElementById("clave").focus();
+});
+function claves() {
+    document.getElementById('clave').disabled = !document.getElementById('clave').disabled;
+    document.getElementById('clave2').disabled = !document.getElementById('clave2').disabled;
+
+}
+</script>
 @endsection

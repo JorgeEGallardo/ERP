@@ -42,7 +42,7 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
-                    <input type="text" id="NEmpresa" name="nombre" class="form-control"
+                    <input type="text" autofocus id="NEmpresa" name="nombre" class="form-control"
                         placeholder="Nombre de la empresa" value="{{ $empresa->Nombre }}" required>
                 </div>
                 <div class="col">
@@ -64,7 +64,7 @@
             <div class="form-row mb-4">
                 <div class="col-2">
                     <!-- First name -->
-                    <input type="text" id="NEmpresa" name="numero" value="{{ $empresa->Numero }}" class="form-control"
+                    <input type="text" id=" " name="numero" value="{{ $empresa->Numero }}" class="form-control"
                         placeholder="Número" required>
                 </div>
                 <div class="col">
@@ -91,7 +91,7 @@
             <div class="form-row mb-4">
                 <div class="col" id="cities">
                     <!-- First name -->
-                    <input type="text" id="NEmpresa" name="ciudad" value="{{ $empresa->Ciudad }}" class="form-control"
+                    <input type="text" id=" " name="ciudad" value="{{ $empresa->Ciudad }}" class="form-control"
                         placeholder="Ciudad" required>
 
                 </div>
@@ -110,8 +110,8 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
-                    <input type="text" id="NEmpresa" name="telefono" value="{{ $empresa->Telefono }}"
-                        class="form-control" placeholder="Teléfono" required>
+                    <input type="text" id=" " name="telefono" value="{{ $empresa->Telefono }}" class="form-control"
+                        placeholder="Teléfono" required>
                 </div>
                 <div class="col">
                     <!-- Last name -->
@@ -126,6 +126,10 @@
 </div>
 </div>
 <script>
+$(document).ready(function() {
+    document.getElementById("NEmpresa").focus();
+});
+
 function getStates(id) {
 
     $.ajax({

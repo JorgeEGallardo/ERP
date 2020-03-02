@@ -33,7 +33,8 @@ class ArticulosController extends Controller
                 $grupo = $articulo->id_grupo;
                 $grupoA  = new Articulos();
                 $grupoA->id_grupo = $grupo;
-                $grupoA->Clave = $GrupoO->Clave . "0000000";
+                if(isset($GrupoO->Clave))
+                    $grupoA->Clave = $GrupoO->Clave . "0000000";
                 $grupoA->id = -2;
                 array_push($articulos, $grupoA);
             }
@@ -43,7 +44,8 @@ class ArticulosController extends Controller
                 $lineaA  = new Articulos();
                 $lineaA->id_linea = $linea;
                 $lineaA->id_grupo = "$grupo";
-                $lineaA->Clave = $LineaO->Clave . "00000";
+                if(isset($LineaO->Clave))
+                    $lineaA->Clave = $LineaO->Clave . "00000";
                 $lineaA->id = -1;
                 array_push($articulos, $lineaA);
             }
@@ -166,7 +168,7 @@ class ArticulosController extends Controller
         $articulo->Precio = $request->precio;
         $articulo->ClaveSat = $request->clavesat;
         $articulo->ClaveUnidad = $request->claveunidad;
-        $articulo->id_proveedor = $request->proveedor;
+        $articulo->id_proveedor = $articulo->id_proveedor;
         $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad', 'FechaUltimaVenta', 'FechaUltimaCompra');
         $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
         $aExists = articulos::where('Clave', $articulo->Clave)->where('id','<>',$articulo->id)->get();

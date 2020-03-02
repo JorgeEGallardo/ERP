@@ -38,56 +38,95 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        .dropdown2 {
-            position: relative;
-            display: inline-block;
-        }
+    .dropdown2 {
+        position: relative;
+        display: inline-block;
+    }
 
-        .dropdown2-content {
-            display: none;
-            margin-left: -50%;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
+    .dropdown2-content {
+        display: none;
+        margin-left: -50%;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 200px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
 
-        .dropdown2-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
+    .dropdown2-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
 
 
-        .dropdown2:hover .dropdown2-content {
-            display: block;
-        }
+    .dropdown2:hover .dropdown2-content {
+        display: block;
+    }
 
-        .notify {
-            border-radius: 5%;
-            width: 16rem;
-            display: block;
-            overflow: hidden;
-        }
+    .dropdownTable {
 
-        .notify img {
-            width: 1rem;
-            margin-right: 0.5rem;
+        position: relative;
+        display: inline-block;
+    }
 
-            margin-bottom: 0.5rem;
-        }
+    .dropdownTable-content {
+        min-width: 10rem;
+        padding: 0.2% 0.3% 0.3% 0.4%;
+        display: none;
+        position: absolute;
+        z-index: 1;
+    }
 
-        .badge2 {
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            padding: 2% 10% 2% 10%;
-            border-radius: 50%;
-            background: red;
-            color: white;
-        }
+    .dropdownTable-content a {
+        background-color: white;
+        margin: 0px;
+        margin-top: 0.4rem;
+        width: 100%;
+        color: white;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdownTable-content button {
+
+        background-color: white;
+        margin: 0px;
+        width: 100%;
+        color: white;
+        text-decoration: none;
+        display: block;
+    }
+
+
+    .dropdownTable:hover .dropdownTable-content {
+        display: block;
+    }
+
+    .notify {
+        border-radius: 5%;
+        width: 16rem;
+        display: block;
+        overflow: hidden;
+    }
+
+    .notify img {
+        width: 1rem;
+        margin-right: 0.5rem;
+
+        margin-bottom: 0.5rem;
+    }
+
+    .badge2 {
+        position: absolute;
+        top: -10px;
+        right: 10px;
+        padding: 2% 10% 2% 10%;
+        border-radius: 50%;
+        background: red;
+        color: white;
+    }
     </style>
 </head>
 
@@ -107,25 +146,26 @@
     $url = url()->current();
     $url = explode('/', $url);
     if(isset($url[3]))
-        $url=$url[3];
+    $url=$url[3];
     else
-        $url="";
+    $url="";
     @endphp
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
         <div class="container-fluid">
 
             <!-- Brand -->
-            <p class="navbar-brand waves-effect" >
+            <p class="navbar-brand waves-effect">
                 <h4 class="orange-text" style="text-transform:uppercase">
                     <a href="/"> <strong class="blue-text">ERP B /</strong></a>
-                    <a href="/" class="orange-text" ><strong> {{$sNombre}}  </strong></a>/
+                    <a href="/" class="orange-text"><strong> {{$sNombre}} </strong></a>/
                     <a href="/{{$url}}" class="orange-text">{{$url}}</a>
                 </h4>
             </p>
 
             <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -152,7 +192,8 @@
                             <div class="notify">
                                 <ul class="list-group">
                                     @foreach($avisos as $aviso)
-                                    <li class="list-group-item"><img src="/img/{{$avisoImg[$aviso->tipo]}}" alt="Avatar">
+                                    <li class="list-group-item"><img src="/img/{{$avisoImg[$aviso->tipo]}}"
+                                            alt="Avatar">
                                         <strong>{{$aviso->titulo}}</strong>
                                         <hr style="margin:0px">
                                         {{$aviso->mensaje}}
@@ -165,9 +206,11 @@
                     </div>
 
                     <div class="dropdown2 mr-4">
-                        <select class="form-control" style="min-width:15rem" onchange="window.location = '/cambioEmpresa/'+this.value" name="autorizador">
+                        <select class="form-control" style="min-width:15rem"
+                            onchange="window.location = '/cambioEmpresa/'+this.value" name="autorizador">
                             @foreach($empresas as $empresa)
-                            <option type="text" class="form-control" value="{{ $empresa->id}}" placeholder="Ubicacion" required @if($empresa->id==$sEmpresa) selected @endif>
+                            <option type="text" class="form-control" value="{{ $empresa->id}}" placeholder="Ubicacion"
+                                required @if($empresa->id==$sEmpresa) selected @endif>
                                 {{$empresa->Nombre}}
                             </option>
                             @endforeach
@@ -183,7 +226,8 @@
                                         {{ __('Cerrar sesión') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -213,17 +257,30 @@
     <script type="text/javascript" src="{{asset('js/jquery.table2excel.js')}}"></script>
     <!-- MDBootstrap Datatables  -->
     <script type="text/javascript" src="{{asset('js/addons/datatables.min.js')}}"></script>
-    <script type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" ></script>
+
     <script>
-        $(document).ready(function() {
-            $.noConflict();
-            $('#workers').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
-        $(document).ready(function() {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
+    $(document).ready(function() {
+        $.noConflict();
+        $('#workers').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    $(document).ready(function() {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+
+    });
+
+    $(document).ready(function() {
+        var error = "";
+        @foreach ($errors->all() as $error)
+            error += "{{ $error }}";
+            error+="\n";
+        @endforeach
+        @if ($errors->all() !=null)
+            sweetAlert("Han ocurrido uno o más errores", error, "error");
+        @endif
+    });
     </script>
 </body>
 

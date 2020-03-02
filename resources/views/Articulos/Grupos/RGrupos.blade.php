@@ -31,27 +31,20 @@ $roles = explode(",",$roles);
     <div class="border">
         <div class="p-2 pt-3 indigo light-blue darken-4" style="width:100%;min-height:2rem">
             <h2 class="text-left white-text m-1">Líneas
-
-                <a href="/grupos/create"><button class="btn btn-deep-purple float-right"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="fas fa-plus mr-2"></i>Crear nuevo grupo</b></button></a>
-
-                <a href="/articulos"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Artículos </b></button></a>
-                                <a href="/lineas"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Líneas </b></button></a>
-                <button type="button" onclick="exportExcel('Departamentos Desglose')"
-                    class="btn btn-deep-purple float-right mr-4"
-                    style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                            class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
-
-
+                <a href="/grupos/create"><button class="btn btn-deep-purple float-right" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="fas fa-plus mr-2"></i>Crear nuevo grupo</b></button></a>
+                <div class="dropdownTable mr-1 float-right" style="position:static; margin-top:-0.35rem">
+                    <a><button class="btn btn-deep-purple  mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye mr-2"></i>Más registros </b></button></a>
+                    <div class="dropdownTable-content">
+                        <a href="/articulos"><button class="btn btn-deep-purple float-right" style="text-transform:none;width: 100%; display: block; background-color:#3F729B!important;"><b> <i class="far fa-eye"></i>Artículos </b></button></a>
+                        <br>
+                        <a href="/lineas"><button class="btn btn-deep-purple float-right" style="text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-eye "></i>Líneas</b></button></a>
+                    </div>
+                </div>
+                <button type="button" onclick="exportExcel('Departamentos Desglose')" class="btn btn-deep-purple float-right mr-4" style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i class="far fa-file-alt mr-2"></i> Generar reporte</b></button>
+            </h2>
         </div>
         <div class="mt-4 px-4">
-            <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0"
-                style="width:100%;">
+            <table id="dtBasicExample" class="cell-border order-column table  table-hover  stripe mt-4" cellspacing="0" style="width:100%;">
                 <thead style="width:100%" class="indigo-text">
                     <tr>
                         <th class="th-sm"><b>#</b>
@@ -79,22 +72,19 @@ $roles = explode(",",$roles);
                         <td class="text-center p-1 noExl" style="width:20%">
 
 
-                            <form id="delete{{$grupo->id}}" action="{{ route('grupos.destroy', $grupo->id) }}"
-                                method="POST">
+                            <form id="delete{{$grupo->id}}" action="{{ route('grupos.destroy', $grupo->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
 
 
-                                <a href="/grupos/{{$grupo->id}}"><button type="button" class="btn btn-primary"
-                                        style="text-transform:none">
+                                <a href="/grupos/{{$grupo->id}}"><button type="button" class="btn btn-primary" style="text-transform:none">
                                         <i class="fas fa-info px-1 mr-2"></i>Desglose
                                     </button></a>
 
 
                                 @isset($roles)
                                 @if(in_array("8", $roles))
-                                <button type="button" onclick="confirmDelete({{$grupo->id}})" class="btn btn-danger"
-                                    style="text-transform:none"><i class="fas fa-trash mr-2"></i>
+                                <button type="button" onclick="confirmDelete({{$grupo->id}})" class="btn btn-danger" style="text-transform:none"><i class="fas fa-trash mr-2"></i>
                                     Borrar</button>
                                 @endif
                                 @endisset
@@ -112,61 +102,61 @@ $roles = explode(",",$roles);
 </div>
 
 <script>
-function confirmDelete(id) {
-    var result = confirm("La línea y todos los artículos relacionados a ella se borrarán permanentemente. ¿Desea continuar?");
-    if (result) {
-        document.getElementById("delete" + id).submit();
+    function confirmDelete(id) {
+        var result = confirm("La línea y todos los artículos relacionados a ella se borrarán permanentemente. ¿Desea continuar?");
+        if (result) {
+            document.getElementById("delete" + id).submit();
+        }
     }
-}
 
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
 
-var yyyy = today.getFullYear();
-if (dd < 10) {
-    dd = '0' + dd;
-}
-if (mm < 10) {
-    mm = '0' + mm;
-}
-var today = dd + '-' + mm + '-' + yyyy;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    var today = dd + '-' + mm + '-' + yyyy;
 
-function getEmpresa(id) {
-    $.ajax({
-        url: '/empresas/' + id,
-        type: 'GET',
-        success: function(responseText) {
-            $('#update').html(responseText);
-        },
-        error: function(responseText) {
+    function getEmpresa(id) {
+        $.ajax({
+            url: '/empresas/' + id,
+            type: 'GET',
+            success: function(responseText) {
+                $('#update').html(responseText);
+            },
+            error: function(responseText) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
-function edit(id) {
-    $.ajax({
-        url: '/grupo/' + id + '/edit',
-        type: 'GET',
-        success: function(responseText) {
-            $('#editModal').html(responseText);
-        },
-        error: function(responseText) {
+    function edit(id) {
+        $.ajax({
+            url: '/grupo/' + id + '/edit',
+            type: 'GET',
+            success: function(responseText) {
+                $('#editModal').html(responseText);
+            },
+            error: function(responseText) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
-function exportExcel(str) {
-    $("#dtBasicExample").table2excel({
-        exclude: ".noExl",
-        name: "Worksheet Name",
-        filename: str + " " + today,
-        fileext: ".xls",
-        preserveColors: true
-    });
+    function exportExcel(str) {
+        $("#dtBasicExample").table2excel({
+            exclude: ".noExl",
+            name: "Worksheet Name",
+            filename: str + " " + today,
+            fileext: ".xls",
+            preserveColors: true
+        });
 
-}
+    }
 </script>
 @endsection

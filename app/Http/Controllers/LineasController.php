@@ -6,6 +6,7 @@ use App\articulos;
 use App\Grupos;
 use App\Http\Requests\lineasRequest;
 use App\Lineas;
+use Exception;
 use Illuminate\Http\Request;
 
 class LineasController extends Controller
@@ -96,7 +97,8 @@ class LineasController extends Controller
     {
         $linea = Lineas::find($lineas);
         $articulos = articulos::where('id_linea',$lineas)->get();
-
+        if($linea->Clave=="")
+        return redirect('/lineas')->withErrors('Este elemento no se puede editar.');
 
         $request->clave = Grupos::find($request->grupo)->Clave.$request->clave;
 
@@ -125,7 +127,12 @@ class LineasController extends Controller
      */
     public function destroy($lineas)
     {
-        Lineas::destroy($lineas);
-        return back()->with('success','La línea se ha eliminado con éxito.');
+        try{
+            Lineas::destroy($lineas);
+            return back()->with('success',"La línea se ha eliminado con éxito.");
+        }catch(Exception $e){
+            return back()->withErrors("Esta línea esta ligada a artículos. No puede ser eliminada.");
+        }
+        return back()->withErrors("Esta línea esta ligada a artículos. No puede ser eliminada.");
     }
 }

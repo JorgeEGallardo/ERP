@@ -41,7 +41,7 @@
 
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" id="NEmpresa" name="nombre" class="form-control" placeholder="Nombre de la empresa" value="{{ old('nombre') }}" required>
+                    <input type="text" autofocus id="NEmpresa" name="nombre" class="form-control" placeholder="Nombre de la empresa" value="{{ old('nombre') }}" required>
                 </div>
                 <div class="col">
                     <input type="text" id="RFC" name="rfc" class="form-control" value="{{ old('rfc') }}" placeholder="RFC" required>
@@ -56,7 +56,7 @@
 
             <div class="form-row mb-4">
                 <div class="col-2">
-                    <input type="text" id="NEmpresa" name="numero" value="{{ old('numero') }}" class="form-control" placeholder="Número" required>
+                    <input type="text" id="numero" name="numero" value="{{ old('numero') }}" class="form-control" placeholder="Número" required>
                 </div>
                 <div class="col">
                     <input type="text" id="RFC" name="colonia" value="{{ old('colonia') }}" class="form-control" placeholder="Colonia/Fraccionamiento" required>
@@ -78,7 +78,7 @@
 
             <div class="form-row mb-4">
                 <div class="col" id="cities">
-                    <input type="text" id="NEmpresa" name="ciudad" value="{{ old('ciudad') }}" class="form-control" placeholder="Ciudad" required>
+                    <input type="text" id="NCiudad" name="ciudad" value="{{ old('ciudad') }}" class="form-control" placeholder="Ciudad" required>
                 </div>
                 <div class="col-2">
                     <input type="text" id="RFC" name="CP" value="{{ old('CP') }}" class="form-control" placeholder="CP" required>
@@ -90,7 +90,7 @@
             <input type="email" id="defaultRegisterFormEmail" value="{{ old('email') }}" name="email" class="form-control mb-4" placeholder="E-mail" required>
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text" id="NEmpresa" name="telefono" value="{{ old('telefono') }}" class="form-control" placeholder="Teléfono" required>
+                    <input type="text" id="NTelefono" name="telefono" value="{{ old('telefono') }}" class="form-control" placeholder="Teléfono" required>
                 </div>
                 <div class="col">
                     <input type="text" id="RFC" name="telefono2" value="{{ old('telefono2') }}" class="form-control" placeholder="Teléfono adicional">
@@ -145,6 +145,7 @@
     $(document).ready(function() {
     getStates(1);
     getCities(2436);
+    document.getElementById("NEmpresa").focus();
 });
 </script>
 @endsection

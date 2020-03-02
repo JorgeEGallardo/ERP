@@ -6,6 +6,7 @@ use App\articulos;
 use App\Grupos;
 use App\Http\Requests\gruposRequest;
 use App\Lineas;
+use Exception;
 use Illuminate\Http\Request;
 
 class GruposController extends Controller
@@ -81,6 +82,8 @@ class GruposController extends Controller
     {
         $grupo = Grupos::find($grupos);
         $lineas = Lineas::where('id_grupo',$grupos)->get();
+        if($grupo->Clave=="")
+            return redirect('/grupos')->withErrors('Este elemento no se puede editar.');
         foreach($lineas as $linea){
             $articulos  = articulos::where('id_linea',$linea->id)->get();
             foreach($articulos as $articulo){
@@ -102,7 +105,7 @@ class GruposController extends Controller
         $grupo->Clave = $request->clave;
         $grupo->Nombre = $request->nombre;
         $grupo->save();
-        return redirect('/grupos')->with('success','Grupo actualizadao con éxito.');
+        return redirect('/grupos')->with('success','Grupo actualizado con éxito.');
     }
 
     /**
@@ -113,7 +116,13 @@ class GruposController extends Controller
      */
     public function destroy($grupos)
     {
-        Grupos::destroy($grupos);
-        return back()->with('success','El grupo se ha eliminado con éxito.');
+        try{
+            Grupos::destroy($grupos);
+            return back()->with('success','El grupo se ha eliminado con éxito.');
+        }catch(Exception $e){
+            return back()->withErrors("El grupo esta ligado a una o más líneas. No puede ser eliminado.");
+        }
+        return back()->withErrors("El grupo esta ligado a una o más líneas. No puede ser eliminado.");
+
     }
 }

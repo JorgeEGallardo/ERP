@@ -35,17 +35,27 @@ $roles = explode(",",$roles);
                 <a href="/lineas/create"><button class="btn btn-deep-purple float-right"
                         style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
                                 class="fas fa-plus mr-2"></i>Crear nueva línea</b></button></a>
-                <a href="/articulos"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Artículos </b></button></a>
-                <a href="/grupos"><button class="btn btn-deep-purple float-right mr-4"
-                        style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                                class="far fa-eye mr-2"></i>Grupos </b></button></a>
+
+                <div class="dropdownTable mr-1 float-right" style="position:static; margin-top:-0.35rem">
+                    <a><button class="btn btn-deep-purple  mr-4"
+                            style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
+                                    class="far fa-eye mr-2"></i>Más registros </b></button></a>
+                    <div class="dropdownTable-content">
+                        <a href="/grupos"><button class="btn btn-deep-purple float-right"
+                                style="text-transform:none;width: 100%; display: block; background-color:#3F729B!important;"><b>
+                                    <i class="far fa-eye"></i>Grupos </b></button></a>
+                        <br>
+                        <a href="/articulos"><button class="btn btn-deep-purple float-right"
+                                style="text-transform:none; background-color:#3F729B!important"><b> <i
+                                        class="far fa-eye "></i>Artículos</b></button></a>
+                    </div>
+                </div>
 
                 <button type="button" onclick="exportExcel('Departamentos Desglose')"
                     class="btn btn-deep-purple float-right mr-4"
                     style="margin:-0.3rem; text-transform:none; background-color:#3F729B!important"><b> <i
-                            class="far fa-file-alt mr-2"></i> Generar reporte</b></button></h2>
+                            class="far fa-file-alt mr-2"></i> Generar reporte</b></button>
+            </h2>
 
 
         </div>

@@ -64,6 +64,32 @@
     display: block;
 }
 
+
+.dropdownTable {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownTable-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdownTable-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownTable:hover .dropdown2-content {
+    display: block;
+}
+
+
 .center {
     float: left;
 }
@@ -235,29 +261,30 @@
     right: 1rem;
     font-size: 0.9em;
 }
+
 .notify {
-            border-radius: 5%;
-            width: 16rem;
-            display: block;
-            overflow: hidden;
-        }
+    border-radius: 5%;
+    width: 16rem;
+    display: block;
+    overflow: hidden;
+}
 
-        .notify img {
-            width: 1rem;
-            margin-right: 0.5rem;
+.notify img {
+    width: 1rem;
+    margin-right: 0.5rem;
 
-            margin-bottom: 0.5rem;
-        }
+    margin-bottom: 0.5rem;
+}
 
-        .badge2 {
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            padding: 2% 10% 2% 10%;
-            border-radius: 50%;
-            background: red;
-            color: white;
-        }
+.badge2 {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    padding: 2% 10% 2% 10%;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
 </style>
 
 <body class="grey lighten-3">
@@ -265,106 +292,112 @@
     <header>
         <!-- Navbar -->
         @if(isset(Auth::user()->name))
-    @php
-    $avisos=\DB::select('select * from avisos');
-    $avisosC = count($avisos);
-    $avisoImg=array('alerta1.svg','alerta.svg','alerta2.svg');
-    $empresas = \DB::select('select * from empresas');
-    if(!Session::has('empresa')){
-    \session::put('empresa', $empresas[0]->id);
-    \session::put('empresaN', $empresas[0]->Nombre);
-    }
-    $sEmpresa = Session::get('empresa');
-    $sNombre = Session::get('empresaN');
-    $url = url()->current();
-    $url = explode('/', $url);
-    if(isset($url[3]))
+        @php
+        $avisos=\DB::select('select * from avisos');
+        $avisosC = count($avisos);
+        $avisoImg=array('alerta1.svg','alerta.svg','alerta2.svg');
+        $empresas = \DB::select('select * from empresas');
+        if(!Session::has('empresa')){
+        \session::put('empresa', $empresas[0]->id);
+        \session::put('empresaN', $empresas[0]->Nombre);
+        }
+        $sEmpresa = Session::get('empresa');
+        $sNombre = Session::get('empresaN');
+        $url = url()->current();
+        $url = explode('/', $url);
+        if(isset($url[3]))
         $url=$url[3];
-    else
+        else
         $url="";
-    @endphp
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-        <div class="container-fluid">
+        @endphp
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container-fluid">
 
-            <!-- Brand -->
-            <p class="navbar-brand waves-effect" >
-                <h4 class="orange-text" style="text-transform:uppercase">
-                    <a href="/"> <strong class="blue-text">ERP B /</strong></a>
-                    <a href="/" class="orange-text" ><strong> {{$sNombre}}  </strong></a>
-                    <a href="/" class="orange-text">{{$url}}</a>
-                </h4>
-            </p>
+                <!-- Brand -->
+                <p class="navbar-brand waves-effect">
+                    <h4 class="orange-text" style="text-transform:uppercase">
+                        <a href="/"> <strong class="blue-text">ERP B /</strong></a>
+                        <a href="/" class="orange-text"><strong> {{$sNombre}} </strong></a>
+                        <a href="/" class="orange-text">{{$url}}</a>
+                    </h4>
+                </p>
 
-            <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <!-- Left -->
-                <ul class="navbar-nav mr-auto">
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
 
-                </ul>
+                    </ul>
 
-                <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
 
 
-                    <div class="dropdown2 mr-4">
-                        @if($avisosC>0)
-                        <span class="badge2" style="font-size:12px"><strong>{{$avisosC}}</strong></span>
-                        @endif
-                        <span>
-                            <h3><i class="far fa-comments mr-4"></i></h3>
-                        </span>
-                        <div class="dropdown2-content">
-                            <div class="notify">
-                                <ul class="list-group">
-                                    @foreach($avisos as $aviso)
-                                    <li class="list-group-item"><img src="img/{{$avisoImg[$aviso->tipo]}}" alt="Avatar">
-                                        <strong>{{$aviso->titulo}}</strong>
-                                        <hr style="margin:0px">
-                                        {{$aviso->mensaje}}
-                                    </li>
-                                    @endforeach
-                                </ul>
+                        <div class="dropdown2 mr-4">
+                            @if($avisosC>0)
+                            <span class="badge2" style="font-size:12px"><strong>{{$avisosC}}</strong></span>
+                            @endif
+                            <span>
+                                <h3><i class="far fa-comments mr-4"></i></h3>
+                            </span>
+                            <div class="dropdown2-content">
+                                <div class="notify">
+                                    <ul class="list-group">
+                                        @foreach($avisos as $aviso)
+                                        <li class="list-group-item"><img src="img/{{$avisoImg[$aviso->tipo]}}"
+                                                alt="Avatar">
+                                            <strong>{{$aviso->titulo}}</strong>
+                                            <hr style="margin:0px">
+                                            {{$aviso->mensaje}}
+                                        </li>
+                                        @endforeach
+                                    </ul>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="dropdown2 mr-4">
-                        <select class="form-control" style="min-width:15rem" onchange="window.location = '/cambioEmpresa/'+this.value" name="autorizador">
-                            @foreach($empresas as $empresa)
-                            <option type="text" class="form-control" value="{{ $empresa->id}}" placeholder="Ubicacion" required @if($empresa->id==$sEmpresa) selected @endif>
-                                {{$empresa->Nombre}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="dropdown2 mr-4">
+                            <select class="form-control" style="min-width:15rem"
+                                onchange="window.location = '/cambioEmpresa/'+this.value" name="autorizador">
+                                @foreach($empresas as $empresa)
+                                <option type="text" class="form-control" value="{{ $empresa->id}}"
+                                    placeholder="Ubicacion" required @if($empresa->id==$sEmpresa) selected @endif>
+                                    {{$empresa->Nombre}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="dropdown2 mr-4">
-                        <h5 class="mt-2"><strong><span>{{Auth::user()->name}}</span></strong>
-                            <h5>
-                                <div class="dropdown2-content">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <div class="dropdown2 mr-4">
+                            <h5 class="mt-2"><strong><span>{{Auth::user()->name}}</span></strong>
+                                <h5>
+                                    <div class="dropdown2-content">
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar sesión') }}
-                                    </a>
+                                            {{ __('Cerrar sesión') }}
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                    </div>
-                    @endif
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                        </div>
+                        @endif
 
-                </ul>
+                    </ul>
 
-            </div>
+                </div>
 
         </nav>
         <!-- Navbar -->
