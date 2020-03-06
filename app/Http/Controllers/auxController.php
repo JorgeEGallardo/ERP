@@ -28,6 +28,6 @@ class auxController extends Controller
         $empresa = empresas::find($id);
         Session::put('empresa', $id);
         \session::put('empresaN', $empresa->Nombre);
-        return back();
+        return back()->with('important', 'La empresa se ha cambiado a '.$empresa->Nombre);
     }
 }

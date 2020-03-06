@@ -401,31 +401,36 @@
 
         </nav>
         <!-- Navbar -->
+
         <!-- Sidebar -->
-        <div class="sidebar-fixed position-fixed " style="background-color:#2C3E4E">
+        <div class="sidebar-fixed position-fixed" style="background-color:#2C3E4E">
+        <h5 style="font-weight:bold; color:whitesmoke; margin-top: 15px;text-align:center">{{$sNombre}}</h5>
+        <hr class="grey darken-1">
             <a class="logo-wrapper waves-effect">
                 <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
             </a>
             <div class="list-group list-group-flush" style="background-color:#2C3E4E; width:100%">
                 <a href="#" class="list-group-item  white-text waves-effect"
                     style="background-color:#2C3E4E; width:100%">
-                    <i class="fas fa-chart-pie mr-3"></i>Principal
+                    <i class="fas fa-chart-pie mdb-color darken-1 mr-3" style="padding:0.5rem; border-radius:20%"></i>Principal
                 </a>
                 <a href="/empresas" class="list-group-item white-text list-group-item-action waves-effect"
                     style="background-color:#2C3E4E; width:100%">
-                    <i class="fas fa-user mr-3"></i>Empresas</a>
+                    <i class="fas fa-user mdb-color darken-1 mr-3" style="padding:0.5rem; border-radius:20%"></i>Empresas</a>
                 <a href="#" class="list-group-item white-text list-group-item-action waves-effect"
                     style="background-color:#2C3E4E; width:100%">
-                    <i class="fas fa-table mr-3"></i>Compradores</a>
+                    <i class="fas fa-table mdb-color darken-1 mr-3" style="padding:0.5rem; border-radius:20%"></i>Compradores</a>
                 <a href="#" class="list-group-item white-text list-group-item-action waves-effect"
                     style="background-color:#2C3E4E; width:100%">
-                    <i class="fas fa-map mr-3"></i>Artículos</a>
+                    <i class="fas fa-map mdb-color darken-1 mr-3" style="padding:0.5rem; border-radius:20%"></i>Artículos</a>
                 <a href="#" class="list-group-item white-text list-group-item-action waves-effect"
                     style="background-color:#2C3E4E; width:100%">
-                    <i class="fas fa-money-bill-alt mr-3"></i>Proveedores</a>
+                    <i class="fas fa-money-bill-alt mdb-color darken-1 mr-3" style="padding:0.5rem; border-radius:20%"></i>Proveedores</a>
             </div>
         </div>
         <!-- Sidebar -->
+
+
     </header>
     <!--Main Navigation-->
     <!--Main layout-->

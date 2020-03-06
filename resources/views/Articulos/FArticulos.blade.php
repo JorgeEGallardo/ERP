@@ -20,6 +20,7 @@
         <ul>
             <li>{!! \Session::get('success') !!}</li>
         </ul>
+
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -44,19 +45,19 @@
             <p class="h4 mb-4 "> Datos generales</p>
             <div class="form-row mb-4">
                 <div class="col">
-                <input type="checkbox" checked onchange="claves()" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1" checked>Es artículo</label>
+                    <input type="checkbox" checked onchange="claves()" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" checked>Es artículo</label>
                 </div>
             </div>
             <div class="form-row mb-4">
                 <div class="col">
-                    <input type="text"  id="clave" autofocus  maxlength="5" minlength="5"  name="clave" class="form-control" placeholder="Clave Artículo"
-                        value="{{ old('clave') }}" required>
+                    <input type="text" id="clave" autofocus maxlength="5" minlength="5" name="clave"
+                        class="form-control" placeholder="Clave Artículo" value="{{ old('clave') }}" required>
 
                 </div>
                 <div class="col">
-                    <input type="text" disabled id="clave2" name="clave" class="form-control"
-                        placeholder="Clave lote" value="{{ old('clave2') }}" requiered>
+                    <input type="text" disabled id="clave2" name="clave" class="form-control" placeholder="Clave lote"
+                        value="{{ old('clave2') }}" requiered>
                 </div>
             </div>
 
@@ -147,14 +148,14 @@
 </div>
 </div>
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
     document.getElementById("clave").focus();
 });
-function claves(){
+
+function claves() {
     document.getElementById('clave').disabled = !document.getElementById('clave').disabled;
     document.getElementById('clave2').disabled = !document.getElementById('clave2').disabled;
 
 }
-
 </script>
 @endsection

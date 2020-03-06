@@ -280,6 +280,11 @@
         @if ($errors->all() !=null)
             sweetAlert("Han ocurrido uno o más errores", error, "error");
         @endif
+
+        @if (\Session::has('important'))
+        sweetAlert("{!! \Session::get('important') !!}","", "success");
+
+        @endif
     });
     </script>
 </body>

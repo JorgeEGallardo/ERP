@@ -168,8 +168,7 @@ class ArticulosController extends Controller
         $articulo->Precio = $request->precio;
         $articulo->ClaveSat = $request->clavesat;
         $articulo->ClaveUnidad = $request->claveunidad;
-        $articulo->id_proveedor = $articulo->id_proveedor;
-        $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad', 'FechaUltimaVenta', 'FechaUltimaCompra');
+        $nullable = array('ClaveAlterna', 'ClaveSat', 'ClaveUnidad', 'FechaUltimaVenta', 'FechaUltimaCompra','id_proveedor');
         $articulo = \App\Helpers\AuxFunction::instance()->objetoNulo($articulo, $nullable);
         $aExists = articulos::where('Clave', $articulo->Clave)->where('id','<>',$articulo->id)->get();
         if (!isset($aExists[0])) {
