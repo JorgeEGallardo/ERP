@@ -33,6 +33,7 @@ Route::resource('/avisos', 'AvisosController')->middleware('admin');
 Route::resource('/grupos', 'GruposController')->middleware('admin');
 //Usuarios
 Route::get('temporal', function () {
+    return view("Perfiles.RPerfiles");
 });
 
 Route::get('/registro', 'registroController@create')->name('registro')->middleware('admin');
