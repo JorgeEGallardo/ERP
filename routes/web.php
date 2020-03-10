@@ -35,6 +35,9 @@ Route::resource('/grupos', 'GruposController')->middleware('admin');
 Route::get('temporal', function () {
     return view("Perfiles.RPerfiles");
 });
+Route::post('/eventos','PerfilesController@eventos')->middleware('auth');
+Route::delete('/eventos/{id}','PerfilesController@destroy')->middleware('auth');
+Route::get('/perfil','PerfilesController@show')->middleware('auth');
 
 Route::get('/registro', 'registroController@create')->name('registro')->middleware('admin');
 Route::post('/registro/create', 'registroController@store')->name('registro/create')->middleware('admin');
@@ -55,6 +58,8 @@ Route::post('/giros', 'AdministradorController@girosCreate')->name('giros.store'
 Route::post('/clasificaciones', 'AdministradorController@clasificacionCreate')->name('clasificacion.store')->middleware('admin');
 Route::post('/ubicaciones', 'AdministradorController@ubicacionesCreate')->name('ubicaciones.store')->middleware('admin');
 Route::post('/tiposusuarios', 'AdministradorController@tiposUsuariosCreate')->name('tiposUsuarios.store')->middleware('admin');
+
+
 
 //No middleware routes
 route::get('/getStates/{id}', 'auxController@getStates');

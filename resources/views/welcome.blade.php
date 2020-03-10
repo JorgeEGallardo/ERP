@@ -382,6 +382,9 @@
                             <h5 class="mt-2"><strong><span>{{Auth::user()->name}}</span></strong>
                                 <h5>
                                     <div class="dropdown2-content">
+                                    <a class="dropdown-item" href="/perfil">
+                                                     Perfil
+                                        </a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             {{ __('Cerrar sesión') }}
@@ -406,8 +409,8 @@
         <div class="sidebar-fixed position-fixed" style="background-color:#2C3E4E">
         <h5 style="font-weight:bold; color:whitesmoke; margin-top: 15px;text-align:center">{{$sNombre}}</h5>
         <hr class="grey darken-1">
-            <a class="logo-wrapper waves-effect">
-                <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
+            <a class="logo-wrapper waves-effect" href="">
+                <img src="img/ERP.png" class="img-fluid" alt="">
             </a>
             <div class="list-group list-group-flush" style="background-color:#2C3E4E; width:100%">
                 <a href="#" class="list-group-item  white-text waves-effect"
