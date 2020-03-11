@@ -6,7 +6,7 @@
     <div class="col-4 ml-4 mt-4 p-2 d-flex justify-content-lg-end">
         <div class="text-left" style="max-width:16.5rem;float:right">
         <div class="border">
-            <img src="https://mdbootstrap.com/img/Photos/Others/men.jpg" class="img-fluid p-3">
+            <img src="https://mdbootstrap.com/img/Photos/Others/men.jpg" style="border-radius:14%" class="img-fluid p-2">
             <div class="border px-4 py-2" style="font-size:1rem;">
                 <i class="fas fa-user mr-2"></i>{{Auth::user()->name}}
             </div>
@@ -20,7 +20,7 @@
 
 
     <div class="col ml-4 p-2 d-flex justify-content-lg-end">
-        <div id='calendar' style="height:10rem"></div>
+        <div id='calendar' class="px-4 " style="height:80vh;"></div>
     </div>
 
 
@@ -97,6 +97,7 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'es',
+                height: 'parent',
                 select: function(info) {
                     addEvent(info.startStr, info.endStr);
                 },
@@ -108,8 +109,6 @@
                     var nombre =info.event.title;
                     showEvent(id, nombre, descripcion, fecha);
                 },
-
-
                 plugins: ['interaction', 'dayGrid'],
                 defaultDate: "{{date('Y-m-d')}}",
                 selectable: true,
@@ -117,9 +116,11 @@
                 eventLimit: true, // allow "more" link when too many events
                 events: @php echo $eventos @endphp
             });
-
             calendar.render();
+
+            calendar.updateSize();
         });
+
 
         function addEvent(start, end) {
             $('#start').val(start);
